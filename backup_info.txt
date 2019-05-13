@@ -1,0 +1,10 @@
+----DOTFILES----
+vim                 ~/.vimrc
+i3                  ~/.config/i3/config
+i3blocks            ~/.config/i3blocks/config
+oh-my-zsh           $ZSH/custom/aliases.zsh
+oh-my-zsh           ~/.zshrc
+
+-----NO-APT-----
+st                  ~/repos/st/                 @st.suckless.org/patches/alpha/
+i3blocks-contrib    ~/repos/i3blocks-contrib    @git
