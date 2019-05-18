@@ -1,6 +1,6 @@
 syntax enable       "syntax processing
 
-set tabstop=4       "spaces per tab
+set tabstop=5       "spaces per tab
 set softtabstop=4   "in edit mode
 set expandtab       "tabs to spaces
 set relativenumber
@@ -17,7 +17,7 @@ set listchars=trail:•
 nmap j gj
 nmap k gk
 nmap Y y$
-nmap fz<space> :Files<space><return>
+nmap fa<space> :Files<space><return>
 nmap <C-k> :move-2<return>
 nmap <C-j> :move+1<return>
 
