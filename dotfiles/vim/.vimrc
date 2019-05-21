@@ -11,21 +11,22 @@ Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
-Plug 'elixir-lang/vim-elixir'
 Plug 'vim-airline/vim-airline'
+Plug 'elixir-lang/vim-elixir'
 call plug#end()
 
 " Plugins configuration
 colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_contrast_dark = 'hard'
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = ' | '
 
-" Vim options
+" Options
 syntax enable           " syntax processing
-set t_Co=256            " more colors
+set termguicolors       " more colors
 set background=dark     " set background theme to dark
 set mouse=a             " enable mouse
 set relativenumber      " line numbers - relative to the cursor
@@ -53,8 +54,10 @@ nmap k gk
 nmap Y y$
 nmap f<space> :Files<space><return>
 nmap K <Nop>
-nmap <C-k> :move-2<return>
-nmap <C-j> :move+1<return>
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 nmap <Left>  :echo "no!"<CR>
 nmap <Right> :echo "no!"<CR>
 nmap <Up>    :echo "no!"<CR>
