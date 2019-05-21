@@ -28,7 +28,6 @@ let g:airline#extensions#tabline#left_alt_sep = ' | '
 syntax enable           " syntax processing
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
-set mouse=a             " enable mouse
 set relativenumber      " line numbers - relative to the cursor
 set number              " current line number for relative numbers
 set scrolloff=4         " show first/last lines when scrolling
