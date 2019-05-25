@@ -13,6 +13,7 @@ Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'elixir-lang/vim-elixir'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
 
 " Plugins configuration
@@ -23,6 +24,9 @@ let g:gruvbox_contrast_dark = 'hard'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = ' | '
+
+let g:mkdp_markdown_css = '/home/nakata/Downloads/github_css/github.css'
+
 
 " Options
 syntax enable           " syntax processing
