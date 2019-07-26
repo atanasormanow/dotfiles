@@ -13,7 +13,7 @@ Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'elixir-lang/vim-elixir'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
 
 " Plugins configuration
@@ -27,16 +27,16 @@ let g:airline#extensions#tabline#left_alt_sep = ' | '
 
 let g:mkdp_markdown_css = '/home/nakata/Downloads/github_css/github.css'
 
-
 " Options
 syntax enable           " syntax processing
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
 set relativenumber      " line numbers - relative to the cursor
 set number              " current line number for relative numbers
-set scrolloff=4         " show first/last lines when scrolling
-set tabstop=4           " spaces per tab
-set softtabstop=4       " in edit mode
+set scrolloff=2         " show first/last lines when scrolling
+set tabstop=2           " spaces per tab
+set softtabstop=2       " in edit mode
+set shiftwidth=0
 set expandtab           " tabs to spaces
 set showcmd             " commands in bottom bar
 set wildmenu            " autocomplete for command menu
@@ -55,7 +55,8 @@ set noswapfile          " disable swap files
 nmap j gj
 nmap k gk
 nmap Y y$
-nmap f<space> :Files<space><return>
+nmap f<space> :Files ~<return>
+nmap t<space> :terminal<return>
 nmap K <Nop>
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -74,7 +75,7 @@ imap jk <esc>
 
 " command line maps
 cmap Q q!
-cmap rld so $MYVIMRC
+cmap rld source $MYVIMRC
 
 " disable auto comment insertion
 autocmd FileType * setlocal formatoptions-=ro

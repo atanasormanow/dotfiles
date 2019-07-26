@@ -2,6 +2,7 @@ alias vi='vim'
 alias ll='ls -lh'
 alias lah='ls -lah'
 alias la='ls -ah'
+alias sl='ls'
 alias kys='sudo shutdown now'
 alias reboot='sudo reboot'
 alias zshal='vim ~/.oh-my-zsh/custom/aliases.zsh'
@@ -16,6 +17,7 @@ alias netl='nmcli device wifi list'
 alias feh='feh --keep-zoom-vp'
 alias autore='sudo apt autoclean && sudo apt autoremove'
 alias upgrade='sudo apt update && sudo apt upgrade'
+alias feh='feh --edit'
 
 mcd () {
     mkdir -p $1
@@ -27,3 +29,6 @@ makesh() {
     chmod u+x $1
     vim $1
 }
+
+alias client='cd ~/Documents/Elixir/hanabi-text-based/apps/hanabi_player'
+alias server='cd ~/Documents/Elixir/hanabi-text-based/apps/hanabi_server'
