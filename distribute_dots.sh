@@ -7,5 +7,11 @@ sym_target (){
 }
 
 for fold in $(ls -d dotfiles/*); do
-    sym_target $fold
+    echo "Create a symlink for '$fold'?:"
+    read prompt
+    if [ "$prompt" == "yes" ]; then
+      sym_target $fold
+    else
+      echo "Skipped!"
+    fi
 done
