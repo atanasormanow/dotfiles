@@ -5,28 +5,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugins
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-Plug 'ervandew/supertab'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'elixir-lang/vim-elixir'
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-call plug#end()
-
-" Plugins configuration
-colorscheme gruvbox
-let g:gruvbox_contrast_light = 'hard'
-let g:gruvbox_contrast_dark = 'hard'
-
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_alt_sep = ' | '
-
-let g:mkdp_markdown_css = '/home/nakata/Downloads/github_css/github.css'
-
 " Options
 syntax enable           " syntax processing
 set termguicolors       " more colors
@@ -76,6 +54,28 @@ imap jk <esc>
 " command line maps
 cmap Q q!
 cmap rld source $MYVIMRC
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'ervandew/supertab'
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'sheerun/vim-polyglot'
+call plug#end()
+
+" Plugins configuration
+colorscheme gruvbox
+let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_contrast_dark = 'hard'
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_alt_sep = ' | '
+
+let g:mkdp_markdown_css = '/home/nakata/Downloads/github_css/github.css'
 
 " disable auto comment insertion
 autocmd FileType * setlocal formatoptions-=ro
