@@ -6,7 +6,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " Options
+let mapleader=","       " set the leader key
 syntax enable           " syntax processing
+filetype on             " filetype syntax highlighting detection
+filetype plugin on      " filetype plugin detection
+filetype indent on      " filetype indent detection
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
 set relativenumber      " line numbers - relative to the cursor
@@ -14,7 +18,7 @@ set number              " current line number for relative numbers
 set scrolloff=2         " show first/last lines when scrolling
 set tabstop=2           " spaces per tab
 set softtabstop=2       " in edit mode
-set shiftwidth=0
+set shiftwidth=0        " use tabstop averywhere
 set expandtab           " tabs to spaces
 set showcmd             " commands in bottom bar
 set wildmenu            " autocomplete for command menu
@@ -33,8 +37,8 @@ set noswapfile          " disable swap files
 nmap j gj
 nmap k gk
 nmap Y y$
-nmap f<space> :Files ~<return>
-nmap t<space> :terminal<return>
+nmap <leader>f :Files ~<return>
+nmap <leader>t :terminal<return>
 nmap K <Nop>
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
