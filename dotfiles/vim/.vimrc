@@ -54,6 +54,10 @@ imap jj <esc>
 imap kk <esc>
 imap kj <esc>
 imap jk <esc>
+imap " ""<left>
+imap ( ()<left>
+imap { {}<left>
+imap [ []<left>
 
 " command line maps
 cmap Q q!
