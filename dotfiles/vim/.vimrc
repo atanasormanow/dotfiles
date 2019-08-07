@@ -34,34 +34,34 @@ set nobackup            " disable backup files
 set noswapfile          " disable swap files
 
 " Normal mode maps
-nmap j gj
-nmap k gk
-nmap Y y$
-nmap <leader>f :Files ~<return>
-nmap <leader>t :terminal<return>
-nmap K <Nop>
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-nmap <Left>  :echo "no!"<CR>
-nmap <Right> :echo "no!"<CR>
-nmap <Up>    :echo "no!"<CR>
-nmap <Down>  :echo "no!"<CR>
+nnoremap j gj
+nnoremap k gk
+nnoremap Y y$
+nnoremap <leader>f :Files ~<return>
+nnoremap <leader>t :terminal<return>
+nnoremap K <Nop>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <Left>  :echo "no!"<CR>
+nnoremap <Right> :echo "no!"<CR>
+nnoremap <Up>    :echo "no!"<CR>
+nnoremap <Down>  :echo "no!"<CR>
 
 " insert mode maps
-imap jj <esc>
-imap kk <esc>
-imap kj <esc>
-imap jk <esc>
-imap " ""<left>
-imap ( ()<left>
-imap { {}<left>
-imap [ []<left>
+inoremap jj <esc>
+inoremap kk <esc>
+inoremap kj <esc>
+inoremap jk <esc>
+inoremap " ""<left>
+inoremap ( ()<left>
+inoremap { {}<left>
+inoremap [ []<left>
 
 " command line maps
-cmap Q q!
-cmap rld source $MYVIMRC
+cnoremap Q q!
+cnoremap rld source $MYVIMRC
 
 " Plugins
 call plug#begin('~/.vim/plugged')
