@@ -54,10 +54,6 @@ inoremap jj <esc>
 inoremap kk <esc>
 inoremap kj <esc>
 inoremap jk <esc>
-inoremap " ""<left>
-inoremap ( ()<left>
-inoremap { {}<left>
-inoremap [ []<left>
 
 " command line maps
 cnoremap Q q!
