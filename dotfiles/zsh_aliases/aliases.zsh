@@ -18,6 +18,7 @@ alias feh='feh --keep-zoom-vp'
 alias autore='sudo apt autoclean && sudo apt autoremove'
 alias upgrade='sudo apt update && sudo apt upgrade'
 alias feh='feh --edit'
+alias su='su --preserve-environment'
 
 mcd () {
     mkdir -p $1
