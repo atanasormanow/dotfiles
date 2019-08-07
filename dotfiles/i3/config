@@ -157,7 +157,7 @@ bindsym $mod+Ctrl+l exec i3lock -i ~/Wallpapers/debian.png
 bindsym --release $mod+Shift+q kill
 
 # Set background
-exec feh --bg-scale ~/Wallpapers/Bonfire.png
+exec feh --bg-scale ~/Wallpapers/desktop/synthwave_sunset.jpg
 # Launch "compton"
 exec compton
 # turn  on NUM
