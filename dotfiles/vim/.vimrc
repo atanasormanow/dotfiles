@@ -39,6 +39,7 @@ nnoremap k gk
 nnoremap Y y$
 nnoremap <leader>f :Files ~<return>
 nnoremap <leader>t :terminal<return>
+nnoremap <leader>b :Buffers<return>
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
