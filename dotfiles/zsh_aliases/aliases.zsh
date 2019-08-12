@@ -30,6 +30,3 @@ makesh() {
     chmod u+x $1
     vim $1
 }
-
-alias client='cd ~/Documents/Elixir/hanabi-text-based/apps/hanabi_player'
-alias server='cd ~/Documents/Elixir/hanabi-text-based/apps/hanabi_server'
