@@ -13,7 +13,6 @@ filetype plugin on      " filetype plugin detection
 filetype indent on      " filetype indent detection
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
-set relativenumber      " line numbers - relative to the cursor
 set number              " current line number for relative numbers
 set scrolloff=2         " show first/last lines when scrolling
 set tabstop=2           " spaces per tab
@@ -40,6 +39,8 @@ nnoremap Y y$
 nnoremap <leader>f :Files ~<return>
 nnoremap <leader>t :terminal<return>
 nnoremap <leader>b :Buffers<return>
+nnoremap <leader>w <C-w>-
+nnoremap <leader>s <C-w>+
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -55,6 +56,7 @@ inoremap jj <esc>
 inoremap kk <esc>
 inoremap kj <esc>
 inoremap jk <esc>
+inoremap <C-v> <C-R>"
 
 " command line maps
 cnoremap Q q!
