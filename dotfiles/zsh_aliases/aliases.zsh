@@ -19,12 +19,9 @@ alias autore='sudo apt autoclean && sudo apt autoremove'
 alias upgrade='sudo apt update && sudo apt upgrade'
 alias feh='feh --edit'
 alias su='su --preserve-environment'
-alias nocaps='setxkbmap -option ctrl:nocap'
+alias nocaps='sudo setxkbmap -option ctrl:nocap'
 alias du='du -h'
-
-db() {
-  sudo -u postgres psql -d $1
-}
+alias db='sudo -u postgres psql'
 
 mcd () {
     mkdir -p $1
