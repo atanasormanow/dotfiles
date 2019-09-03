@@ -69,7 +69,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
