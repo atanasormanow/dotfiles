@@ -37,10 +37,10 @@ nnoremap j gj
 nnoremap k gk
 nnoremap Y y$
 nnoremap <leader>f :Files ~<return>
-nnoremap <leader>t :terminal<return>
+nnoremap <leader>t :terminal ++rows=12<return>
 nnoremap <leader>b :Buffers<return>
-nnoremap <leader>w <C-w>-
-nnoremap <leader>s <C-w>+
+nnoremap <leader>w 5<C-w>-
+nnoremap <leader>s 5<C-w>+
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -60,6 +60,7 @@ inoremap <C-v> <C-R>"
 
 " command line maps
 cnoremap Q q!
+cnoremap W w
 cnoremap rld source $MYVIMRC
 
 " Plugins

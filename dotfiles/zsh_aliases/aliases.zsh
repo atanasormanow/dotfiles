@@ -21,7 +21,10 @@ alias feh='feh --edit'
 alias su='su --preserve-environment'
 alias nocaps='sudo setxkbmap -option ctrl:nocap'
 alias du='du -h'
-alias db='sudo -u postgres psql'
+
+mpv () {
+  nohup mpv --sub-auto=all $1 &
+}
 
 mcd () {
     mkdir -p $1
