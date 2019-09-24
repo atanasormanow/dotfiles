@@ -50,7 +50,6 @@ nnoremap <Left>  :echo "no!"<CR>
 nnoremap <Right> :echo "no!"<CR>
 nnoremap <Up>    :echo "no!"<CR>
 nnoremap <Down>  :echo "no!"<CR>
-nnoremap :W :w
 
 " insert mode maps
 inoremap jj <esc>
@@ -77,7 +76,6 @@ call plug#end()
 " Plugins configuration
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
-let g:gruvbox_invert_selection = 0
 colorscheme gruvbox
 
 "let g:airline_powerline_fonts = 1
