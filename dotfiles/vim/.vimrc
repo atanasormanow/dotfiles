@@ -36,8 +36,9 @@ set noswapfile          " disable swap files
 nnoremap j gj
 nnoremap k gk
 nnoremap Y y$
-nnoremap <leader>f :Files ~<return>
-nnoremap <leader>t :terminal ++rows=12<return>
+nnoremap <leader>f :Files<space>
+nnoremap <leader><return> :terminal ++rows=12<return>
+nnoremap <leader>t :tabnew<return>
 nnoremap <leader>b :Buffers<return>
 nnoremap <leader>w 5<C-w>-
 nnoremap <leader>s 5<C-w>+
@@ -78,11 +79,9 @@ let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = ' | '
-
-let g:mkdp_markdown_css = '/home/nakata/Downloads/github_css/github.css'
 
 " disable auto comment insertion
 autocmd FileType * setlocal formatoptions-=ro
