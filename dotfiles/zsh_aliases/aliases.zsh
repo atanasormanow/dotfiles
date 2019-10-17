@@ -21,14 +21,10 @@ alias feh='feh --edit'
 alias su='su --preserve-environment'
 alias nocaps='sudo setxkbmap -option ctrl:nocap'
 alias du='du -h'
+alias p8='ping 8.8.8.8'
 
 mpv () {
   nohup mpv --sub-auto=all $1 &
-}
-
-mcd () {
-    mkdir -p $1
-    cd $1
 }
 
 makesh() {
