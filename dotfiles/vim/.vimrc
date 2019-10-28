@@ -11,10 +11,11 @@ syntax enable           " syntax processing
 filetype on             " filetype syntax highlighting detection
 filetype plugin on      " filetype plugin detection
 filetype indent on      " filetype indent detection
+set clipboard=unnamed   " read from the system register
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
 set number              " current line number for relative numbers
-set scrolloff=2         " show first/last lines when scrolling
+set scrolloff=4         " show first/last lines when scrolling
 set tabstop=2           " spaces per tab
 set softtabstop=2       " in edit mode
 set shiftwidth=0        " use tabstop averywhere

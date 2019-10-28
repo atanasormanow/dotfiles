@@ -157,9 +157,9 @@ bindsym Ctrl+$mod+l exec i3lock -i ~/Wallpapers/synthwave_eclipse.png
 bindsym --release $mod+Shift+q kill
 
 # Set background
-exec feh --bg-scale ~/Wallpapers/desktop/gravity_falls.jpg
+exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 300"
 # Launch "compton"
-exec compton
+exec --no-startup-id compton
 # turn  on NUM
 exec numlockx on && pkill -SIGRTMIN+11 i3blocks
 # Desktop screenshot
