@@ -77,9 +77,9 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Plugins configuration
+colorscheme gruvbox
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
-colorscheme gruvbox
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = ' | '

@@ -65,7 +65,6 @@ ZSH_DISABLE_COMPFIX="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    zsh-256color
 )
 source $ZSH/oh-my-zsh.sh
 
