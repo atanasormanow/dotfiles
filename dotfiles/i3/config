@@ -131,15 +131,12 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3blocks
-    # <colorclass> <border> <background> <text>
-    colors {
-        focused_workspace #4c7899 #008000 #ffffff
-           }
+  status_command i3blocks # <colorclass> <border> <background> <text>
+  colors {
+    focused_workspace #4c7899 #008000 #ffffff
+  }
 }
-#Num and Caps indicator
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+
 #window border
 for_window [class="^.*"] border pixel 2
 hide_edge_borders smart
@@ -160,8 +157,6 @@ bindsym --release $mod+Shift+q kill
 exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 300"
 # Launch "compton"
 exec --no-startup-id compton
-# turn  on NUM
-exec numlockx on && pkill -SIGRTMIN+11 i3blocks
 # Desktop screenshot
 bindsym --release Print exec "scrot ~/Pictures/$(date --iso-8601='seconds').png -m -e 'xclip -selection c -t image/png < $f'"
 # Selection screenshot
