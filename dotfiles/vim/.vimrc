@@ -5,6 +5,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Make your keyboard actually do something when you switch to Cyrillic layout.
+" Basically map Bulgarian keychords to English ones in vim.
+set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,
+
 " Options
 let mapleader=","       " set the leader key
 syntax enable           " syntax processing
