@@ -66,5 +66,5 @@ interval=20
 
 # Date Time
 [time]
-command=date '+%d-%m-%Y %H:%M'
+command=date '+%d-%m-%Y | %H:%M'
 interval=5

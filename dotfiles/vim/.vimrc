@@ -73,7 +73,7 @@ Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'iamcco/markdown-preview.nvim'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Plugins configuration
@@ -82,7 +82,6 @@ let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
 
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_alt_sep = ' | '
 
 " disable auto comment insertion
 autocmd FileType * setlocal formatoptions-=ro

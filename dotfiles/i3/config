@@ -148,19 +148,23 @@ focus_follows_mouse no
 #Back and forth between workspaces
 workspace_auto_back_and_forth yes
 # i3lock
-bindsym Ctrl+$mod+l exec i3lock -i ~/Wallpapers/synthwave_eclipse.png
+# bindsym Ctrl+$mod+l exec i3lock -i ~/Wallpapers/gorillaz_pb.png
+bindsym Ctrl+$mod+l exec i3lock-fancy
+
 
 # Close window
 bindsym --release $mod+Shift+q kill
 
 # Set background
-exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 300"
+exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 420"
 # Launch "compton"
 exec --no-startup-id compton
 # Desktop screenshot
-bindsym --release Print exec "scrot ~/Pictures/$(date --iso-8601='seconds').png -m -e 'xclip -selection c -t image/png < $f'"
+bindsym --release Print exec \
+scrot ~/Pictures/$(date --iso-8601='seconds').png -m -e 'xclip -selection clipboard -t image/png $f'
 # Selection screenshot
-bindsym --release Shift+Print exec "scrot ~/Pictures/$(date --iso-8601='seconds').png -s -e 'xclip -selection c -t image/png < $f'"
+bindsym --release Shift+Print exec \
+scrot ~/Pictures/$(date --iso-8601='seconds').png -s -e 'xclip -selection clipboard -t image/png $f'
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
@@ -173,6 +177,11 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 
 # Volume controls
-bindsym XF86AudioRaiseVolume exec amixer -M set Master 5+ unmute && pkill -SIGRTMIN+10 i3blocks #increase sound volume
-bindsym XF86AudioLowerVolume exec amixer -M set Master 5- unmute && pkill -SIGRTMIN+10 i3blocks #increase sound volume
-bindsym XF86AudioMute exec amixer set Master toggle && pkill -SIGRTMIN+10 i3blocks #increase sound volume
+# bindsym XF86AudioRaiseVolume exec amixer -M set Master 5+ unmute && pkill -SIGRTMIN+10 i3blocks
+# bindsym XF86AudioLowerVolume exec amixer -M set Master 5- unmute && pkill -SIGRTMIN+10 i3blocks
+# bindsym XF86AudioMute exec amixer set Master toggle && pkill -SIGRTMIN+10 i3blocks
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle && pkill -SIGRTMIN+10 i3blocks
