@@ -13,8 +13,8 @@ set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕ�
 let mapleader=","       " set the leader key
 syntax enable           " syntax processing
 filetype on             " filetype syntax highlighting detection
+"filetype indent on      " filetupe indentation
 filetype plugin on      " filetype plugin detection
-filetype indent on      " filetype indent detection
 set clipboard=unnamed   " read from the system register
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
@@ -65,6 +65,11 @@ inoremap kj <esc>
 inoremap jk <esc>
 inoremap <C-v> <C-R>"
 
+inoremap йй <esc>
+inoremap кк <esc>
+inoremap кй <esc>
+inoremap йк <esc>
+
 " command line maps
 cnoremap Q q!
 cnoremap rld source $MYVIMRC
@@ -77,7 +82,7 @@ Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'iamcco/markdown-preview.nvim'
-"Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Plugins configuration
