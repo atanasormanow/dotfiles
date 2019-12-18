@@ -68,7 +68,6 @@ inoremap <C-v> <C-R>"
 inoremap йй <esc>
 inoremap кк <esc>
 inoremap кй <esc>
-inoremap йк <esc>
 
 " command line maps
 cnoremap Q q!
@@ -81,8 +80,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'iamcco/markdown-preview.nvim'
 Plug 'sheerun/vim-polyglot'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
 
 " Plugins configuration
