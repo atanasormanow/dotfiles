@@ -65,10 +65,6 @@ inoremap kj <esc>
 inoremap jk <esc>
 inoremap <C-v> <C-R>"
 
-inoremap йй <esc>
-inoremap кк <esc>
-inoremap кй <esc>
-
 " command line maps
 cnoremap Q q!
 cnoremap rld source $MYVIMRC
@@ -77,6 +73,7 @@ cnoremap rld source $MYVIMRC
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
