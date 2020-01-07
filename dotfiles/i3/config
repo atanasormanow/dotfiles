@@ -91,9 +91,15 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+
 # scroll between workspaces
 bindsym $mod+Ctrl+k workspace next
 bindsym $mod+Ctrl+j workspace prev
+
+# move focused workspace between monitors
+bindsym $mod+Shift+greater move workspace to output right
+bindsym $mod+Shift+less move workspace to output left
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -153,7 +159,7 @@ focus_follows_mouse no
 workspace_auto_back_and_forth yes
 # i3lock
 # bindsym Ctrl+$mod+l exec i3lock -i ~/Wallpapers/gorillaz_pb.png
-bindsym Ctrl+$mod+l exec i3lock-fancy -- scrot
+bindsym Ctrl+$mod+l exec i3lock-fancy -g -- scrot
 
 
 # Close window
@@ -179,10 +185,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 # XF86AudioNext
 # XF86AudioPrev
 # XF86AudioStop
-bindsym Ctrl+Down exec playerctl play-pause
-bindsym Ctrl+Right exec playerctl next
-bindsym Ctrl+Left exec playerctl previous
-bindsym Ctrl+Up exec playerctl stop
+bindsym $mod+Ctrl+Down exec playerctl play-pause
+bindsym $mod+Ctrl+Right exec playerctl next
+bindsym $mod+Ctrl+Left exec playerctl previous
+bindsym $mod+Ctrl+Up exec playerctl stop
 
 # bindsym XF86AudioRaiseVolume exec amixer -M set Master 5+ unmute && pkill -SIGRTMIN+10 i3blocks
 # bindsym XF86AudioLowerVolume exec amixer -M set Master 5- unmute && pkill -SIGRTMIN+10 i3blocks
