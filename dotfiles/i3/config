@@ -31,8 +31,6 @@ font pango:monospace 10
 floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec st
-# start ranger
-bindsym Ctrl+$mod+r exec st -e ranger
 # start network-manager
 bindsym Ctrl+$mod+n exec st -e nmtui
 # kill focused window
