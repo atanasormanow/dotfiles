@@ -95,8 +95,10 @@ bindsym $mod+Ctrl+k workspace next
 bindsym $mod+Ctrl+j workspace prev
 
 # move focused workspace between monitors
-bindsym $mod+Shift+greater move workspace to output right
-bindsym $mod+Shift+less move workspace to output left
+bindsym Ctrl+Shift+l move workspace to output right
+bindsym Ctrl+Shift+h move workspace to output left
+bindsym Ctrl+Shift+k move workspace to output up
+bindsym Ctrl+Shift+j move workspace to output down
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
