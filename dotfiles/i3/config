@@ -171,10 +171,16 @@ exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 420"
 exec --no-startup-id compton
 # Desktop screenshot
 bindsym --release Print exec \
-scrot ~/Pictures/$(date --iso-8601='seconds').png -m -e 'xclip -selection clipboard -t image/png $f'
+scrot ~/Pictures/$(date --iso-8601='seconds').png --multidisp \
+-e 'xclip -selection clipboard -t image/png $f'
 # Selection screenshot
 bindsym --release Shift+Print exec \
-scrot ~/Pictures/$(date --iso-8601='seconds').png -s -e 'xclip -selection clipboard -t image/png $f'
+scrot ~/Pictures/$(date --iso-8601='seconds').png --select --freeze \
+-e 'xclip -selection clipboard -t image/png $f'
+# Window screenshot
+bindsym --release Ctrl+Print exec \
+scrot ~/Pictures/$(date --iso-8601='seconds').png --focused \
+-e 'xclip -selection clipboard -t image/png $f'
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
