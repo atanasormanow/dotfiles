@@ -67,6 +67,7 @@ ZSH_DISABLE_COMPFIX="true"
 plugins=(
     git
     docker-compose
+    colored-man-pages
 )
 source $ZSH/oh-my-zsh.sh
 
