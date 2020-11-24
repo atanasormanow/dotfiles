@@ -49,6 +49,7 @@ nnoremap <leader>w 5<C-w>-
 nnoremap <leader>s 5<C-w>+
 nnoremap <leader>a 10<C-w><
 nnoremap <leader>d 10<C-w>>
+nnoremap <leader>n :noh<CR>
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -59,12 +60,18 @@ nnoremap <Right> :echo "no!"<CR>
 nnoremap <Up>    :echo "no!"<CR>
 nnoremap <Down>  :echo "no!"<CR>
 nnoremap :W :w
+nnoremap :в :w
+nnoremap :вя :wq
 
 " insert mode maps
 inoremap jj <esc>
 inoremap kk <esc>
 inoremap kj <esc>
 inoremap jk <esc>
+inoremap йй <esc>
+inoremap кк <esc>
+inoremap кй <esc>
+inoremap йк <esc>
 inoremap <C-v> <C-R>"
 
 " command line maps
