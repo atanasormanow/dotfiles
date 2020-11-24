@@ -1,4 +1,6 @@
 alias vi='vim'
+alias v='vim'
+alias nano='vim'
 alias ll='ls -lh'
 alias lah='ls -lah'
 alias la='ls -ah'
@@ -19,9 +21,12 @@ alias autore='sudo apt autoclean && sudo apt autoremove'
 alias upgrade='sudo apt update && sudo apt upgrade'
 alias feh='feh --edit'
 alias su='su --preserve-environment'
-alias nocaps='sudo setxkbmap -option ctrl:nocap'
+alias nocaps='sudo setxkbmap -option ctrl:nocaps'
 alias du='du -h'
 alias p8='ping 8.8.8.8'
+alias sx='startx'
+alias ..='cd ..'
+alias ...='cd ../..'
 
 mpv () {
   nohup mpv --sub-auto=all $1 &
@@ -32,3 +37,9 @@ makesh() {
     chmod u+x $1
     vim $1
 }
+
+mvv () {
+  mv */$1 .
+}
+
+unsetopt autocd
