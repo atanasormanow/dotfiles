@@ -28,7 +28,7 @@ alias sx='startx'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-mpv () {
+mpv-nohup () {
   nohup mpv --sub-auto=all $1 &
 }
 
