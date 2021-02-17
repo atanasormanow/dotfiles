@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/nakk/.oh-my-zsh"
 export PATH=$PATH:~/.local/bin
+. $HOME/.asdf/asdf.sh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
