@@ -50,7 +50,7 @@ nnoremap <leader>s 5<C-w>+
 nnoremap <leader>a 10<C-w><
 nnoremap <leader>d 10<C-w>>
 nnoremap <leader>n :noh<CR>
-nnoremap <leader>m `
+nnoremap <leader>. `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
