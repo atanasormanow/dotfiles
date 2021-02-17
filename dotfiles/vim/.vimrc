@@ -5,15 +5,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Make your keyboard actually do something when you switch to Cyrillic layout.
-" Basically map Bulgarian keychords to English ones in vim.
+" Map Bulgarian keychords to English ones in vim.
+" NOTE: compound maps won't work
 set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,
 
 " Options
 let mapleader=","       " set the leader key
 syntax enable           " syntax processing
 filetype on             " filetype syntax highlighting detection
-"filetype indent on      " filetupe indentation
+filetype indent on      " filetupe indentation
 filetype plugin on      " filetype plugin detection
 set clipboard=unnamed   " read from the system register
 set termguicolors       " more colors
@@ -50,49 +50,74 @@ nnoremap <leader>s 5<C-w>+
 nnoremap <leader>a 10<C-w><
 nnoremap <leader>d 10<C-w>>
 nnoremap <leader>n :noh<CR>
+nnoremap <leader>m `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <Left>  :echo "no!"<CR>
-nnoremap <Right> :echo "no!"<CR>
-nnoremap <Up>    :echo "no!"<CR>
-nnoremap <Down>  :echo "no!"<CR>
 nnoremap :W :w
 nnoremap :в :w
+nnoremap :я :q
+nnoremap :Я :q!
 nnoremap :вя :wq
 
 " insert mode maps
 inoremap jj <esc>
-inoremap kk <esc>
 inoremap kj <esc>
 inoremap jk <esc>
 inoremap йй <esc>
 inoremap кк <esc>
 inoremap кй <esc>
-inoremap йк <esc>
 inoremap <C-v> <C-R>"
 
 " command line maps
 cnoremap Q q!
 cnoremap rld source $MYVIMRC
 
+" Disable Polyglot for:
+" let g:polyglot_disabled = ['language_pack_here']
+
+" TODO current version 8.1.0
+"coc.nvim works best on vim >= 8.1.1719 and neovim >= 0.4.0, consider upgrade your vim.
+"You can add this to your vimrc to avoid this message:
+let g:coc_disable_startup_warning = 1
+"Note that some features may behave incorrectly.
+
 " Plugins
 call plug#begin('~/.vim/plugged')
+
+" Color theme
+Plug 'morhetz/gruvbox'
+
+" Fuzzy search for files
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'ervandew/supertab'
-Plug 'morhetz/gruvbox'
+
+" Status bar
 Plug 'vim-airline/vim-airline'
+
+" Use tab for autocompletion
+Plug 'ervandew/supertab'
+
+" Basic syntax highlighting
 Plug 'sheerun/vim-polyglot'
+
+" Open and serve markdown in real time
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'Quramy/tsuquyomi'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
+
+" Coc stuff
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+
+" TODO use in the future
+" Plug 'Quramy/tsuquyomi'
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
+" Plug 'tpope/vim-fugitive'
+
 call plug#end()
 
 " Plugins configuration
@@ -100,6 +125,7 @@ colorscheme gruvbox
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
 
+" Displayu tabs at the top
 let g:airline#extensions#tabline#enabled = 1
 
 " disable auto comment insertion
