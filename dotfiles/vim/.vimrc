@@ -111,12 +111,14 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 
-" TODO use in the future
+" Use git in vim
+Plug 'tpope/vim-fugitive'
+
+" TODO maybe use some day if needed
 " Plug 'Quramy/tsuquyomi'
 " Plug 'prettier/vim-prettier', {
 "   \ 'do': 'yarn install',
 "   \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
-" Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
