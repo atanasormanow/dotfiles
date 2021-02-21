@@ -28,6 +28,7 @@ alias sx='startx'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias apti='sudo apt install'
+alias aptp='sudo apt purge'
 alias ssp='sudo systemctl suspend'
 
 mpv-nohup () {
