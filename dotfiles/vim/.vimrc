@@ -38,12 +38,10 @@ set nobackup            " disable backup files
 set noswapfile          " disable swap files
 
 " Normal mode maps
-nnoremap j gj
-nnoremap k gk
-nnoremap Y y$
-nnoremap <leader>f :Files<space>
 nnoremap <leader><return> :terminal ++rows=12<return>
 nnoremap <leader>t :tabnew<return>
+nnoremap <leader>f :Files<space>
+nnoremap <leader>F :tabnew<return>:Files<space>
 nnoremap <leader>b :Buffers<return>
 nnoremap <leader>w 5<C-w>-
 nnoremap <leader>s 5<C-w>+
@@ -52,6 +50,9 @@ nnoremap <leader>d 10<C-w>>
 nnoremap <leader>n :noh<CR>
 nnoremap <leader>. `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
+nnoremap j gj
+nnoremap k gk
+nnoremap Y y$
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -75,6 +76,9 @@ inoremap <C-v> <C-R>"
 " command line maps
 cnoremap Q q!
 cnoremap rld source $MYVIMRC
+
+" visual line maps
+vnoremap P "0p
 
 " Disable Polyglot for:
 " let g:polyglot_disabled = ['language_pack_here']
@@ -115,6 +119,7 @@ Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'tpope/vim-fugitive'
 
 " TODO maybe use some day if needed
+" Plug 'dyng/ctrlsf.vim'
 " Plug 'Quramy/tsuquyomi'
 " Plug 'prettier/vim-prettier', {
 "   \ 'do': 'yarn install',
