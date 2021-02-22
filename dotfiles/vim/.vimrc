@@ -118,8 +118,13 @@ Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 " Use git in vim
 Plug 'tpope/vim-fugitive'
 
+" Use automatic vim sessions
+Plug 'thaerkh/vim-workspace'
+
+" Use code search and view
+Plug 'dyng/ctrlsf.vim'
+
 " TODO maybe use some day if needed
-" Plug 'dyng/ctrlsf.vim'
 " Plug 'Quramy/tsuquyomi'
 " Plug 'prettier/vim-prettier', {
 "   \ 'do': 'yarn install',
