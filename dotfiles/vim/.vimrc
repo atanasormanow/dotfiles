@@ -139,6 +139,7 @@ let g:gruvbox_contrast_dark = 'soft'
 
 " Displayu tabs at the top
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " disable auto comment insertion
 autocmd FileType * setlocal formatoptions-=ro
