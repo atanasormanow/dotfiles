@@ -59,6 +59,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap :W :w
+nnoremap :Q :q!
 nnoremap :в :w
 nnoremap :я :q
 nnoremap :Я :q!
@@ -74,7 +75,6 @@ inoremap кй <esc>
 inoremap <C-v> <C-R>"
 
 " command line maps
-cnoremap Q q!
 cnoremap rld source $MYVIMRC
 
 " visual line maps
