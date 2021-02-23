@@ -41,8 +41,9 @@ set noswapfile          " disable swap files
 nnoremap <leader><return> :terminal ++rows=12<return>
 nnoremap <leader>t :tabnew<return>
 nnoremap <leader>f :Files<space>
-nnoremap <leader>F :tabnew<return>:Files<space>
 nnoremap <leader>b :Buffers<return>
+nnoremap <leader>F :tabnew<return>:Files<space>
+nnoremap <leader>B :tabnew<return>:Buffers<return>
 nnoremap <leader>w 5<C-w>-
 nnoremap <leader>s 5<C-w>+
 nnoremap <leader>a 10<C-w><
@@ -124,12 +125,6 @@ Plug 'thaerkh/vim-workspace'
 
 " Use code search and view
 Plug 'dyng/ctrlsf.vim'
-
-" TODO maybe use some day if needed
-" Plug 'Quramy/tsuquyomi'
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
 
 call plug#end()
 
