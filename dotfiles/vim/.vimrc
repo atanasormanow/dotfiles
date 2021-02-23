@@ -53,6 +53,7 @@ nnoremap <leader><space> :%s/\s\+$//e<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap Y y$
+nnoremap * *``
 nnoremap K <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
