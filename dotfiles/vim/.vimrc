@@ -132,6 +132,7 @@ call plug#end()
 colorscheme gruvbox
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Displayu tabs at the top
 let g:airline#extensions#tabline#enabled = 1
