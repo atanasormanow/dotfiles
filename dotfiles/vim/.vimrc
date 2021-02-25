@@ -151,6 +151,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " Display tabs at the top
 let g:airline#extensions#tabline#enabled = 1
 
+" Hide buffer number in tabs
+let g:airline#extensions#tabline#show_tab_nr = 1
+
 " Display only file name in tabs
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
