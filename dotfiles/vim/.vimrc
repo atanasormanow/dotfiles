@@ -157,3 +157,5 @@ let g:airline#extensions#tabline#show_tab_nr = 1
 " Display only file name in tabs
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
+" Display powerline symbols
+let g:airline_powerline_fonts = 1
