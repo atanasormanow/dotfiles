@@ -9,7 +9,7 @@ endif
 " NOTE: compound maps won't work
 set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,
 
-" Options
+" OPTIONS:
 let mapleader=","       " set the leader key
 syntax enable           " syntax processing
 filetype on             " filetype syntax highlighting detection
@@ -37,7 +37,7 @@ set splitbelow          " split horizontal below
 set nobackup            " disable backup files
 set noswapfile          " disable swap files
 
-" Normal mode maps
+" NORMAL_MAPS:
 nnoremap <leader><return> :terminal ++rows=12<return>
 nnoremap <leader>t :tabnew<return>
 nnoremap <leader>f :Files<space>
@@ -67,7 +67,7 @@ nnoremap :я :q
 nnoremap :Я :q!
 nnoremap :вя :wq
 
-" insert mode maps
+" INSERT_MAPS:
 inoremap jj <esc>
 inoremap kj <esc>
 inoremap jk <esc>
@@ -76,22 +76,25 @@ inoremap кк <esc>
 inoremap кй <esc>
 inoremap <C-v> <C-R>"
 
-" command line maps
+" COMMAND_MAPS:
 cnoremap rld source $MYVIMRC
 
-" visual line maps
+" VISUAL_MAPS:
 vnoremap P "0p
 
-" Disable Polyglot for:
+" TODO current version 8.1.0
+" coc.nvim works best on vim >= 8.1.1719 and neovim >= 0.4.0,
+" consider upgrade your vim.
+"
+" Avoid this message:
+let g:coc_disable_startup_warning = 1
+" NOTE: Some features may behave incorrectly.
+
+" PLUG_PRE_CONFIGS:
+" Disable Polyglot for certain languages
 " let g:polyglot_disabled = ['language_pack_here']
 
-" TODO current version 8.1.0
-"coc.nvim works best on vim >= 8.1.1719 and neovim >= 0.4.0, consider upgrade your vim.
-"You can add this to your vimrc to avoid this message:
-let g:coc_disable_startup_warning = 1
-"Note that some features may behave incorrectly.
-
-" Plugins
+" PLUGINS:
 call plug#begin('~/.vim/plugged')
 
 " Color theme
@@ -128,15 +131,26 @@ Plug 'dyng/ctrlsf.vim'
 
 call plug#end()
 
-" Plugins configuration
+
+" OTHER:
+" Set colorscheme before setting anything else gruvbox related
 colorscheme gruvbox
+
+" disable auto comment insertion on return
+autocmd FileType * setlocal formatoptions-=ro
+
+
+" PLUG_POST_CONFIGS:
+" Set gruvbox colorscheme contrast
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
+
+" Traverse completion list top-down
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" Displayu tabs at the top
+" Display tabs at the top
 let g:airline#extensions#tabline#enabled = 1
+
+" Display only file name in tabs
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" disable auto comment insertion
-autocmd FileType * setlocal formatoptions-=ro
