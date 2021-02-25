@@ -159,3 +159,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Display powerline symbols
 let g:airline_powerline_fonts = 1
+
+" Set tabline label to blank, opposed to default 'tabs'
+let g:airline#extensions#tabline#tabs_label = ''
