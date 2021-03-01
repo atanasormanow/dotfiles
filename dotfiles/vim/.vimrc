@@ -38,19 +38,6 @@ set nobackup            " disable backup files
 set noswapfile          " disable swap files
 
 " NORMAL_MAPS:
-nnoremap <leader><return> :terminal ++rows=12<return>
-nnoremap <leader>t :tabnew<return>
-nnoremap <leader>f :Files<space>
-nnoremap <leader>b :Buffers<return>
-nnoremap <leader>F :tabnew<return>:Files<space>
-nnoremap <leader>B :tabnew<return>:Buffers<return>
-nnoremap <leader>w 5<C-w>-
-nnoremap <leader>s 5<C-w>+
-nnoremap <leader>a 10<C-w><
-nnoremap <leader>d 10<C-w>>
-nnoremap <leader><esc> :noh<CR>
-nnoremap <leader>. `
-nnoremap <leader><space> :%s/\s\+$//e<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap Y y$
@@ -66,6 +53,22 @@ nnoremap :в :w
 nnoremap :я :q
 nnoremap :Я :q!
 nnoremap :вя :wq
+nnoremap <C-S-F> :CtrlSF<space>
+nnoremap <leader><return> :terminal ++rows=12<return>
+nnoremap <leader>t :tabnew<return>
+nnoremap <leader>f :Files<space>
+nnoremap <leader>b :Buffers<return>
+nnoremap <leader>F :tabnew<return>:Files<space>
+nnoremap <leader>B :tabnew<return>:Buffers<return>
+nnoremap <leader>w 5<C-w>-
+nnoremap <leader>s 5<C-w>+
+nnoremap <leader>a 10<C-w><
+nnoremap <leader>d 10<C-w>>
+nnoremap <leader><esc> :noh<CR>
+nnoremap <leader>. `
+nnoremap <leader><space> :%s/\s\+$//e<CR>
+nnoremap <leader>< :tabmove -1<return>
+nnoremap <leader>> :tabmove +1<return>
 
 " INSERT_MAPS:
 inoremap jj <esc>
