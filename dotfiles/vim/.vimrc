@@ -69,6 +69,8 @@ nnoremap <leader>. `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
 nnoremap <leader>< :tabmove -1<return>
 nnoremap <leader>> :tabmove +1<return>
+nnoremap <leader>c :Maps<return>
+nnoremap <leader>/ :CtrlSF<space>
 
 " INSERT_MAPS:
 inoremap jj <esc>
