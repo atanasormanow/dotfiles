@@ -36,6 +36,7 @@ set listchars=trail:•   " set trailing spaces
 set splitbelow          " split horizontal below
 set nobackup            " disable backup files
 set noswapfile          " disable swap files
+set updatetime=300      " use shorter update time (default 4k)
 
 " NORMAL_MAPS:
 nnoremap j gj
