@@ -54,7 +54,6 @@ nnoremap :в :w
 nnoremap :я :q
 nnoremap :Я :q!
 nnoremap :вя :wq
-nnoremap <C-S-F> :CtrlSF<space>
 nnoremap <leader><return> :terminal ++rows=12<return>
 nnoremap <leader>t :tabnew<return>
 nnoremap <leader>f :Files<space>
@@ -72,6 +71,10 @@ nnoremap <leader>< :tabmove -1<return>
 nnoremap <leader>> :tabmove +1<return>
 nnoremap <leader>c :Maps<return>
 nnoremap <leader>/ :CtrlSF<space>
+
+" Use nmap if you want the right side to evaluate
+" (allows recursive mappings as well)
+nmap <C-I> <Plug>(coc-format)
 
 " INSERT_MAPS:
 inoremap jj <esc>
