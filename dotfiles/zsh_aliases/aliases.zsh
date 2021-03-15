@@ -60,6 +60,7 @@ alias phxi='iex --erl "-kernel shell_history enabled" -S mix phx.server'
 alias wgup='sudo wg-quick up wg-client-stage'
 alias wgdn='sudo wg-quick down wg-client-stage'
 alias kgps='kubectl get pods | rg sanbase'
+alias rldb='MIX_ENV=test mix do ecto.drop, ecto.create, ecto.load'
 
 mcd() {
   mkdir $1
