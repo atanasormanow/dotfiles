@@ -64,7 +64,7 @@ nnoremap <leader>w 5<C-w>-
 nnoremap <leader>s 5<C-w>+
 nnoremap <leader>a 10<C-w><
 nnoremap <leader>d 10<C-w>>
-nnoremap <leader><esc> :noh<CR>
+nnoremap <esc> :noh<CR>
 nnoremap <leader>. `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
 nnoremap <leader>< :tabmove -1<return>
@@ -91,7 +91,7 @@ cnoremap rld source $MYVIMRC
 " VISUAL_MAPS:
 vnoremap P "0p
 
-" TODO current version 8.1.0
+" TODO current version 8.1.1401
 " coc.nvim works best on vim >= 8.1.1719 and neovim >= 0.4.0,
 " consider upgrade your vim.
 "
