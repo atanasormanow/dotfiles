@@ -58,9 +58,11 @@ nnoremap :Я :q!
 nnoremap :вя :wq
 nnoremap <leader><return> :terminal ++rows=12<return>
 nnoremap <leader>t :tabnew<return>
-nnoremap <leader>f :Files<space>
+nnoremap <leader>f :Files<return>
 nnoremap <leader>b :Buffers<return>
-nnoremap <leader>F :tabnew<return>:Files<space>
+nnoremap <leader>F :tabnew<return>:Files<return>
+nnoremap <leader>v :vsplit<return>:Buffers<return>
+nnoremap <leader>V :vsplit<return>:Files<return>
 nnoremap <leader>B :tabnew<return>:Buffers<return>
 nnoremap <leader>w 5<C-w>-
 nnoremap <leader>s 5<C-w>+
@@ -177,3 +179,6 @@ let g:airline#extensions#tabline#tabs_label = ''
 " Do not remove trailing spaces on save,
 " as they might be needed in a .md file for example
 let g:workspace_autosave_untrailspaces = 0
+
+" Save sassions outside of working directory
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
