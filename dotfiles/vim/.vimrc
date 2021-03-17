@@ -15,6 +15,7 @@ syntax enable           " syntax processing
 filetype on             " filetype syntax highlighting detection
 filetype indent on      " filetupe indentation
 filetype plugin on      " filetype plugin detection
+set nocompatible        " disable vi compatibility
 set clipboard=unnamed   " read from the system register
 set termguicolors       " more colors
 set background=dark     " set background theme to dark
