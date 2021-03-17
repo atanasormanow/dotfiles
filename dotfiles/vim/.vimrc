@@ -41,6 +41,8 @@ set updatetime=300      " use shorter update time (default 4k)
 " NORMAL_MAPS:
 nnoremap j gj
 nnoremap k gk
+nnoremap gj gT
+nnoremap gk gt
 nnoremap Y y$
 nnoremap * *``
 nnoremap K <Nop>
