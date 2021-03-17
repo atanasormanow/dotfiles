@@ -173,3 +173,7 @@ let g:airline_powerline_fonts = 1
 
 " Set tabline label to blank, opposed to default 'tabs'
 let g:airline#extensions#tabline#tabs_label = ''
+
+" Do not remove trailing spaces on save,
+" as they might be needed in a .md file for example
+let g:workspace_autosave_untrailspaces = 0
