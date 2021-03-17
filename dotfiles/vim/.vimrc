@@ -56,6 +56,10 @@ nnoremap :в :w
 nnoremap :я :q
 nnoremap :Я :q!
 nnoremap :вя :wq
+nnoremap <up>    5<C-w>-
+nnoremap <down>  5<C-w>+
+nnoremap <left>  10<C-w><
+nnoremap <right> 10<C-w>>
 nnoremap <leader><return> :terminal ++rows=12<return>
 nnoremap <leader>t :tabnew<return>
 nnoremap <leader>f :Files<return>
@@ -64,10 +68,6 @@ nnoremap <leader>F :tabnew<return>:Files<return>
 nnoremap <leader>v :vsplit<return>:Buffers<return>
 nnoremap <leader>V :vsplit<return>:Files<return>
 nnoremap <leader>B :tabnew<return>:Buffers<return>
-nnoremap <leader>w 5<C-w>-
-nnoremap <leader>s 5<C-w>+
-nnoremap <leader>a 10<C-w><
-nnoremap <leader>d 10<C-w>>
 nnoremap <leader><esc> :noh<CR>
 nnoremap <leader>. `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
