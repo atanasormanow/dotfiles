@@ -40,28 +40,49 @@ set noswapfile          " disable swap files
 set updatetime=300      " use shorter update time (default 4k)
 
 " NORMAL_MAPS:
+" move between visual lines
 nnoremap j gj
 nnoremap k gk
+" move between tabs
 nnoremap gj gT
 nnoremap gk gt
+" yank untill the end of the line
 nnoremap Y y$
+" do not jump to next match
 nnoremap * *``
+" TODO: use this for something useful
 nnoremap K <Nop>
+" move between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" shorter commands for cl + cyrillic
 nnoremap :W :w
 nnoremap :Q :q!
 nnoremap :в :w
 nnoremap :я :q
 nnoremap :Я :q!
 nnoremap :вя :wq
+" resize splits
 nnoremap <up>    5<C-w>-
 nnoremap <down>  5<C-w>+
 nnoremap <left>  10<C-w><
 nnoremap <right> 10<C-w>>
+" open terminal in small bottom split
 nnoremap <leader><return> :terminal ++rows=12<return>
+" go to mark
+nnoremap <leader>. `
+" remove trailing spaces
+nnoremap <leader><space> :%s/\s\+$//e<CR>
+" no highlight
+nnoremap <leader><esc> :noh<CR>
+" move tabs
+nnoremap <leader>< :tabmove -1<return>
+nnoremap <leader>> :tabmove +1<return>
+" open menu with all commands (fzf)
+nnoremap <leader>c :Maps<return>
+" TODO: define composite maps with nmap
 nnoremap <leader>t :tabnew<return>
 nnoremap <leader>f :Files<return>
 nnoremap <leader>b :Buffers<return>
@@ -69,12 +90,6 @@ nnoremap <leader>F :tabnew<return>:Files<return>
 nnoremap <leader>v :vsplit<return>:Buffers<return>
 nnoremap <leader>V :vsplit<return>:Files<return>
 nnoremap <leader>B :tabnew<return>:Buffers<return>
-nnoremap <leader><esc> :noh<CR>
-nnoremap <leader>. `
-nnoremap <leader><space> :%s/\s\+$//e<CR>
-nnoremap <leader>< :tabmove -1<return>
-nnoremap <leader>> :tabmove +1<return>
-nnoremap <leader>c :Maps<return>
 nnoremap <leader>/ :CtrlSF<space>
 
 " Use nmap if you want the right side to evaluate
@@ -82,12 +97,14 @@ nnoremap <leader>/ :CtrlSF<space>
 nmap <C-I> <Plug>(coc-format)
 
 " INSERT_MAPS:
+" easier insert mode + cyrillic
 inoremap jj <esc>
 inoremap kj <esc>
 inoremap jk <esc>
 inoremap йй <esc>
 inoremap кк <esc>
 inoremap кй <esc>
+" paste from unnamed clipboard in insert mode
 inoremap <C-v> <C-R>"
 
 " COMMAND_MAPS:
@@ -187,3 +204,6 @@ let g:workspace_autosave_untrailspaces = 0
 
 " Save sassions outside of working directory
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+
+" open search window on the right
+let g:ctrlsf_position = 'right'
