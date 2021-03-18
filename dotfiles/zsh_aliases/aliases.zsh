@@ -74,4 +74,4 @@ klftn(){
 #######
 # TMP #
 #######
-alias passc='cat /home/nakk/Workspace/hcrem/tmp/pass | xclip -i'
+alias passc='xclip /home/nakk/Workspace/hcrem/tmp/pass'
