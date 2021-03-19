@@ -82,19 +82,26 @@ nnoremap <leader>< :tabmove -1<return>
 nnoremap <leader>> :tabmove +1<return>
 " open menu with all commands (fzf)
 nnoremap <leader>c :Maps<return>
-" TODO: define composite maps with nmap
+" open new tab
 nnoremap <leader>t :tabnew<return>
+" open file with fzf
 nnoremap <leader>f :Files<return>
+" open file from buffers
 nnoremap <leader>b :Buffers<return>
-nnoremap <leader>F :tabnew<return>:Files<return>
-nnoremap <leader>v :vsplit<return>:Buffers<return>
-nnoremap <leader>V :vsplit<return>:Files<return>
-nnoremap <leader>B :tabnew<return>:Buffers<return>
-nnoremap <leader>/ :CtrlSF<space>
+" search with ctrlsf
+noremap <leader>/ :CtrlSF<space>
 
 " Use nmap if you want the right side to evaluate
 " (allows recursive mappings as well)
 nmap <C-I> <Plug>(coc-format)
+" open file with fzf in a new tab
+nmap <leader>F ,t,f
+" open file from buffers in a new tab
+nmap <leader>B ,t,b
+" open file from buffers in a horizontal split
+nmap <leader>v :vsplit<return>,b
+" open file with fzf in a horizontal split
+nmap <leader>V :vsplit<return>,f
 
 " INSERT_MAPS:
 " easier insert mode + cyrillic
