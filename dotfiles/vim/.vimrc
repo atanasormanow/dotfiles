@@ -115,10 +115,16 @@ inoremap кй <esc>
 inoremap <C-v> <C-R>"
 
 " COMMAND_MAPS:
+" reload .vimrc
 cnoremap rld source $MYVIMRC
 
 " VISUAL_MAPS:
+" paste yanked word instead of last deleted one
 vnoremap P "0p
+
+" PLUG_PRE_CONFIGS:
+" Disable Polyglot for certain languages
+" let g:polyglot_disabled = ['language_pack_here']
 
 " TODO current version 8.1.1401
 " coc.nvim works best on vim >= 8.1.1719 and neovim >= 0.4.0,
@@ -127,10 +133,6 @@ vnoremap P "0p
 " Avoid this message:
 let g:coc_disable_startup_warning = 1
 " NOTE: Some features may behave incorrectly.
-
-" PLUG_PRE_CONFIGS:
-" Disable Polyglot for certain languages
-" let g:polyglot_disabled = ['language_pack_here']
 
 " PLUGINS:
 call plug#begin('~/.vim/plugged')
