@@ -214,5 +214,8 @@ let g:workspace_autosave_untrailspaces = 0
 " Save sassions outside of working directory
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
+" Disable persistent undo history, as it keeps ./undodir in the workspace folder
+let g:workspace_persist_undo_history = 0
+
 " open search window on the right
 let g:ctrlsf_position = 'right'
