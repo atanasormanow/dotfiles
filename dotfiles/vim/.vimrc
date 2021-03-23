@@ -50,8 +50,6 @@ nnoremap gk gt
 nnoremap Y y$
 " do not jump to next match
 nnoremap * *``
-" TODO: use this for something useful
-nnoremap K <Nop>
 " move between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -94,6 +92,8 @@ noremap <leader>/ :CtrlSF<space>
 " Use nmap if you want the right side to evaluate
 " (allows recursive mappings as well)
 nmap <C-I> <Plug>(coc-format)
+" show diagnostics in a horizontal split
+nmap K :CocDiagnostics<return>
 " open file with fzf in a new tab
 nmap <leader>F ,t,f
 " open file from buffers in a new tab
