@@ -67,6 +67,8 @@ nnoremap <up>    5<C-w>-
 nnoremap <down>  5<C-w>+
 nnoremap <left>  10<C-w><
 nnoremap <right> 10<C-w>>
+" open last closed tab
+nnoremap <C-T> :tabnew#<return>
 " open terminal in small bottom split
 nnoremap <leader><return> :terminal ++rows=12<return>
 " go to mark
