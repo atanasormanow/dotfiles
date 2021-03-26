@@ -83,6 +83,8 @@ nnoremap <leader>> :tabmove +1<return>
 " open menu with all commands (fzf)
 nnoremap <leader>c :Maps<return>
 " open new tab
+" NOTE: maybe change position of the new tab,
+" as the command offers flexibility
 nnoremap <leader>t :tabnew<return>
 " open file with fzf
 nnoremap <leader>f :Files<return>
