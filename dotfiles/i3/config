@@ -191,10 +191,11 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 # XF86AudioNext
 # XF86AudioPrev
 # XF86AudioStop
-bindsym $mod+Ctrl+Down exec playerctl play-pause
-bindsym $mod+Ctrl+Right exec playerctl next
-bindsym $mod+Ctrl+Left exec playerctl previous
-bindsym $mod+Ctrl+Up exec playerctl stop
+bindsym $mod+Ctrl+Down exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym $mod+Ctrl+Left exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym $mod+Ctrl+Right exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+
 
 # bindsym XF86AudioRaiseVolume exec amixer -M set Master 5+ unmute && pkill -SIGRTMIN+10 i3blocks
 # bindsym XF86AudioLowerVolume exec amixer -M set Master 5- unmute && pkill -SIGRTMIN+10 i3blocks
