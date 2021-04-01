@@ -46,6 +46,9 @@ nnoremap k gk
 " move between tabs
 nnoremap gj gT
 nnoremap gk gt
+" move tabs around
+nnoremap gJ :tabmove -1<return>
+nnoremap gK :tabmove +1<return>
 " yank untill the end of the line
 nnoremap Y y$
 " do not jump to next match
@@ -77,9 +80,6 @@ nnoremap <leader>. `
 nnoremap <leader><space> :%s/\s\+$//e<CR>
 " no highlight
 nnoremap <leader><esc> :noh<CR>
-" move tabs
-nnoremap <leader>< :tabmove -1<return>
-nnoremap <leader>> :tabmove +1<return>
 " open menu with all commands (fzf)
 nnoremap <leader>c :Maps<return>
 " open new tab
