@@ -124,7 +124,8 @@ cnoremap rld source $MYVIMRC
 
 " VISUAL_MAPS:
 " paste yanked word instead of last deleted one
-" TODO: should fix, as it does not work as intended
+" NOTE: when doing consecutive pastes like this,
+" you must start with a yank instead of a delete
 vnoremap P "0p
 
 " PLUG_PRE_CONFIGS:
