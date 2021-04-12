@@ -106,6 +106,10 @@ nmap <leader>B ,t,b
 nmap <leader>v :vsplit<return>,b
 " open file with fzf in a horizontal split
 nmap <leader>V :vsplit<return>,f
+" yank then delete the word on the cursor
+" the reason for this is to have the word in the yank register,
+" so you can do consecutive pastes with P in visual mode
+nmap <leader>d yawdaw
 
 " INSERT_MAPS:
 " easier insert mode + cyrillic
