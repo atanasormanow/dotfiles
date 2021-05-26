@@ -71,6 +71,7 @@ nnoremap <down>  5<C-w>+
 nnoremap <left>  10<C-w><
 nnoremap <right> 10<C-w>>
 " open last closed tab
+" NOTE: Rarely works
 nnoremap <C-T> :tabnew#<return>
 " open terminal in small bottom split
 nnoremap <leader><return> :terminal ++rows=12<return>
@@ -95,7 +96,9 @@ noremap <leader>/ :CtrlSF<space>
 
 " Use nmap if you want the right side to evaluate
 " (allows recursive mappings as well)
+" TODO: change vsplit side
 nmap <C-I> <Plug>(coc-format)
+nmap <C-f> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
 nmap K :CocDiagnostics<return>
 " open file with fzf in a new tab
