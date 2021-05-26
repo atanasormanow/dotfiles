@@ -74,4 +74,4 @@ klftn(){
 #######
 # TMP #
 #######
-alias passc='xclip /home/nakk/Workspace/hcrem/tmp/pass'
+alias passc='xclip -selection clipboard /home/nakk/Workspace/hcrem/tmp/pass'
