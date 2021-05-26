@@ -38,6 +38,7 @@ set splitbelow          " split horizontal below
 set nobackup            " disable backup files
 set noswapfile          " disable swap files
 set updatetime=300      " use shorter update time (default 4k)
+set splitright          " open vertical splits on the right side
 
 " NORMAL_MAPS:
 " move between visual lines
@@ -96,7 +97,6 @@ noremap <leader>/ :CtrlSF<space>
 
 " Use nmap if you want the right side to evaluate
 " (allows recursive mappings as well)
-" TODO: change vsplit side
 nmap <C-I> <Plug>(coc-format)
 nmap <C-f> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
