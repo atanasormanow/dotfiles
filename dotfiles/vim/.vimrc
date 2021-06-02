@@ -95,25 +95,6 @@ nnoremap <leader>b :Buffers<return>
 " search with ctrlsf
 noremap <leader>/ :CtrlSF<space>
 
-" Use nmap if you want the right side to evaluate
-" (allows recursive mappings as well)
-nmap <C-I> <Plug>(coc-format)
-nmap <C-f> <Plug>CtrlSFCwordPath<return>
-" show diagnostics in a horizontal split
-nmap K :CocDiagnostics<return>
-" open file with fzf in a new tab
-nmap <leader>F ,t,f
-" open file from buffers in a new tab
-nmap <leader>B ,t,b
-" open file from buffers in a horizontal split
-nmap <leader>v :vsplit<return>,b
-" open file with fzf in a horizontal split
-nmap <leader>V :vsplit<return>,f
-" yank then delete the word on the cursor
-" the reason for this is to have the word in the yank register,
-" so you can do consecutive pastes with P in visual mode
-nmap <leader>d yawdaw
-
 " INSERT_MAPS:
 " easier insert mode + cyrillic
 inoremap jj <esc>
@@ -134,6 +115,27 @@ cnoremap rld source $MYVIMRC
 " NOTE: when doing consecutive pastes like this,
 " you must start with a yank instead of a delete
 vnoremap P "0p
+
+" Use nmap/imap/vmap if you want the right side to evaluate
+" (allows recursive mappings as well)
+nmap <C-I> <Plug>(coc-format)
+nmap <C-f> <Plug>CtrlSFCwordPath<return>
+" show diagnostics in a horizontal split
+nmap K :CocDiagnostics<return>
+" open file with fzf in a new tab
+nmap <leader>F ,t,f
+" open file from buffers in a new tab
+nmap <leader>B ,t,b
+" open file from buffers in a horizontal split
+nmap <leader>v :vsplit<return>,b
+" open file with fzf in a horizontal split
+nmap <leader>V :vsplit<return>,f
+" yank then delete the word on the cursor
+" the reason for this is to have the word in the yank register,
+" so you can do consecutive pastes with P in visual mode
+nmap <leader>d yawdaw
+" search for visually selected text
+vmap F y/<C-r>"<return>
 
 " PLUG_PRE_CONFIGS:
 " Disable Polyglot for certain languages
