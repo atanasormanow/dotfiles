@@ -26,6 +26,7 @@ alias nocaps='sudo setxkbmap -option ctrl:nocaps'
 alias du='du -h'
 alias p8='ping 8.8.8.8'
 alias paci='sudo pacman -S'
+alias bluon='sudo systemctl start bluetooth'
 
 # Functions:
 mpv-nohup () {
