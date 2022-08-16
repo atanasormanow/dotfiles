@@ -4,6 +4,11 @@ call plug#begin('~/.vim/plugged')
   " Color theme
   Plug 'morhetz/gruvbox'
 
+  " Status line
+  Plug 'feline-nvim/feline.nvim'
+
+  Plug 'kyazdani42/nvim-web-devicons'
+
   " Fuzzy search for files
   Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
@@ -29,16 +34,16 @@ call plug#begin('~/.vim/plugged')
   " Use tab for autocompletion
   Plug 'ervandew/supertab'
 
+  " Automatic session management
+  Plug 'rmagatti/auto-session'
+
   " Check if i still need:
   " Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
-  " Use automatic vim sessions
-  " Plug 'thaerkh/vim-workspace'
   " Status bar
   " Plug 'vim-airline/vim-airline'
   " Basic syntax highlighting
   " Plug 'sheerun/vim-polyglot'
 call plug#end()
-
 
 " PLUGIN_RELATED:
 """""""""""""""""
@@ -57,6 +62,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " open search window on the right
 let g:ctrlsf_position = 'right'
+
+" Default status line setup
+" lua require('feline').setup()
 
 
 " OPTIONS:
@@ -91,8 +99,6 @@ set updatetime=300        " use shorter update time (default 4k)
 set splitright            " open vertical splits on the right side
 set splitbelow            " split horizontal below
 set noswapfile            " disable swap files
-set mouse=v               " middle-click paste with
-set mouse=a               " enable mouse click
 set cursorline            " highlight current cursorline
 set autoindent            " indent a new line the same amount as the line just typed
 set wildmode=longest,list " get bash-like tab completions
