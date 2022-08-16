@@ -2,6 +2,8 @@
 # NOTE not sure if this is the place for this
 unsetopt autocd
 
+alias ..='cd ..'
+alias ...='cd ../..'
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
