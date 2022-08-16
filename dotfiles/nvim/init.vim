@@ -45,6 +45,9 @@ call plug#end()
 " include hidden files, but ignore .git and other
 let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
 
+" Set colorscheme before anything else gruvbox related
+colorscheme gruvbox
+
 " Set gruvbox colorscheme contrast
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
