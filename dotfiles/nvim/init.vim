@@ -1,72 +1,3 @@
-" PLUGINS:
-""""""""""
-call plug#begin('~/.vim/plugged')
-  " Color theme
-  Plug 'morhetz/gruvbox'
-
-  " Status line
-  Plug 'feline-nvim/feline.nvim'
-
-  Plug 'kyazdani42/nvim-web-devicons'
-
-  " Fuzzy search for files
-  Plug 'junegunn/fzf', { 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-
-  " Easy commenting
-  Plug 'preservim/nerdcommenter'
-
-  " Open and serve markdown in real time
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-
-  " Use git in vim
-  Plug 'tpope/vim-fugitive'
-
-  " Use code search and view
-  Plug 'dyng/ctrlsf.vim'
-
-  " Fancy start screen
-  Plug 'mhinz/vim-startify'
-
-  " Code completion
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-  " Use tab for autocompletion
-  Plug 'ervandew/supertab'
-
-  " Automatic session management
-  Plug 'rmagatti/auto-session'
-
-  " Check if i still need:
-  " Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
-  " Status bar
-  " Plug 'vim-airline/vim-airline'
-  " Basic syntax highlighting
-  " Plug 'sheerun/vim-polyglot'
-call plug#end()
-
-" PLUGIN_RELATED:
-"""""""""""""""""
-" include hidden files, but ignore .git and other
-let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
-
-" Set colorscheme before anything else gruvbox related
-colorscheme gruvbox
-
-" Set gruvbox colorscheme contrast
-let g:gruvbox_contrast_light = 'hard'
-let g:gruvbox_contrast_dark = 'soft'
-
-" Traverse completion list top-down
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-" open search window on the right
-let g:ctrlsf_position = 'right'
-
-" Default status line setup
-" lua require('feline').setup()
-
-
 " OPTIONS:
 """"""""""
 let mapleader=","         " set the leader key
@@ -200,6 +131,86 @@ vmap F y/<C-r>"<return>
 """"""""
 " disable auto comment insertion on return
 autocmd FileType * setlocal formatoptions-=ro
+
+
+" PLUGINS:
+""""""""""
+call plug#begin('~/.vim/plugged')
+  " Status bar
+  Plug 'vim-airline/vim-airline'
+
+  " Color scheme
+  Plug 'morhetz/gruvbox'
+
+  " Fuzzy search for files
+  Plug 'junegunn/fzf', { 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
+
+  " Easy commenting
+  Plug 'preservim/nerdcommenter'
+
+  " Open and serve markdown in real time
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
+  " Use git in vim
+  Plug 'tpope/vim-fugitive'
+
+  " Use code search and view
+  Plug 'dyng/ctrlsf.vim'
+
+  " Fancy start screen
+  Plug 'mhinz/vim-startify'
+
+  " Code completion
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  " Use tab for autocompletion
+  Plug 'ervandew/supertab'
+
+  " Automatic session management
+  Plug 'rmagatti/auto-session'
+
+  " Icons
+  Plug 'ryanoasis/vim-devicons'
+call plug#end()
+
+
+" PLUGIN_RELATED:
+"""""""""""""""""
+" include hidden files, but ignore .git and other
+let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
+
+" Set colorscheme before anything else gruvbox related
+colorscheme gruvbox
+
+" Set gruvbox colorscheme contrast
+let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_contrast_dark = 'soft'
+
+" Traverse completion list top-down
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+" open search window on the right
+let g:ctrlsf_position = 'right'
+
+" Display tabs at the top
+let g:airline#extensions#tabline#enabled = 1
+
+" Hide buffer number in tabs
+let g:airline#extensions#tabline#show_tab_nr = 1
+
+" Display only file name in tabs
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" Display powerline symbols
+let g:airline_powerline_fonts = 1
+
+" Set tabline label to blank, opposed to default 'tabs'
+let g:airline#extensions#tabline#tabs_label = ''
+
+" Don't show splits and 'buffers' label
+let airline#extensions#tabline#tabs_label = ''
+let airline#extensions#tabline#show_splits = 0
 
 
 " NOTES:
