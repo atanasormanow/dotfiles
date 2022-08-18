@@ -6,6 +6,8 @@ filetype on               " filetype syntax highlighting detection
 filetype indent on        " filetupe indentation
 filetype plugin on        " filetype plugin detection
 
+set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,
+
 set nocompatible          " disable vi compatibility
 set clipboard=unnamedplus " using system clipboard
 set termguicolors         " more colors
