@@ -139,7 +139,6 @@ bindsym $mod+r mode "resize"
 #  i3bar_command polybar
 #}
 exec --no-startup-id polybar
-exec --no-startup-id cbatticon
 
 #window border
 for_window [class="^.*"] border pixel 2
