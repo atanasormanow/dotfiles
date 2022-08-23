@@ -133,6 +133,8 @@ vmap F y/<C-r>"<return>
 """"""""
 " disable auto comment insertion on return
 autocmd FileType * setlocal formatoptions-=ro
+au BufNewFile,BufRead *.pl setf prolog
+tnoremap <C-n> <C-\><C-n>
 
 
 " PLUGINS:
