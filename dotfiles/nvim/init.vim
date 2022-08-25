@@ -12,6 +12,7 @@ set nocompatible          " disable vi compatibility
 set clipboard=unnamedplus " using system clipboard
 set termguicolors         " more colors
 set background=dark       " set background theme to dark
+"set relativenumber        " show line nubers relative to the cursor
 set number                " current line number for relative numbers
 set scrolloff=4           " show first/last lines when scrolling
 set tabstop=2             " spaces per tab
@@ -23,7 +24,7 @@ set wildmenu              " autocomplete for command menu
 set showmatch             " matching braces
 set incsearch             " search while typing
 set hlsearch              " highlight while searching
-set ignorecase          " case insensitive searching
+set ignorecase            " case insensitive searching
 set smartcase             " case sensitive if search has uppercase
 set list                  " make whitespace visable
 set listchars=trail:•     " set trailing spaces
@@ -36,7 +37,6 @@ set cursorline            " highlight current cursorline
 set autoindent            " indent a new line the same amount as the line just typed
 set wildmode=longest,list " get bash-like tab completions
 set ttyfast               " Speed up scrolling in Vim
-"set spell                 " enable spell check (may need to download language package)
 
 
 " NORMAL_MAPS:
@@ -85,14 +85,16 @@ nnoremap <leader>c :Maps<return>
 nnoremap <leader>t :tabnew<return>
 " open file with fzf
 nnoremap <leader>f :Files<return>
+" open file with fzf in a new tab
+nnoremap <leader>F :tabnew<return>:Files<return>
 " open file from buffers
 nnoremap <leader>b :Buffers<return>
 " open vertical split
 nnoremap <leader>v :vsplit<return>
 " search with ctrlsf
-noremap <leader>/ :CtrlSF<space>
+nnoremap <leader>/ :CtrlSF<space>
 " reload configuration file
-noremap <leader>r :source $MYVIMRC<return>
+nnoremap <leader>r :source $MYVIMRC<return>
 
 
 " INSERT_MAPS:
@@ -110,6 +112,10 @@ inoremap jk <esc>
 " you must start with a yank instead of a delete
 " vnoremap P "0p
 
+" TERMINAL_MAPS:
+""""""""""""""""
+tnoremap <C-n> <C-\><C-n>
+
 
 " EVAL_MAPS:
 """"""""""""
@@ -119,8 +125,6 @@ nmap <C-I> <Plug>(coc-format)
 nmap <C-f> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
 nmap K :CocDiagnostics<return>
-" open file with fzf in a new tab
-nmap <leader>F ,t,f
 " search for visually selected text
 vmap F y/<C-r>"<return>
 " ??? yank then delete the word on the cursor
@@ -134,7 +138,6 @@ vmap F y/<C-r>"<return>
 " disable auto comment insertion on return
 autocmd FileType * setlocal formatoptions-=ro
 au BufNewFile,BufRead *.pl setf prolog
-tnoremap <C-n> <C-\><C-n>
 
 
 " PLUGINS:
@@ -219,5 +222,5 @@ let airline#extensions#tabline#show_splits = 0
 
 " NOTES:
 """"""""
+" - migrate config to lua at some point
 " - maybe use lualine/feline as a status bar
-" - setup bg lang maps
