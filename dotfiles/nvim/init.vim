@@ -36,6 +36,7 @@ set noswapfile            " disable swap files
 set cursorline            " highlight current cursorline
 set autoindent            " indent a new line the same amount as the line just typed
 set wildmode=longest,list " get bash-like tab completions
+set mouse=a               " enable mouse support
 set ttyfast               " Speed up scrolling in Vim
 
 
@@ -70,11 +71,9 @@ nnoremap <right> 10<C-w>>
 " ??? open last closed tab
 " nnoremap <C-T> :tabnew#<return>
 " open terminal in smaller bottom split
-nmap <leader><return> :split \| resize -5 \| terminal<return>
+nnoremap <leader><return> :split \| resize -5 \| terminal<return>
 " go to mark
-nnoremap <leader>. `
-" remove trailing spaces
-nnoremap <leader><space> :%s/\s\+$//e<CR>
+nnoremap <leader>m `
 " no highlight
 nnoremap <leader>n :noh<CR>
 " open menu with all commands (fzf)
@@ -112,6 +111,7 @@ inoremap jk <esc>
 " you must start with a yank instead of a delete
 " vnoremap P "0p
 
+
 " TERMINAL_MAPS:
 """"""""""""""""
 tnoremap <C-n> <C-\><C-n>
@@ -132,6 +132,13 @@ vmap F y/<C-r>"<return>
 " so you can do consecutive pastes with P in visual mode
 " nmap <leader>d yawdaw
 
+
+" COMMAND_LINE_MAPS:
+""""""""""""""""""""
+" Copy current working directory
+cnoremap cpd ! pwd \| xclip
+" remove trailing spaces
+cnoremap remtrailing :%s/\s\+$//e
 
 " OTHER:
 """"""""
@@ -179,6 +186,9 @@ call plug#begin('~/.vim/plugged')
 
   " Icons
   Plug 'ryanoasis/vim-devicons'
+
+  " LaTeX support
+  Plug 'lervag/vimtex'
 call plug#end()
 
 
@@ -218,6 +228,18 @@ let g:airline#extensions#tabline#tabs_label = ''
 " Don't show splits and 'buffers' label
 let airline#extensions#tabline#tabs_label = ''
 let airline#extensions#tabline#show_splits = 0
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Auto create session on save
+let g:auto_session_create_enabled = 'false'
 
 
 " NOTES:
