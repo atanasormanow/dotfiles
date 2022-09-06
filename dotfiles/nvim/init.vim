@@ -1,6 +1,7 @@
 " OPTIONS:
 """"""""""
-let mapleader=","         " set the leader key
+let mapleader = ","       " set the leader key
+
 syntax on                 " syntax processing
 filetype on               " filetype syntax highlighting detection
 filetype indent on        " filetupe indentation
@@ -49,8 +50,8 @@ nnoremap k gk
 nnoremap gj gT
 nnoremap gk gt
 " move tabs around
-nnoremap gJ :tabmove -1<return>
-nnoremap gK :tabmove +1<return>
+nnoremap gJ <cmd>tabmove -1<return>
+nnoremap gK <cmd>tabmove +1<return>
 " yank untill the end of the line
 nnoremap Y y$
 " do not jump to next match
@@ -71,29 +72,29 @@ nnoremap <right> 10<C-w>>
 " ??? open last closed tab
 " nnoremap <C-T> :tabnew#<return>
 " open terminal in smaller bottom split
-nnoremap <leader><return> :split \| resize -5 \| terminal<return>
+nnoremap <leader><return> <cmd>split \| resize -5 \| terminal<return>
 " go to mark
 nnoremap <leader>m `
 " no highlight
-nnoremap <leader>n :noh<CR>
+nnoremap <leader>n <cmd>noh<CR>
 " open menu with all commands (fzf)
-nnoremap <leader>c :Maps<return>
+nnoremap <leader>c <cmd>Maps<return>
 " open new tab
 " NOTE: maybe change position of the new tab,
 " as the command offers flexibility
-nnoremap <leader>t :tabnew<return>
+nnoremap <leader>t <cmd>tabnew<return>
 " open file with fzf
-nnoremap <leader>f :Files<return>
+nnoremap <leader>f <cmd>Files<return>
 " open file with fzf in a new tab
-nnoremap <leader>F :tabnew<return>:Files<return>
+nnoremap <leader>F <cmd>tabnew<return><cmd>Files<return>
 " open file from buffers
-nnoremap <leader>b :Buffers<return>
+nnoremap <leader>b <cmd>Buffers<return>
 " open vertical split
-nnoremap <leader>v :vsplit<return>
+nnoremap <leader>v <cmd>vsplit<return>
 " search with ctrlsf
-nnoremap <leader>/ :CtrlSF<space>
+nnoremap <leader>/ <cmd>CtrlSF<space>
 " reload configuration file
-nnoremap <leader>r :source $MYVIMRC<return>
+nnoremap <leader>r <cmd>source $MYVIMRC<return>
 
 
 " INSERT_MAPS:
@@ -124,7 +125,7 @@ tnoremap <C-n> <C-\><C-n>
 nmap <C-I> <Plug>(coc-format)
 nmap <C-f> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
-nmap K :CocDiagnostics<return>
+nmap K <cmd>CocDiagnostics<return>
 " search for visually selected text
 vmap F y/<C-r>"<return>
 " ??? yank then delete the word on the cursor
@@ -138,7 +139,7 @@ vmap F y/<C-r>"<return>
 " Copy current working directory
 cnoremap cpd ! pwd \| xclip
 " remove trailing spaces
-cnoremap remtrailing :%s/\s\+$//e
+cnoremap remtrailing <cmd>%s/\s\+$//e
 
 " OTHER:
 """"""""
@@ -224,6 +225,9 @@ let g:airline_powerline_fonts = 1
 
 " Set tabline label to blank, opposed to default 'tabs'
 let g:airline#extensions#tabline#tabs_label = ''
+
+" enable vimtex integration
+let g:airline#extensions#vimtex#enabled = 1
 
 " Don't show splits and 'buffers' label
 let airline#extensions#tabline#tabs_label = ''
