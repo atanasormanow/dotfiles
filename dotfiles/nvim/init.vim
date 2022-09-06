@@ -138,8 +138,6 @@ vmap F y/<C-r>"<return>
 """"""""""""""""""""
 " Copy current working directory
 cnoremap cpd ! pwd \| xclip
-" remove trailing spaces
-cnoremap remtrailing <cmd>%s/\s\+$//e
 
 " OTHER:
 """"""""
