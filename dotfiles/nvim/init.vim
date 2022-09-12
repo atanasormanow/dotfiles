@@ -1,6 +1,6 @@
 " OPTIONS:
 """"""""""
-let mapleader = ","       " set the leader key
+let mapleader = " "       " set the leader key
 
 syntax on                 " syntax processing
 filetype on               " filetype syntax highlighting detection
@@ -13,7 +13,7 @@ set nocompatible          " disable vi compatibility
 set clipboard=unnamedplus " using system clipboard
 set termguicolors         " more colors
 set background=dark       " set background theme to dark
-"set relativenumber        " show line nubers relative to the cursor
+set relativenumber        " show line nubers relative to the cursor
 set number                " current line number for relative numbers
 set scrolloff=4           " show first/last lines when scrolling
 set tabstop=2             " spaces per tab
@@ -77,11 +77,10 @@ nnoremap <leader><return> <cmd>split \| resize -5 \| terminal<return>
 nnoremap <leader>m `
 " no highlight
 nnoremap <leader>n <cmd>noh<CR>
-" open menu with all commands (fzf)
-nnoremap <leader>c <cmd>Maps<return>
+" open list with all commands (fzf)
+nnoremap <leader>cl <cmd>Maps<return>
 " open new tab
-" NOTE: maybe change position of the new tab,
-" as the command offers flexibility
+" NOTE: maybe change position of the new tab, as the command offers flexibility
 nnoremap <leader>t <cmd>tabnew<return>
 " open file with fzf
 nnoremap <leader>f <cmd>Files<return>
@@ -91,8 +90,8 @@ nnoremap <leader>F <cmd>tabnew<return><cmd>Files<return>
 nnoremap <leader>b <cmd>Buffers<return>
 " open vertical split
 nnoremap <leader>v <cmd>vsplit<return>
-" search with ctrlsf
-nnoremap <leader>/ <cmd>CtrlSF<space>
+" open horizontal split
+nnoremap <leader>i <cmd>split<return>
 " reload configuration file
 nnoremap <leader>r <cmd>source $MYVIMRC<return>
 
@@ -100,6 +99,7 @@ nnoremap <leader>r <cmd>source $MYVIMRC<return>
 " INSERT_MAPS:
 """"""""""""""
 " easier insert mode
+inoremap kk <esc>
 inoremap jj <esc>
 inoremap kj <esc>
 inoremap jk <esc>
@@ -107,14 +107,13 @@ inoremap jk <esc>
 
 " VISUAL_MAPS:
 """"""""""""""
-" ??? paste yanked word instead of last deleted one
-" NOTE: when doing consecutive pastes like this,
-" you must start with a yank instead of a delete
-" vnoremap P "0p
+" paste without overwriting the paste register
+xnoremap <leader>p "_dP
 
 
 " TERMINAL_MAPS:
 """"""""""""""""
+" normal mode
 tnoremap <C-n> <C-\><C-n>
 
 
@@ -122,16 +121,13 @@ tnoremap <C-n> <C-\><C-n>
 """"""""""""
 " Use nmap/imap/vmap if you want the right side to evaluate
 " (allows recursive mappings)
+"
+" use autoformat (if available)
 nmap <C-I> <Plug>(coc-format)
-nmap <C-f> <Plug>CtrlSFCwordPath<return>
+" search for the word under the cursor with CtrlSF
+nmap <C-F> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
 nmap K <cmd>CocDiagnostics<return>
-" search for visually selected text
-vmap F y/<C-r>"<return>
-" ??? yank then delete the word on the cursor
-" the reason for this is to have the word in the yank register,
-" so you can do consecutive pastes with P in visual mode
-" nmap <leader>d yawdaw
 
 
 " COMMAND_LINE_MAPS:
@@ -142,7 +138,8 @@ cnoremap cpd ! pwd \| xclip
 " OTHER:
 """"""""
 " disable auto comment insertion on return
-autocmd FileType * setlocal formatoptions-=ro
+" autocmd FileType * setlocal formatoptions-=ro
+" set explicit filetype for .pl
 au BufNewFile,BufRead *.pl setf prolog
 
 
@@ -247,4 +244,4 @@ let g:auto_session_create_enabled = 'false'
 " NOTES:
 """"""""
 " - migrate config to lua at some point
-" - maybe use lualine/feline as a status bar
+" - then maybe use lualine/feline as a status bar
