@@ -123,7 +123,7 @@ tnoremap <C-n> <C-\><C-n>
 " (allows recursive mappings)
 "
 " use autoformat (if available)
-nmap <C-I> <Plug>(coc-format)
+nmap <leader>== <Plug>(coc-format)
 " search for the word under the cursor with CtrlSF
 nmap <C-F> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
