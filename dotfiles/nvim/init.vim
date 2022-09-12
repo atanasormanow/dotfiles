@@ -37,7 +37,7 @@ set noswapfile            " disable swap files
 set cursorline            " highlight current cursorline
 set autoindent            " indent a new line the same amount as the line just typed
 set wildmode=longest,list " get bash-like tab completions
-set mouse=a               " enable mouse support
+" set mouse=a               " enable mouse support
 set ttyfast               " Speed up scrolling in Vim
 
 
@@ -89,9 +89,9 @@ nnoremap <leader>F <cmd>tabnew<return><cmd>Files<return>
 " open file from buffers
 nnoremap <leader>b <cmd>Buffers<return>
 " open vertical split
-nnoremap <leader>v <cmd>vsplit<return>
+nnoremap <leader>l <cmd>vsplit<return>
 " open horizontal split
-nnoremap <leader>i <cmd>split<return>
+nnoremap <leader>j <cmd>split<return>
 " reload configuration file
 nnoremap <leader>r <cmd>source $MYVIMRC<return>
 
@@ -123,7 +123,7 @@ tnoremap <C-n> <C-\><C-n>
 " (allows recursive mappings)
 "
 " use autoformat (if available)
-nmap <leader>== <Plug>(coc-format)
+nmap <leader>= <Plug>(coc-format)
 " search for the word under the cursor with CtrlSF
 nmap <C-F> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
