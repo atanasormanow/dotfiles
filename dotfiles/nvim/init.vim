@@ -1,6 +1,6 @@
 " OPTIONS:
 """"""""""
-let mapleader = " "       " set the leader key
+let g:mapleader=" "     " set the leader key
 
 syntax on                 " syntax processing
 filetype on               " filetype syntax highlighting detection
@@ -9,36 +9,39 @@ filetype plugin on        " filetype plugin detection
 
 set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,
 
-set nocompatible          " disable vi compatibility
-set clipboard=unnamedplus " using system clipboard
-set termguicolors         " more colors
-set background=dark       " set background theme to dark
-set relativenumber        " show line nubers relative to the cursor
-set number                " current line number for relative numbers
-set scrolloff=4           " show first/last lines when scrolling
-set tabstop=2             " spaces per tab
-set softtabstop=2         " in edit mode
-set shiftwidth=2          " width for autoindents
-set expandtab             " tabs to spaces
-set showcmd               " commands in bottom bar
-set wildmenu              " autocomplete for command menu
-set showmatch             " matching braces
-set incsearch             " search while typing
-set hlsearch              " highlight while searching
-set ignorecase            " case insensitive searching
-set smartcase             " case sensitive if search has uppercase
-set list                  " make whitespace visable
-set listchars=trail:•     " set trailing spaces
-set nobackup              " disable backup files
-set updatetime=300        " use shorter update time (default 4k)
-set splitright            " open vertical splits on the right side
-set splitbelow            " split horizontal below
-set noswapfile            " disable swap files
-set cursorline            " highlight current cursorline
-set autoindent            " indent a new line the same amount as the line just typed
-set wildmode=longest,list " get bash-like tab completions
-" set mouse=a               " enable mouse support
-set ttyfast               " Speed up scrolling in Vim
+set clipboard=unnamedplus     " using system clipboard
+set termguicolors               " more colors
+set background=dark           " set background theme to dark
+set relativenumber              " show line nubers relative to the cursor
+set number                      " current line number for relative numbers
+set scrolloff=4               " show first/last lines when scrolling
+set tabstop=2                 " spaces per tab
+set softtabstop=2             " in edit mode
+set shiftwidth=2              " width for autoindents
+set expandtab                   " tabs to spaces
+set showcmd                     " commands in bottom bar
+set wildmenu                    " autocomplete for command menu
+set showmatch                   " matching braces
+set incsearch                   " search while typing
+set hlsearch                    " highlight while searching
+set ignorecase                  " case insensitive searching
+set smartcase                   " case sensitive if search has uppercase
+set list                        " make whitespace visable
+set listchars=trail:•         " set trailing spaces
+set nobackup                    " disable backup files
+set updatetime=300            " use shorter update time (default 4k)
+set splitright                  " open vertical splits on the right side
+set splitbelow                  " split horizontal below
+set noswapfile                  " disable swap files
+set cursorline                  " highlight current cursorline
+set autoindent                  " indent a new line the same amount as the line just typed
+set wildmode=longest,list     " get bash-like tab completions
+" set mouse=a                 " enable mouse support
+set hidden                      " Keep unsaved changes in closed buffers
+set encoding=utf-8            " The encoding in which files are displayed
+set fileencoding=utf-8        " The encoding in which files are saved
+set noshowmode                  " Don't show the current mode as -- <mode> --
+set formatoptions-=cro        " Disable newline continuation of comments
 
 
 " NORMAL_MAPS:
@@ -77,8 +80,6 @@ nnoremap <leader><return> <cmd>split \| resize -5 \| terminal<return>
 nnoremap <leader>m `
 " no highlight
 nnoremap <leader>n <cmd>noh<CR>
-" open list with all commands (fzf)
-nnoremap <leader>cl <cmd>Maps<return>
 " open new tab
 " NOTE: maybe change position of the new tab, as the command offers flexibility
 nnoremap <leader>t <cmd>tabnew<return>
@@ -105,6 +106,7 @@ inoremap kj <esc>
 inoremap jk <esc>
 
 
+
 " VISUAL_MAPS:
 """"""""""""""
 " paste without overwriting the paste register
@@ -128,7 +130,8 @@ nmap <leader>= <Plug>(coc-format)
 nmap <C-F> <Plug>CtrlSFCwordPath<return>
 " show diagnostics in a horizontal split
 nmap K <cmd>CocDiagnostics<return>
-
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " COMMAND_LINE_MAPS:
 """"""""""""""""""""
@@ -137,15 +140,13 @@ cnoremap cpd ! pwd \| xclip
 
 " OTHER:
 """"""""
-" disable auto comment insertion on return
-" autocmd FileType * setlocal formatoptions-=ro
 " set explicit filetype for .pl
 au BufNewFile,BufRead *.pl setf prolog
 
 
 " PLUGINS:
 """"""""""
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/.vim/plugged')
   " Status bar
   Plug 'vim-airline/vim-airline'
 
@@ -185,6 +186,12 @@ call plug#begin('~/.vim/plugged')
 
   " LaTeX support
   Plug 'lervag/vimtex'
+
+  " Code snippets
+  Plug 'honza/vim-snippets'
+
+  " Display leader bindings
+  Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
 
@@ -197,48 +204,65 @@ let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d
 colorscheme gruvbox
 
 " Set gruvbox colorscheme contrast
-let g:gruvbox_contrast_light = 'hard'
-let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_contrast_light='hard'
+let g:gruvbox_contrast_dark='soft'
 
 " Traverse completion list top-down
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType="<c-n>"
 
 " open search window on the right
-let g:ctrlsf_position = 'right'
+let g:ctrlsf_position='right'
 
 " Display tabs at the top
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled=1
 
 " Hide buffer number in tabs
-let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_tab_nr=1
 
 " Display only file name in tabs
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#formatter='unique_tail'
 
 " Display powerline symbols
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts=1
 
 " Set tabline label to blank, opposed to default 'tabs'
-let g:airline#extensions#tabline#tabs_label = ''
+let g:airline#extensions#tabline#tabs_label=''
 
 " enable vimtex integration
-let g:airline#extensions#vimtex#enabled = 1
+let g:airline#extensions#vimtex#enabled=1
 
 " Don't show splits and 'buffers' label
-let airline#extensions#tabline#tabs_label = ''
-let airline#extensions#tabline#show_splits = 0
+let airline#extensions#tabline#tabs_label=''
+let airline#extensions#tabline#show_splits=0
 
 " Create default mappings
-let g:NERDCreateDefaultMappings = 1
+let g:NERDCreateDefaultMappings=1
 
 " Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
+let g:NERDSpaceDelims=1
 
 " Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
+let g:NERDDefaultAlign='left'
 
 " Auto create session on save
-let g:auto_session_create_enabled = 'false'
+let g:auto_session_create_enabled='false'
+
+" Show leader commands with space as leader
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
+" By default timeoutlen is 1000 ms
+set timeoutlen=600
+
+" Cover the line numbers
+let g:which_key_disable_default_offset=1
+
+" Use split instead of floating window
+let g:which_key_use_floating_win=0
+
+" Hide status line when showing WhichKey
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 
 " NOTES:
