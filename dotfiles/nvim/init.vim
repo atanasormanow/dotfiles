@@ -254,6 +254,7 @@ let g:auto_session_create_enabled='false'
 
 " Show leader commands with space as leader
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 
 " By default timeoutlen is 1000 ms
 set timeoutlen=600
@@ -278,6 +279,7 @@ call which_key#register('<Space>', "g:which_key_map_visual", 'v')
 let g:which_key_ignore_outside_mappings=1
 
 " NOTE: not sure how to do: which_key_map.= = 'description'
+let g:which_key_map_visual = {}
 let g:which_key_map = {
       \ '=':'autoformat file',
       \ '<return>':'open terminal'
@@ -303,6 +305,8 @@ let g:which_key_map.c = {
       \ 'A'    : 'append comment',
       \ 'y'    : 'yank & comment',
       \}
+
+let g:which_key_map_visual.c = which_key_map.c
 " NOTES:
 """"""""
 " - migrate config to lua at some point
