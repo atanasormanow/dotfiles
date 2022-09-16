@@ -10,37 +10,37 @@ filetype plugin on        " filetype plugin detection
 set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,
 
 set clipboard=unnamedplus     " using system clipboard
-set termguicolors               " more colors
+set termguicolors             " more colors
 set background=dark           " set background theme to dark
-set relativenumber              " show line nubers relative to the cursor
-set number                      " current line number for relative numbers
+set relativenumber            " show line nubers relative to the cursor
+set number                    " current line number for relative numbers
 set scrolloff=4               " show first/last lines when scrolling
 set tabstop=2                 " spaces per tab
 set softtabstop=2             " in edit mode
 set shiftwidth=2              " width for autoindents
-set expandtab                   " tabs to spaces
-set showcmd                     " commands in bottom bar
-set wildmenu                    " autocomplete for command menu
-set showmatch                   " matching braces
-set incsearch                   " search while typing
-set hlsearch                    " highlight while searching
-set ignorecase                  " case insensitive searching
-set smartcase                   " case sensitive if search has uppercase
-set list                        " make whitespace visable
+set expandtab                 " tabs to spaces
+set showcmd                   " commands in bottom bar
+set wildmenu                  " autocomplete for command menu
+set showmatch                 " matching braces
+set incsearch                 " search while typing
+set hlsearch                  " highlight while searching
+set ignorecase                " case insensitive searching
+set smartcase                 " case sensitive if search has uppercase
+set list                      " make whitespace visable
 set listchars=trail:•         " set trailing spaces
-set nobackup                    " disable backup files
+set nobackup                  " disable backup files
 set updatetime=300            " use shorter update time (default 4k)
-set splitright                  " open vertical splits on the right side
-set splitbelow                  " split horizontal below
-set noswapfile                  " disable swap files
-set cursorline                  " highlight current cursorline
-set autoindent                  " indent a new line the same amount as the line just typed
+set splitright                " open vertical splits on the right side
+set splitbelow                " split horizontal below
+set noswapfile                " disable swap files
+set cursorline                " highlight current cursorline
+set autoindent                " indent a new line the same amount as the line just typed
 set wildmode=longest,list     " get bash-like tab completions
-" set mouse=a                 " enable mouse support
-set hidden                      " Keep unsaved changes in closed buffers
+" set mouse=a                   " enable mouse support
+set hidden                    " Keep unsaved changes in closed buffers
 set encoding=utf-8            " The encoding in which files are displayed
 set fileencoding=utf-8        " The encoding in which files are saved
-set noshowmode                  " Don't show the current mode as -- <mode> --
+set noshowmode                " Don't show the current mode as -- <mode> --
 set formatoptions-=cro        " Disable newline continuation of comments
 
 
@@ -132,6 +132,8 @@ nmap <C-F> <Plug>CtrlSFCwordPath<return>
 nmap K <cmd>CocDiagnostics<return>
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 
 " COMMAND_LINE_MAPS:
 """"""""""""""""""""
@@ -244,6 +246,9 @@ let g:NERDSpaceDelims=1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign='left'
 
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace=1
+
 " Auto create session on save
 let g:auto_session_create_enabled='false'
 
@@ -264,7 +269,40 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+" WHICH_KEY:
+""""""""""""
+call which_key#register('<Space>', "g:which_key_map", 'n')
+call which_key#register('<Space>', "g:which_key_map_visual", 'v')
 
+" Show items only from which_key_map
+let g:which_key_ignore_outside_mappings=1
+
+" NOTE: not sure how to do: which_key_map.= = 'description'
+let g:which_key_map = {
+      \ '=':'autoformat file',
+      \ '<return>':'open terminal'
+      \ }
+let g:which_key_map.b = 'open buffer'
+let g:which_key_map.f = 'open file'
+let g:which_key_map.l = 'split right'
+let g:which_key_map.j = 'split bottom'
+let g:which_key_map.t = 'new tab'
+let g:which_key_map.r = 'source VIMRC'
+let g:which_key_map.m = 'jump to mark'
+let g:which_key_map.n = 'no highlight'
+let g:which_key_map.F = 'open file in new tab'
+
+let g:which_key_map.c = {
+      \ 'name' : '+commenting',
+      \ 'SPC'  : 'toggle comment',
+      \ 'c'    : 'comment',
+      \ 'i'    : 'invert comments',
+      \ 's'    : 'comment fancy',
+      \ 'a'    : 'toggle alternative delimiter',
+      \ 'u'    : 'uncomment',
+      \ 'A'    : 'append comment',
+      \ 'y'    : 'yank & comment',
+      \}
 " NOTES:
 """"""""
 " - migrate config to lua at some point
