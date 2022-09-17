@@ -12,3 +12,4 @@ source $HOME/.config/nvim/init/plugin-settings.vim
 """"""""
 " - migrate config to lua at some point
 " - then maybe use lualine/feline as a status bar
+" - maybe set newtab position
