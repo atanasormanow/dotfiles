@@ -65,10 +65,13 @@ nnoremap <leader><return> <cmd>split \| resize -5 \| terminal<return>
 let g:which_key_map['<return>'] = 'open terminal'
 
 nnoremap <leader>ss <cmd>SaveSession<return>
-let g:which_key_map.s.s = 'save session'
+let g:which_key_map.s.s = 'save'
 
 nnoremap <leader>sd <cmd>DeleteSession<return>
-let g:which_key_map.s.d = 'delete current session'
+let g:which_key_map.s.d = 'delete'
+
+nnoremap <leader>sl <cmd>RestoreSession<return>
+let g:which_key_map.s.l = 'restore'
 
 " Leader commands from NERDcommenter
 let g:which_key_map.c = {
