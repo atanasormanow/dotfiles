@@ -8,8 +8,9 @@ source $HOME/.config/nvim/init/whichkey.vim
 source $HOME/.config/nvim/init/plugin-settings.vim
 
 
-" NOTES:
-""""""""
+" NOTES & TODOS:
+""""""""""""""""
 " - migrate config to lua at some point
 " - then maybe use lualine/feline as a status bar
 " - maybe use newtab position
+" - setup fugitive leader maps
