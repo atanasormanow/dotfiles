@@ -162,8 +162,8 @@ bindsym --release $mod+Shift+q kill
 
 # Set background
 exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 420"
-# Launch "compton"
-exec --no-startup-id compton
+# Launch compositor
+exec --no-startup-id picom -CGb
 # Desktop screenshot
 bindsym --release Print exec \
 scrot ~/Pictures/$(date --iso-8601='seconds').png --multidisp \
