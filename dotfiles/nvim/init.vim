@@ -14,3 +14,4 @@ source $HOME/.config/nvim/init/plugin-settings.vim
 " - then maybe use lualine/feline as a status bar
 " - maybe use newtab position
 " - setup fugitive leader maps
+" - add fugitive leader maps

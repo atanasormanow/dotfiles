@@ -8,9 +8,6 @@ let g:gruvbox_contrast_dark='soft'
 " include hidden files, but ignore .git and other
 let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
 
-" Traverse completion list top-down
-let g:SuperTabDefaultCompletionType="<c-n>"
-
 " open search window on the right
 let g:ctrlsf_position='right'
 
@@ -50,3 +47,10 @@ let g:NERDTrimTrailingWhitespace=1
 
 " Auto create session on save
 let g:auto_session_create_enabled='false'
+
+" Enable rainbow parentheses
+" set to 0 if you want to enable it later via :RainbowToggle
+let g:rainbow_active = 1
+
+" Highlight the word under cursor
+let g:vim_current_word#highlight_current_word = 0

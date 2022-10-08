@@ -27,8 +27,14 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Code completion
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-  " Use tab for autocompletion
-  Plug 'ervandew/supertab'
+  " Display sign column for diff indication
+  Plug 'mhinz/vim-signify'
+
+  " Rainbow parentheses
+  Plug 'luochen1990/rainbow'
+
+  " Highlight word under cursor
+  Plug 'dominikduda/vim_current_word'
 
   " Automatic session management
   Plug 'rmagatti/auto-session'
