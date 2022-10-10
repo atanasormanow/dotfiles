@@ -6,6 +6,9 @@ nnoremap k gk
 " move between tabs
 nnoremap gj gT
 nnoremap gk gt
+" go to mark
+" (gm usually jumps to the middle of the screen)
+nnoremap gm `
 " move tabs around
 nnoremap gJ <cmd>tabmove -1<return>
 nnoremap gK <cmd>tabmove +1<return>

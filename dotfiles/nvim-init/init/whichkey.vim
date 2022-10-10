@@ -49,9 +49,6 @@ let g:which_key_map.t = 'new tab'
 nnoremap <leader>r <cmd>source $MYVIMRC<return>
 let g:which_key_map.r = 'source VIMRC'
 
-nnoremap <leader>m `
-let g:which_key_map.m = 'go to mark'
-
 nnoremap <leader>n <cmd>noh<CR>
 let g:which_key_map.n = 'no highlight'
 

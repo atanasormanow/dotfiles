@@ -2,8 +2,9 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Status bar
   Plug 'vim-airline/vim-airline'
 
-  " Color scheme
+  " Color schemes
   Plug 'morhetz/gruvbox'
+  Plug 'NLKNguyen/papercolor-theme'
 
   " Fuzzy search for files
   Plug 'junegunn/fzf', { 'do': './install --bin' }
@@ -27,8 +28,15 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Code completion
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+  " Syntax highlighting for elixir
+  Plug 'elixir-editors/vim-elixir'
+
   " Display sign column for diff indication
-  Plug 'mhinz/vim-signify'
+  " Plug 'mhinz/vim-signify'
+
+  " Display mark column
+  " Plug 'chentoast/marks.nvim'
+  Plug 'kshenoy/vim-signature'
 
   " Rainbow parentheses
   Plug 'luochen1990/rainbow'
