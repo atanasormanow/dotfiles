@@ -1,6 +1,6 @@
 " Show leader commands menu
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
+nnoremap <silent> <leader> :WhichKey '<Space>'<return>
+vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<return>
 
 " Set timeout before opening which_key (default: 1000)
 set timeoutlen=600
@@ -49,7 +49,10 @@ let g:which_key_map.t = 'new tab'
 nnoremap <leader>r <cmd>source $MYVIMRC<return>
 let g:which_key_map.r = 'source VIMRC'
 
-nnoremap <leader>n <cmd>noh<CR>
+nnoremap <leader>m <cmd>Marks<return>
+let g:which_key_map.m = 'fzf marks menu'
+
+nnoremap <leader>n <cmd>noh<return>
 let g:which_key_map.n = 'no highlight'
 
 nnoremap <leader>F <cmd>tabnew<return><cmd>Files<return>
