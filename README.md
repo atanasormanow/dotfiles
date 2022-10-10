@@ -4,10 +4,14 @@
 named "dest" containing its absolute path in the system.
 This means you can manually add or replace existing
 dotfiles if needed.
-- Run `distribute_dots.sh` to create symlinks of the dotfiles across the system.
+- Run `./distribute_dots.sh` to create symlinks of the
+dotfiles across the system.
 The user will be prompted for each symlink  whether to
 replace existing files.
-- Run `add_dot.sh <file> <name>` to add a file to the
+- Run `./use_dotfile.sh dotfiles/<dir>` to create a
+symlink for a single dotfile at its corresponding
+destination.
+- Run `./add_dot.sh <file> <name>` to add a file to the
 set of dotfiles. A new directory in `dotfiles/` will be
 created, named `<name>`.  
 `<file>` will be moved in that
