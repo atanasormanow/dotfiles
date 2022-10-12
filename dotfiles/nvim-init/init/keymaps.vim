@@ -6,16 +6,11 @@ nnoremap k gk
 " move between tabs
 nnoremap gj gT
 nnoremap gk gt
-" go to mark
-" (gm usually jumps to the middle of the screen)
-nnoremap gm `
 " move tabs around
 nnoremap gJ <cmd>tabmove -1<return>
 nnoremap gK <cmd>tabmove +1<return>
 " yank untill the end of the line
 nnoremap Y y$
-" do not jump to next match
-nnoremap * *``
 " move between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -24,6 +19,10 @@ nnoremap <C-l> <C-w>l
 " shorter commands for cl
 nnoremap :W :w
 nnoremap :Q :q!
+nnoremap :в :w
+nnoremap :я :q
+nnoremap :В :w
+nnoremap :Я :q!
 " resize splits
 nnoremap <up>    5<C-w>-
 nnoremap <down>  5<C-w>+
@@ -38,6 +37,9 @@ inoremap kk <esc>
 inoremap jj <esc>
 inoremap kj <esc>
 inoremap jk <esc>
+inoremap кк <esc>
+inoremap йй <esc>
+inoremap кй <esc>
 
 " Use <tab> for completion
 function! CheckBackSpace() abort

@@ -13,6 +13,9 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Easy commenting
   Plug 'preservim/nerdcommenter'
 
+  " Easy way to surround text
+  Plug 'tpope/vim-surround'
+
   " Open and serve markdown in real time
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 

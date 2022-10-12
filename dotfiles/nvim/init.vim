@@ -1,6 +1,3 @@
-" set the leader key
-let g:mapleader=" "
-
 source $HOME/.config/nvim/init/settings.vim
 source $HOME/.config/nvim/init/keymaps.vim
 source $HOME/.config/nvim/init/plugins.vim
@@ -14,3 +11,4 @@ source $HOME/.config/nvim/init/plugin-settings.vim
 " - then maybe use lualine/feline as a status bar
 " - maybe use newtab position
 " - add fugitive leader maps
+" - :wshada! to overwrite marks

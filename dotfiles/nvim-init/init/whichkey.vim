@@ -1,3 +1,6 @@
+" set the leader key
+let g:mapleader=" "
+
 " Show leader commands menu
 nnoremap <silent> <leader> :WhichKey '<Space>'<return>
 vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<return>
@@ -54,6 +57,9 @@ let g:which_key_map.m = 'fzf marks menu'
 
 nnoremap <leader>n <cmd>noh<return>
 let g:which_key_map.n = 'no highlight'
+
+nnoremap <leader>e <cmd>CocCommand snippets.editSnippets<return>
+let g:which_key_map.e = 'edit filetype snippets'
 
 nnoremap <leader>F <cmd>tabnew<return><cmd>Files<return>
 let g:which_key_map.F = 'open file in new tab'
