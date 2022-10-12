@@ -31,6 +31,7 @@ alias p8='ping 8.8.8.8'
 alias paci='sudo pacman -S'
 alias bluon='sudo systemctl start bluetooth'
 alias zath='zathura --fork'
+alias cal='cal -m3'
 
 # Functions:
 mpv-nohup () {
