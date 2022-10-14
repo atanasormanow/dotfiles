@@ -32,12 +32,13 @@ set noswapfile                " disable swap files
 set cursorline                " highlight current cursorline
 set autoindent                " indent a new line the same amount as the line just typed
 set wildmode=longest,list     " get bash-like tab completions
-" set mouse=a                   " enable mouse support
+set mouse=a                   " enable mouse support
 set hidden                    " Keep unsaved changes in closed buffers
 set encoding=utf-8            " The encoding in which files are displayed
 set fileencoding=utf-8        " The encoding in which files are saved
 set noshowmode                " Don't show the current mode as -- <mode> --
-set formatoptions-=cro        " Disable newline continuation of comments
 
+" Disable newline continuation of comments for all sessions
+autocmd FileType * setlocal formatoptions-=cro
 " set explicit filetype for .pl
 au BufNewFile,BufRead *.pl setf prolog
