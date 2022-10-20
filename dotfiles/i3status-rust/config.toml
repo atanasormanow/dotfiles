@@ -39,11 +39,10 @@ device = "intel_backlight"
 [block.theme_overrides]
 idle_bg = "#610008"
 
-# TODO: fix, it doesn't work at all
 [[block]]
-block = "keyboard_layout"
-driver = "setxkbmap"
-interval = 15
+block = "custom"
+command = ''' echo \  `xkblayout-state print %n` '''
+signal = 0
 [block.theme_overrides]
 idle_bg = "#ad5a1a"
 idle_fg = "#000000"
@@ -84,6 +83,7 @@ interval = 10
 format = "{percentage}({time})"
 [block.theme_overrides]
 good_fg = "#000000"
+info_fg = "#000000"
 
 [[block]]
 block = "time"
