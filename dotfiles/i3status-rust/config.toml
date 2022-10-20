@@ -1,0 +1,90 @@
+theme = "gruvbox-dark"
+icons = "material-nf"
+
+# [[block]]
+# block = "focused_window"
+# max_width = 50
+# format = "{combo}"
+
+[[block]]
+block = "music"
+player = "spotify"
+buttons = ["prev","play","next"]
+hide_when_empty = true
+[block.theme_overrides]
+info_bg = "#1DB954"
+info_fg = "#000000"
+
+[[block]]
+block = "networkmanager"
+on_click = "alacritty -e nmtui"
+interface_name_exclude = ['br\-[0-9a-f]{12}', 'docker\d+']
+interface_name_include = []
+device_format = "{icon}{ap}"
+[block.theme_overrides]
+good_bg = "#282828"
+
+# TODO: add icon or something
+[[block]]
+block = "hueshift"
+hue_shifter = "redshift"
+step = 100
+click_temp = 3500
+[block.theme_overrides]
+idle_bg = "#610008"
+
+[[block]]
+block = "backlight"
+device = "intel_backlight"
+[block.theme_overrides]
+idle_bg = "#610008"
+
+# TODO: fix, it doesn't work at all
+[[block]]
+block = "keyboard_layout"
+driver = "setxkbmap"
+interval = 15
+[block.theme_overrides]
+idle_bg = "#ad5a1a"
+idle_fg = "#000000"
+
+[[block]]
+block = "sound"
+[block.theme_overrides]
+idle_bg = "#1DB954"
+idle_fg = "#000000"
+
+[[block]]
+block = "cpu"
+interval = 1
+format = "{utilization}"
+[block.theme_overrides]
+idle_bg = "#458588"
+idle_fg = "#000000"
+
+[[block]]
+block = "memory"
+format_mem = "{mem_used}/{mem_total}"
+format_swap = "{swap_used}/{swap_total}"
+display_type = "memory"
+icons = true
+clickable = true
+interval = 5
+warning_mem = 80
+warning_swap = 80
+critical_mem = 95
+critical_swap = 95
+[block.theme_overrides]
+idle_bg = "#458588"
+idle_fg = "#000000"
+
+[[block]]
+block = "battery"
+interval = 10
+format = "{percentage}({time})"
+[block.theme_overrides]
+good_fg = "#000000"
+
+[[block]]
+block = "time"
+format = "%R"
