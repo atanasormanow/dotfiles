@@ -3,7 +3,8 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   Plug 'vim-airline/vim-airline'
 
   " Color schemes
-  Plug 'morhetz/gruvbox'
+  " Plug 'morhetz/gruvbox'
+  Plug 'dkasak/gruvbox'
   Plug 'NLKNguyen/papercolor-theme'
 
   " Fuzzy search for files
@@ -34,6 +35,9 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Syntax highlighting for elixir
   Plug 'elixir-editors/vim-elixir'
 
+  " Syntax highlighting for haskell
+  Plug 'neovimhaskell/haskell-vim'
+
   " Display sign column for diff indication
   " Plug 'mhinz/vim-signify'
 
@@ -46,6 +50,10 @@ call plug#begin('~/.config/nvim/.vim/plugged')
 
   " Highlight word under cursor
   Plug 'dominikduda/vim_current_word'
+
+  " Highlight hex colors
+  " TODO: a bit buggy
+  Plug 'norcalli/nvim-colorizer.lua'
 
   " Automatic session management
   Plug 'rmagatti/auto-session'

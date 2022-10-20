@@ -70,6 +70,9 @@ let g:which_key_map['='] = 'autoformat file'
 nnoremap <leader><return> <cmd>split \| resize -5 \| terminal<return>
 let g:which_key_map['<return>'] = 'open terminal'
 
+nnoremap <leader><tab> <C-^>
+let g:which_key_map['<tab>'] = 'last used buffer'
+
 nnoremap <leader>ss <cmd>SaveSession<return>
 let g:which_key_map.s.s = 'save'
 

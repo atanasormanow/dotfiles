@@ -40,5 +40,9 @@ set noshowmode                " Don't show the current mode as -- <mode> --
 
 " Disable newline continuation of comments for all sessions
 autocmd FileType * setlocal formatoptions-=cro
+
 " set explicit filetype for .pl
 au BufNewFile,BufRead *.pl setf prolog
+
+" Disable insertion of matching quote in scheme
+autocmd FileType scheme let b:coc_pairs_disabled = ["'"]
