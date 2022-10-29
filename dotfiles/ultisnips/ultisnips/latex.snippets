@@ -1,0 +1,190 @@
+# Snippet options:
+# b - Beginning of line.
+# i - In-word expansion.
+# w - Word boundary.
+# r - Regular expression
+# e - Custom context snippet
+# A - Snippet will be triggered automatically, when condition matches.
+
+# For symbol styles:
+#-------------------
+snippet bbs "blackboard-bold style" wA
+\mathbb{$1}
+endsnippet
+
+snippet cals "calligraphic style" wA \mathcal{$1}
+endsnippet
+
+# For logic and operators:
+#-------------------------
+snippet f. "function composition" wA
+\circ
+endsnippet
+
+snippet fa "forall" wA
+\forall{${1:x}}
+endsnippet
+
+snippet ex "exists" wA
+\exists{${1:x}}
+endsnippet
+
+snippet is "syntactically equivalent" wA
+\leftrightharpoons
+endsnippet
+
+snippet >> "right arrow" wA
+\Rightarrow
+endsnippet
+
+snippet << "right arrow" wA
+\Lefttarrow
+endsnippet
+
+snippet iff "<=>" wA
+\Leftrightarrow 
+endsnippet
+
+snippet inv "^{-1}" iA
+^{-1}
+endsnippet
+
+snippet phi "phi(x)" wA
+\phi($1)
+endsnippet
+
+snippet && "logical and" wA
+\land 
+endsnippet
+
+snippet || "logical or" wA
+\lor 
+endsnippet
+
+snippet != "not equal" wA
+\neq
+endsnippet
+
+snippet liff "long <=>" wA
+\Longleftrightarrow 
+endsnippet
+
+snippet then "implies" wA
+\implies
+endsnippet
+
+# For sets:
+#----------
+snippet ss "escaped set parentheses" wA
+\\{ $1 \\}
+endsnippet
+
+snippet inn "in set" wA
+\in
+endsnippet
+
+snippet nin "not in set" wA
+\notin
+endsnippet
+
+snippet null "the empty set" wA
+\emptyset
+endsnippet
+
+snippet cup "set union" wA
+\cup
+endsnippet
+
+snippet cap "set intersection" wA
+\cap
+endsnippet
+
+snippet sm "set minus" wA
+\setminus
+endsnippet
+
+snippet pow "powerset" wA
+\mathcal{P}($1)
+endsnippet
+
+snippet sub "subset" wA
+\subset
+endsnippet
+
+snippet sup "supset" wA
+\supset
+endsnippet
+
+snippet sep "schema of separation" wA
+\\{$1\ |\ $2\\}
+endsnippet
+
+# For arrows:
+#------------
+snippet fsurj "function surjection arrow" wA
+\twoheadrightarrow
+endsnippet
+
+snippet finj "function injection arrow" wA
+\rightarrowtail
+endsnippet
+
+snippet fbij "function bijection arrow" wA
+\rightbijectionarrow
+endsnippet
+
+snippet fpart "partial function arrow" wA
+\rightharpoonup
+endsnippet
+
+snippet mm "inline math" wA
+\$ ${1: ${VISUAL:}} \$
+endsnippet
+
+# Other:
+#-------
+snippet hline
+\hrule
+endsnippet
+
+snippet bb
+\bigbreak
+endsnippet
+
+snippet def
+\fbox{def} 
+endsnippet
+
+snippet th
+\fbox{T} 
+endsnippet
+
+snippet axiom
+\fbox{Аксиома $1} 
+endsnippet
+
+snippet sv
+\fbox{Св} 
+endsnippet
+
+snippet tv
+\fbox{Тв} 
+endsnippet
+
+snippet ul "underlined with : at the end"
+\underline{$1:} 
+endsnippet
+
+snippet opr
+\fbox{Опр} 
+endsnippet
+
+# Regex based snippets:
+#----------------------
+# snippet "(^|[^a-zA-Z])mm" "Inline LaTeX math" rA
+# `!p snip.rv = match.group(1)`\$ ${1:${VISUAL:}} \$$0
+# endsnippet
+
+snippet "([a-zA-Z])(\d)" "expand variable with lower index without using a _" rwA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
