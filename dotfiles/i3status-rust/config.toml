@@ -83,9 +83,8 @@ interval = 10
 format = "{percentage}({time})"
 [block.theme_overrides]
 good_bg = "#262a75"
-good_fg = "#ffffff"
 info_bg = "#262a75"
-info_fg = "#ffffff"
+warning_bg = "#262a75"
 
 [[block]]
 block = "time"
