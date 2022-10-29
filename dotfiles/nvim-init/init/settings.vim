@@ -10,7 +10,7 @@ set termguicolors             " more colors
 set background=dark           " set background theme to dark
 set relativenumber            " show line nubers relative to the cursor
 set number                    " current line number for relative numbers
-set scrolloff=4               " show first/last lines when scrolling
+"set scrolloff=4               " show first/last lines when scrolling
 set tabstop=2                 " spaces per tab
 set softtabstop=2             " in edit mode
 set shiftwidth=2              " width for autoindents
@@ -46,3 +46,6 @@ au BufNewFile,BufRead *.pl setf prolog
 
 " Disable insertion of matching quote in scheme
 autocmd FileType scheme let b:coc_pairs_disabled = ["'"]
+
+" Disable insertion of matching <> in tex
+autocmd FileType tex let b:coc_pairs_disabled = ["<"]

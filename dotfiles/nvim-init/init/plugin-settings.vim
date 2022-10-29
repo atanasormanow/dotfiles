@@ -71,3 +71,5 @@ let g:haskell_enable_static_pointers = 1
 " enable highlighting of backpack keywords
 let g:haskell_backpack = 1
 
+" disable identation comming from ts plugin
+let g:typescript_indent_disable = 1

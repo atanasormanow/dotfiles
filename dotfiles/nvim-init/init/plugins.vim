@@ -29,6 +29,9 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Fancy start screen
   Plug 'mhinz/vim-startify'
 
+  " Automatic session management for nvim in Lua
+  Plug 'rmagatti/auto-session'
+
   " Code completion
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -37,6 +40,9 @@ call plug#begin('~/.config/nvim/.vim/plugged')
 
   " Syntax highlighting for haskell
   Plug 'neovimhaskell/haskell-vim'
+
+  " Syntax highlighting for typescript
+  Plug 'leafgarland/typescript-vim'
 
   " Display sign column for diff indication
   " Plug 'mhinz/vim-signify'
@@ -54,9 +60,6 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Highlight hex colors
   " TODO: a bit buggy
   Plug 'norcalli/nvim-colorizer.lua'
-
-  " Automatic session management
-  Plug 'rmagatti/auto-session'
 
   " Icons
   Plug 'ryanoasis/vim-devicons'
