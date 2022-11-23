@@ -1,0 +1,32 @@
+{
+  "suggest.noselect": true,
+  "rust-analyzer.enable": true,
+  "rust-analyzer.rustfmt.extraArgs": ["--config", "tab_spaces=2", "max_width=80"],
+  "codeLens.enable": false,
+  "prettier.printWidth": 120,
+  "prettier.proseWrap": "always",
+
+  "languageserver": {
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell"]
+    },
+    "racket": {
+      "command": "racket",
+      "args": ["-l", "racket-langserver"],
+      "filetypes": ["scheme", "rkt"]
+    },
+    "elixirLS": {
+      "command": "~/.elixir-ls/release/language_server.sh",
+      "filetypes": ["elixir", "eelixir"]
+    }
+  }
+}
