@@ -73,3 +73,12 @@ let g:haskell_backpack = 1
 
 " disable identation comming from ts plugin
 let g:typescript_indent_disable = 1
+
+" Set default browser when previewing markdown
+let g:mkdp_browser = 'firefox'
+
+" Put the status line on top of the screen
+" let g:airline_statusline_ontop=1
+
+" Set fancy looking commands
+call wilder#setup({'modes': [':', '/', '?']})
