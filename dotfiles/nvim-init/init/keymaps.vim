@@ -1,8 +1,8 @@
 " NORMAL MAPS:
 """"""""""""""
 " move between visual lines
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 " move between tabs
 nnoremap gj gT
 nnoremap gk gt
@@ -28,7 +28,8 @@ nnoremap <up>    5<C-w>-
 nnoremap <down>  5<C-w>+
 nnoremap <left>  10<C-w><
 nnoremap <right> 10<C-w>>
-
+" Use tab to jump between brackets
+map <tab> %
 
 " INSERT MAPS:
 """"""""""""""
