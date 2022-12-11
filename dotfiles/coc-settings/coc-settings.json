@@ -1,10 +1,15 @@
 {
   "suggest.noselect": true,
   "rust-analyzer.enable": true,
-  "rust-analyzer.rustfmt.extraArgs": ["--config", "tab_spaces=2", "max_width=80"],
+  "rust-analyzer.rustfmt.extraArgs": ["--config", "tab_spaces=2"],
   "codeLens.enable": false,
   "prettier.printWidth": 120,
   "prettier.proseWrap": "always",
+  "markdownlint.config": {
+    "MD013": {
+      "line_length": 120
+    }
+  },
 
   "languageserver": {
     "haskell": {
