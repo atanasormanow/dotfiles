@@ -20,4 +20,4 @@ folder and a symlink will be created in its place.
 ***`add_dot.sh` adds only the `$USER` variable in your
 path.  
 For more specific variables ,e.g. `$ZSH`, consider
-editing the path yourself***. (dotfiles/`<name>`/dest)
+editing the path yourself*** - in dotfiles/`<name>`/dest
