@@ -14,14 +14,20 @@ call plug#begin('~/.config/nvim/.vim/plugged')
   " Easy commenting
   Plug 'preservim/nerdcommenter'
 
+  " Use git in vim
+  Plug 'tpope/vim-fugitive'
+
   " Easy way to surround text
   Plug 'tpope/vim-surround'
+
+  " Enables using . for some non native commands
+  Plug 'tpope/vim-repeat'
 
   " Open and serve markdown in real time
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
-  " Use git in vim
-  Plug 'tpope/vim-fugitive'
+  " Live web preview
+  Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 
   " Use code search and view
   Plug 'dyng/ctrlsf.vim'
@@ -72,4 +78,17 @@ call plug#begin('~/.config/nvim/.vim/plugged')
 
   " Display leader bindings
   Plug 'liuchengxu/vim-which-key'
+
+  " Plug 'nvim-treesitter/nvim-treesitter'
+  " Plug 'nvim-treesitter/nvim-treesitter-context'
+
+  Plug 'gelguy/wilder.nvim'
+  " function! UpdateRemotePlugins(...)
+  "   " Needed to refresh runtime files
+  "   let &rtp=&rtp
+  "   UpdateRemotePlugins
+  " endfunction
+
+  " Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 call plug#end()
+
