@@ -65,7 +65,7 @@ nnoremap <leader>F <cmd>tabnew<return><cmd>Files<return>
 let g:which_key_map.F = 'open file in new tab'
 
 nmap <leader>= <Plug>(coc-format)
-let g:which_key_map['='] = 'autoformat file'
+let g:which_key_map['='] = 'format file'
 
 nnoremap <leader><return> <cmd>split \| resize -5 \| terminal<return>
 let g:which_key_map['<return>'] = 'open terminal'
@@ -103,4 +103,7 @@ let g:which_key_map_visual.c = which_key_map.c
 
 xnoremap <leader>p "_dP
 let g:which_key_map_visual.p = 'paste (no buffer overwrite)'
+
+xmap <leader>= <Plug>(coc-format-selected)
+let g:which_key_map_visual['='] = 'format selected'
 

@@ -12,7 +12,8 @@ snippet bbs "blackboard-bold style" wA
 \mathbb{$1}
 endsnippet
 
-snippet cals "calligraphic style" wA \mathcal{$1}
+snippet cals "calligraphic style" wA
+\mathcal{$1}
 endsnippet
 
 # For logic and operators:
@@ -33,11 +34,15 @@ snippet is "syntactically equivalent" wA
 \leftrightharpoons
 endsnippet
 
-snippet >> "right arrow" wA
+snippet frest "restricted function" wA
+\upharpoonright
+endsnippet
+
+snippet ra "right arrow" wA
 \Rightarrow
 endsnippet
 
-snippet << "right arrow" wA
+snippet la "left arrow" wA
 \Lefttarrow
 endsnippet
 
@@ -54,16 +59,21 @@ snippet phi "phi(x)" wA
 endsnippet
 
 snippet && "logical and" wA
-\land 
+\land
 endsnippet
 
 snippet || "logical or" wA
-\lor 
+\lor
 endsnippet
 
 snippet != "not equal" wA
 \neq
 endsnippet
+
+snippet !! "logical not" wA
+\lnot
+endsnippet
+
 
 snippet liff "long <=>" wA
 \Longleftrightarrow 
@@ -95,8 +105,16 @@ snippet cup "set union" wA
 \cup
 endsnippet
 
+snippet bcup "big set union" wA
+\bigcup
+endsnippet
+
 snippet cap "set intersection" wA
 \cap
+endsnippet
+
+snippet bcap "big set intersection" wA
+\bigcap
 endsnippet
 
 snippet sm "set minus" wA
@@ -119,64 +137,76 @@ snippet sep "schema of separation" wA
 \\{$1\ |\ $2\\}
 endsnippet
 
+snippet spow "power of a set" wA
+\overline{\overline{$1}}
+endsnippet
+
 # For arrows:
 #------------
-snippet fsurj "function surjection arrow" wA
+snippet ff "function (basic) arrow" wA
+\rightarrow
+endsnippet
+
+
+snippet fsu "function surjection arrow" wA
 \twoheadrightarrow
 endsnippet
 
-snippet finj "function injection arrow" wA
+snippet fin "function injection arrow" wA
 \rightarrowtail
 endsnippet
 
-snippet fbij "function bijection arrow" wA
+snippet fbi "function bijection arrow" wA
 \rightbijectionarrow
 endsnippet
 
 snippet fpart "partial function arrow" wA
-\rightharpoonup
+\rightcircarrow
 endsnippet
 
-snippet mm "inline math" wA
-\$ ${1: ${VISUAL:}} \$
+snippet mlm "multi line math" wA
+
+\\[${1: ${VISUAL:}}\\]
 endsnippet
 
 # Other:
 #-------
 snippet hline
+\bigbreak
 \hrule
+\bigbreak
 endsnippet
 
 snippet bb
 \bigbreak
 endsnippet
 
-snippet def
-\fbox{def} 
-endsnippet
-
-snippet th
-\fbox{T} 
-endsnippet
-
-snippet axiom
-\fbox{Аксиома $1} 
-endsnippet
-
-snippet sv
-\fbox{Св} 
-endsnippet
-
-snippet tv
-\fbox{Тв} 
+snippet bo
+\fbox{$1} 
 endsnippet
 
 snippet ul "underlined with : at the end"
-\underline{$1:} 
+\underline{$1} 
 endsnippet
 
 snippet opr
 \fbox{Опр} 
+endsnippet
+
+snippet ga
+\alpha
+endsnippet
+
+snippet gb
+\beta
+endsnippet
+
+snippet gg
+\gamma
+endsnippet
+
+snippet mm "math mode" Aw
+\$ ${1:${VISUAL:}} \$
 endsnippet
 
 # Regex based snippets:
@@ -185,6 +215,6 @@ endsnippet
 # `!p snip.rv = match.group(1)`\$ ${1:${VISUAL:}} \$$0
 # endsnippet
 
-snippet "([a-zA-Z])(\d)" "expand variable with lower index without using a _" rwA
+snippet "([a-zA-Z])(\d)" "expand variable with lower index without using a _" rw
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet

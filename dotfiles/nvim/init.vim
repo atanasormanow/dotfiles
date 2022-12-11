@@ -12,3 +12,4 @@ source $HOME/.config/nvim/init/plugin-settings.vim
 " - maybe use newtab position
 " - add fugitive leader maps
 " - :wshada! to overwrite marks
+" - look for fugitive hunk select
