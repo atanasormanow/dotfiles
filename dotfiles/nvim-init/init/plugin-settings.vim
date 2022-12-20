@@ -82,3 +82,6 @@ let g:mkdp_browser = 'firefox'
 
 " Set fancy looking commands
 call wilder#setup({'modes': [':', '/', '?']})
+
+" Disable some matching symbols
+autocmd FileType haskell let b:coc_pairs_disabled = ['<']
