@@ -33,5 +33,6 @@
       "command": "~/.elixir-ls/release/language_server.sh",
       "filetypes": ["elixir", "eelixir"]
     }
-  }
+  },
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.6/clangd_15.0.6/bin/clangd"
 }
