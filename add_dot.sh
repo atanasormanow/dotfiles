@@ -8,5 +8,5 @@ DEST=$(eval echo $1)
 
 mkdir dotfiles/$2
 mv -i $1 dotfiles/$2/
-echo $DEST | sed "s/${USER}/\$USER/" > dotfiles/$2/dest
+echo $DEST | sed "s/${HOME}/\$HOME/" > dotfiles/$2/dest
 ln -s $(pwd)/dotfiles/$2/$FILE_NAME $DEST
