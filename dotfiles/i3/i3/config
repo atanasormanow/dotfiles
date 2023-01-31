@@ -144,8 +144,8 @@ bar {
     tray_output primary
     colors {
         background #222111
-        focused_workspace #000000 #F0C674 #000000
-        active_workspace #F0C674 #333333 #ffffff
+        focused_workspace #000000 #F0C550 #000000
+        active_workspace #F0C550 #333333 #ffffff
         inactive_workspace #333333 #333333 #888888
         urgent_workspace #2f343a #600000 #ffffff
     }
@@ -156,7 +156,7 @@ bar {
 for_window [class="^.*"] border pixel 2
 hide_edge_borders smart
 # color for <title border> <border> <title>
-client.focused #4C7899 #F0C674 #000000
+client.focused #4C7899 #F0C550 #000000
 
 client.background #ffffff
 # mouse focus steal
@@ -166,7 +166,7 @@ workspace_auto_back_and_forth yes
 # i3lock
 
 # bindsym Ctrl+$mod+l exec i3lock -i ~/Wallpapers/desktop/lambda.png -F
-bindsym Ctrl+$mod+l exec i3lock --blur=5
+bindsym Ctrl+$mod+l exec ~/.config/i3/i3lock-color
 
 
 # Close window
