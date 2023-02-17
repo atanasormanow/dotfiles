@@ -162,17 +162,22 @@ bindsym --release $mod+Shift+q kill
 
 # Set background
 exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 420"
+
 # Launch compositor
 exec --no-startup-id picom -CGb
+
 # Desktop screenshot
 bindsym --release Print exec \
-scrot ~/Pictures/$(date --iso-8601='seconds').png --multidisp -e 'xclip -selection clipboard -t image/png $f'
+flameshot gui
+# scrot ~/Pictures/$(date --iso-8601='seconds').png --multidisp -e 'xclip -selection clipboard -t image/png $f'
+
 # Selection screenshot
-bindsym --release Shift+Print exec \
-scrot ~/Pictures/$(date --iso-8601='seconds').png --select --freeze -e 'xclip -selection clipboard -t image/png $f'
+# bindsym --release Shift+Print exec \
+# scrot ~/Pictures/$(date --iso-8601='seconds').png --select --freeze -e 'xclip -selection clipboard -t image/png $f'
+
 # Window screenshot
-bindsym --release Ctrl+Print exec \
-scrot ~/Pictures/$(date --iso-8601='seconds').png --focused -e 'xclip -selection clipboard -t image/png $f'
+# bindsym --release Ctrl+Print exec \
+# scrot ~/Pictures/$(date --iso-8601='seconds').png --focused -e 'xclip -selection clipboard -t image/png $f'
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
