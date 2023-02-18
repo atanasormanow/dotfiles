@@ -29,7 +29,8 @@ bindsym $mod+F4 kill
 
 # start dmenu (dmenu_run shows all programs in $PATH)
 # TODO: make style arguments reusable
-bindsym $mod+d exec dmenu_run -i -dim 0.35 -fn "DejaVuSansMono-16:bold" -h 30 -sb "#F0C550" -sf Black -p ">>"
+bindsym $mod+d exec \
+dmenu_run -i -dim 0.35 -fn "DejaVuSansMono-16:bold" -h 30 -sb "#F0C550" -sf Black -p ">>"
 
 # change focus
 bindsym $mod+h focus left
@@ -105,40 +106,41 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Ctrl+e exec \
+"i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+  # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 # Start i3 status bar
 bar {
-    # Use a floating point to display ">" separators properly
-    font pango: DejaVu Sans Mono 13.7
-    status_command i3status-rs
-    tray_output primary
-    colors {
-        background #222111
-        focused_workspace #000000 #F0C550 #000000
-        active_workspace #F0C550 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #600000 #ffffff
-    }
+  # Use a floating point to display ">" separators properly
+  font pango: DejaVu Sans Mono 13.7
+  status_command i3status-rs
+  tray_output primary
+  colors {
+    background #222111
+    focused_workspace #000000 #F0C550 #000000
+    active_workspace #F0C550 #333333 #ffffff
+    inactive_workspace #333333 #333333 #888888
+    urgent_workspace #2f343a #600000 #ffffff
+  }
 }
 
 # window border
@@ -169,33 +171,33 @@ exec --no-startup-id picom -CGb
 # Desktop screenshot
 bindsym --release Print exec \
 flameshot gui
-# scrot ~/Pictures/$(date --iso-8601='seconds').png --multidisp -e 'xclip -selection clipboard -t image/png $f'
 
-# Selection screenshot
-# bindsym --release Shift+Print exec \
+# xclip screenshot selection/screen/desktop
 # scrot ~/Pictures/$(date --iso-8601='seconds').png --select --freeze -e 'xclip -selection clipboard -t image/png $f'
-
-# Window screenshot
-# bindsym --release Ctrl+Print exec \
 # scrot ~/Pictures/$(date --iso-8601='seconds').png --focused -e 'xclip -selection clipboard -t image/png $f'
+# scrot ~/Pictures/$(date --iso-8601='seconds').png --multidisp -e 'xclip -selection clipboard -t image/png $f'
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
-# Media player controls
-# XF86AudioPlay
-# XF86AudioNext
-# XF86AudioPrev
-# XF86AudioStop
-bindsym $mod+Ctrl+Down exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym $mod+Ctrl+Left exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-bindsym $mod+Ctrl+Right exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+# Media player controls (XF86AudioPlay,XF86AudioNext,XF86AudioPrev,XF86AudioStop)
+bindsym $mod+Ctrl+Down exec \
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym $mod+Ctrl+Left exec \
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym $mod+Ctrl+Right exec \
+dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec \
+pactl set-sink-volume $(pactl get-default-sink) +5%
+
+bindsym XF86AudioLowerVolume exec \
+pactl set-sink-volume $(pactl get-default-sink) -5%
+
+bindsym XF86AudioMute exec \
+pactl set-sink-mute $(pactl get-default-sink) toggle
 
 # refresh keyboard layout block for i3status-rust
 bindsym ISO_Next_Group exec pkill -RTMIN+0 i3status-rs
