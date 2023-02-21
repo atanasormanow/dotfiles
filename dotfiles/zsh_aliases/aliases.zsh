@@ -15,8 +15,6 @@ alias lt='exa -T -L'
 alias ll='exa -lh'
 alias la='exa -ah'
 alias lla='exa -lah'
-alias kys='poweroff'
-alias reboot='reboot'
 alias e='exit'
 alias netl='nmcli device wifi list'
 alias feh='feh --keep-zoom-vp'
@@ -28,6 +26,7 @@ alias cal='cal -m3'
 alias nmrestart='systemctl restart NetworkManager.service'
 
 # Functions:
+#-----------
 mpv-nohup () {
   nohup mpv --sub-auto=all $1 &
 }
