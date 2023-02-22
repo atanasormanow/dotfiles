@@ -172,6 +172,9 @@ exec --no-startup-id picom -CGb
 bindsym --release Print exec \
 flameshot gui
 
+# Screenshots do not save properly if flameshot is not running in advance
+exec --no-startup-id flameshot
+
 # xclip screenshot selection/screen/desktop
 # scrot ~/Pictures/$(date --iso-8601='seconds').png --select --freeze -e 'xclip -selection clipboard -t image/png $f'
 # scrot ~/Pictures/$(date --iso-8601='seconds').png --focused -e 'xclip -selection clipboard -t image/png $f'
