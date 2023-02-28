@@ -22,8 +22,6 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 # start terminal with ranger
 bindsym Ctrl+$mod+Return exec alacritty -e ranger
-# start network-manager
-bindsym Ctrl+$mod+n exec alacritty -e nmtui
 # kill focused window
 bindsym $mod+F4 kill
 
