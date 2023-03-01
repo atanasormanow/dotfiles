@@ -24,6 +24,7 @@ alias p8='ping 8.8.8.8'
 alias zath='zathura --fork'
 alias cal='cal -m3'
 alias nmrestart='systemctl restart NetworkManager.service'
+alias fm='ranger'
 
 # Functions:
 #-----------
