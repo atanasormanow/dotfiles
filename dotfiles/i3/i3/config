@@ -16,14 +16,21 @@ set $mod Mod1
 # font pango: monospace 12
 font pango: DejaVu Sans Mono 12
 
+# kill focused window
+bindsym $mod+F4 kill
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 # start a terminal ($TERMINAL is the first choice)
 bindsym $mod+Return exec i3-sensible-terminal
 # start terminal with ranger
-bindsym Ctrl+$mod+Return exec alacritty -e ranger
-# kill focused window
-bindsym $mod+F4 kill
+bindsym $mod+Ctrl+Return exec alacritty -e ranger
+# Launch a terminal as a centered floating window
+bindsym $mod+Shift+Return exec i3-sensible-terminal --class=central-floating
+
+# centered floating window
+for_window [class="central-floating"] floating enable
+for_window [class="central-floating"] resize set 80 ppt 60 ppt
+for_window [class="central-floating"] move position center
 
 # start dmenu (dmenu_run shows all programs in $PATH)
 # TODO: make style arguments reusable
