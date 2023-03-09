@@ -25,7 +25,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 # start terminal with ranger
 bindsym $mod+Ctrl+Return exec alacritty -e ranger
 # Launch a terminal as a centered floating window
-bindsym $mod+Shift+Return exec i3-sensible-terminal --class=central-floating
+bindsym $mod+backslash exec i3-sensible-terminal --class=central-floating
 
 # centered floating window
 for_window [class="central-floating"] floating enable
