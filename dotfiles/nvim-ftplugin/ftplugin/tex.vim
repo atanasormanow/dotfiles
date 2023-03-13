@@ -1,3 +1,5 @@
+" TODO: Configure in Lua
+"
 " This is necessary for VimTeX to load properly. The "indent" is optional.
 " Note that most plugin managers will do this automatically.
 filetype plugin indent on
