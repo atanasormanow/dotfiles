@@ -29,7 +29,7 @@ bindsym $mod+backslash exec i3-sensible-terminal --class=central-floating
 
 # centered floating window
 for_window [class="central-floating"] floating enable
-for_window [class="central-floating"] resize set 80 ppt 60 ppt
+for_window [class="central-floating"] resize set 78 ppt 76 ppt
 for_window [class="central-floating"] move position center
 
 # start dmenu (dmenu_run shows all programs in $PATH)
