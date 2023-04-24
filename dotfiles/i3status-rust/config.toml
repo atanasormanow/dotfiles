@@ -1,8 +1,3 @@
-# TODO: this config file is not compatible with the latest (v0.30) version
-
-# TODO
-# icons_format = "{icon}"
-
 [theme]
 theme = "gruvbox-dark"
 
@@ -48,7 +43,7 @@ idle_bg = "#610008"
 block = "custom"
 command = ''' echo \  `xkblayout-state print %n` '''
 signal = 0
-# TODO
+# TODO: change layout with mouse click
 # [[block.click]]
 # button = "left"
 # cmd = ""
@@ -56,6 +51,7 @@ signal = 0
 idle_bg = "#ad5a1a"
 idle_fg = "#ffffff"
 
+# TODO: flip scroll direction for volume control
 [[block]]
 block = "sound"
 [block.theme_overrides]
