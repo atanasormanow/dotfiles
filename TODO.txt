@@ -5,6 +5,7 @@
 - check if the number of arguments matches before executing any commands
 - problem with sed in `add_dot.sh` when executing with sudo
 - when executing `add_dot.sh` with sudo - dest has elevated ownership
+- figure out the best way to work with files with elevated ownership (xorg.conf.d)
 
 NOTES:
 - xf86-video-intel for the intel module in xorg.conf
