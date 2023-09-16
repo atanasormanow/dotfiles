@@ -1,0 +1,11 @@
+- create directories on symlink creation in `use_dotfile.sh`
+- fix i3 symling being placed in the i3 folder
+- integrate requrements (look NOTES section) for certain configs to work,
+  as it is not obvious which packages need to be installed
+- check if the number of arguments matches before executing any commands
+- problem with sed in `add_dot.sh` when executing with sudo
+- when executing `add_dot.sh` with sudo - dest has elevated ownership
+
+NOTES:
+- xf86-video-intel for the intel module in xorg.conf
+

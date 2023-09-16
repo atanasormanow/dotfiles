@@ -21,3 +21,5 @@ folder and a symlink will be created in its place.
 path.  
 For more specific variables ,e.g. `$ZSH`, consider
 editing the path yourself in the corresponding file*** (dotfiles/`<name>`/dest).
+
+***NOTE: scripts are a bit clunky - look at `TODO.txt`***
