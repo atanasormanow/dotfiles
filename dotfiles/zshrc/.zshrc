@@ -1,7 +1,7 @@
 export ZSH="/home/nakk/.oh-my-zsh"
 export PATH="$PATH:~/.local/bin"
 export TERM='alacritty'
-. /opt/asdf-vm/asdf.sh
+# . /opt/asdf-vm/asdf.sh
 
 ZSH_DISABLE_COMPFIX="true"
 
@@ -46,7 +46,6 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    docker-compose
     colored-man-pages
 )
 source $ZSH/oh-my-zsh.sh
@@ -61,6 +60,6 @@ fi
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-[ -f "/home/nakk/.ghcup/env" ] && source "/home/nakk/.ghcup/env" # ghcup-env
+# [ -f "/home/nakk/.ghcup/env" ] && source "/home/nakk/.ghcup/env" # ghcup-env
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

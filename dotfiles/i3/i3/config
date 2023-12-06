@@ -168,7 +168,7 @@ bindsym Ctrl+$mod+l exec ~/.config/i3/i3lock-color.sh
 bindsym --release $mod+Shift+q kill
 
 # Set background
-exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers/desktop 420"
+exec "bash ~/.config/i3/wall_cycle.sh ~/Wallpapers 420"
 
 # Launch compositor
 exec --no-startup-id picom -CGb
