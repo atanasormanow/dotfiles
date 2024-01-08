@@ -63,3 +63,6 @@ fi
 # [ -f "/home/nakk/.ghcup/env" ] && source "/home/nakk/.ghcup/env" # ghcup-env
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+
+[ -f "/home/nakk/.ghcup/env" ] && source "/home/nakk/.ghcup/env" # ghcup-env
