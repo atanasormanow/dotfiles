@@ -1,6 +1,0 @@
-- create directories on symlink creation in `use_dotfile.sh`
-- fix i3 symling being placed in the i3 folder
-- check if the number of arguments matches before executing any commands
-- problem with sed in `add_dot.sh` when executing with sudo
-- when executing `add_dot.sh` with sudo - dest has elevated ownership
-- figure out the best way to work with files with elevated ownership (xorg.conf.d)
