@@ -2,20 +2,6 @@
 
 A dotfiles manager for Linux systems, currently being rewritten as a Rust TUI application.
 
-## Project Structure
-
-```
-dotfiles/
-├── dotfiles/           # Managed dotfile configurations
-│   └── <name>/
-│       ├── <config>    # The actual config file
-│       └── dest        # Target path (supports $HOME, etc.)
-├── scripts/            # Legacy shell scripts
-├── src/                # Rust TUI source code
-├── Cargo.toml          # Rust project manifest
-└── Cargo.lock          # Dependency lockfile
-```
-
 ## Building and Running
 
 ### Prerequisites
@@ -42,31 +28,18 @@ Or run the release binary directly:
 
 ## Legacy Shell Scripts
 
-The original shell scripts are available in `scripts/` for reference.
-
-### Add a dotfile
+The original shell scripts are available in `scripts/`
 
 ```bash
+# Moves `<file_path>` into `dotfiles/<dotfile_name>/` and creates a symlink at the original location.
 ./scripts/add_dot.sh <file_path> <dotfile_name>
-```
 
-Moves `<file_path>` into `dotfiles/<dotfile_name>/` and creates a symlink at the original location.
-
-### Distribute all dotfiles
-
-```bash
+# Interactively creates symlinks for all managed dotfiles. You will be prompted for each one.
 ./scripts/distribute_dots.sh
-```
 
-Interactively creates symlinks for all managed dotfiles. You will be prompted for each one.
-
-### Use a single dotfile
-
-```bash
+# Creates a symlink for a specific dotfile. Accepts either a name (e.g., `alacritty`) or a path.
 ./scripts/use_dotfile.sh <dotfile_name>
 ```
-
-Creates a symlink for a specific dotfile. Accepts either a name (e.g., `alacritty`) or a path.
 
 ## How Dotfiles Are Stored
 
