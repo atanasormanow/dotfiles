@@ -109,8 +109,7 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
                 dotfile.name.clone()
             };
 
-            // Truncate destination for display
-            let dest_display = truncate_path(&dotfile.dest_raw, 35);
+            let dest_display = dotfile.dest_raw.as_str();
 
             let row_style = if display_idx == app.selected {
                 Style::default().bg(Color::DarkGray)
@@ -343,13 +342,4 @@ fn centered_rect(percent_x: u16, percent_y: u16, r: Rect) -> Rect {
             Constraint::Percentage((100 - percent_x) / 2),
         ])
         .split(popup_layout[1])[1]
-}
-
-/// Truncate a path string for display
-fn truncate_path(path: &str, max_len: usize) -> String {
-    if path.len() <= max_len {
-        path.to_string()
-    } else {
-        format!("...{}", &path[path.len() - max_len + 3..])
-    }
 }
