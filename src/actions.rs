@@ -1,0 +1,250 @@
+use anyhow::{Context, Result};
+use std::fs;
+use std::os::unix::fs::symlink;
+use std::path::Path;
+
+use crate::dotfile::{Dotfile, DotfileManager, LinkStatus};
+
+/// Result of a link operation
+#[derive(Debug)]
+pub enum LinkResult {
+    Success,
+    AlreadyLinked,
+    Conflict,
+    Error(String),
+}
+
+/// Link a dotfile (create symlink at destination)
+pub fn link_dotfile(dotfile: &Dotfile) -> Result<LinkResult> {
+    // Check current status
+    match &dotfile.link_status {
+        LinkStatus::Linked => return Ok(LinkResult::AlreadyLinked),
+        LinkStatus::Conflict => return Ok(LinkResult::Conflict),
+        LinkStatus::Broken => {
+            // Remove broken symlink first
+            fs::remove_file(&dotfile.dest_expanded).context("Failed to remove broken symlink")?;
+        }
+        LinkStatus::Unlinked => {}
+        LinkStatus::Unknown(e) => {
+            return Ok(LinkResult::Error(format!("Unknown status: {}", e)));
+        }
+    }
+
+    // Create parent directories if needed
+    if let Some(parent) = dotfile.dest_expanded.parent() {
+        if !parent.exists() {
+            fs::create_dir_all(parent)
+                .with_context(|| format!("Failed to create directory: {:?}", parent))?;
+        }
+    }
+
+    // Create the symlink
+    symlink(&dotfile.source_file, &dotfile.dest_expanded).with_context(|| {
+        format!(
+            "Failed to create symlink: {:?} -> {:?}",
+            dotfile.dest_expanded, dotfile.source_file
+        )
+    })?;
+
+    Ok(LinkResult::Success)
+}
+
+/// Unlink a dotfile (remove symlink at destination)
+pub fn unlink_dotfile(dotfile: &Dotfile) -> Result<()> {
+    match &dotfile.link_status {
+        LinkStatus::Linked | LinkStatus::Broken => {
+            fs::remove_file(&dotfile.dest_expanded).with_context(|| {
+                format!("Failed to remove symlink: {:?}", dotfile.dest_expanded)
+            })?;
+            Ok(())
+        }
+        LinkStatus::Unlinked => {
+            anyhow::bail!("Dotfile is not linked");
+        }
+        LinkStatus::Conflict => {
+            anyhow::bail!("Cannot unlink: destination is a regular file, not a symlink");
+        }
+        LinkStatus::Unknown(e) => {
+            anyhow::bail!("Cannot unlink: {}", e);
+        }
+    }
+}
+
+/// Force link a dotfile, replacing any existing file
+pub fn force_link_dotfile(dotfile: &Dotfile, backup: bool) -> Result<LinkResult> {
+    // Handle existing file at destination
+    if dotfile.dest_expanded.exists() || dotfile.dest_expanded.is_symlink() {
+        if backup {
+            // Create backup
+            let backup_path = dotfile.dest_expanded.with_extension("backup");
+            fs::rename(&dotfile.dest_expanded, &backup_path)
+                .with_context(|| format!("Failed to backup: {:?}", dotfile.dest_expanded))?;
+        } else {
+            // Remove existing
+            if dotfile.dest_expanded.is_dir() && !dotfile.dest_expanded.is_symlink() {
+                fs::remove_dir_all(&dotfile.dest_expanded).with_context(|| {
+                    format!("Failed to remove directory: {:?}", dotfile.dest_expanded)
+                })?;
+            } else {
+                fs::remove_file(&dotfile.dest_expanded).with_context(|| {
+                    format!("Failed to remove file: {:?}", dotfile.dest_expanded)
+                })?;
+            }
+        }
+    }
+
+    // Create parent directories if needed
+    if let Some(parent) = dotfile.dest_expanded.parent() {
+        if !parent.exists() {
+            fs::create_dir_all(parent)
+                .with_context(|| format!("Failed to create directory: {:?}", parent))?;
+        }
+    }
+
+    // Create the symlink
+    symlink(&dotfile.source_file, &dotfile.dest_expanded).with_context(|| {
+        format!(
+            "Failed to create symlink: {:?} -> {:?}",
+            dotfile.dest_expanded, dotfile.source_file
+        )
+    })?;
+
+    Ok(LinkResult::Success)
+}
+
+/// Add a new dotfile to the repository
+pub fn add_dotfile(
+    manager: &DotfileManager,
+    source_path: &Path,
+    dotfile_name: &str,
+) -> Result<Dotfile> {
+    // Validate source exists
+    if !source_path.exists() {
+        anyhow::bail!("Source file does not exist: {:?}", source_path);
+    }
+
+    // Validate dotfile name doesn't exist
+    let target_dir = manager.dotfiles_dir.join(dotfile_name);
+    if target_dir.exists() {
+        anyhow::bail!("Dotfile '{}' already exists", dotfile_name);
+    }
+
+    // Get the filename
+    let file_name = source_path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .context("Invalid source filename")?;
+
+    // Create the dotfile directory
+    fs::create_dir_all(&target_dir)
+        .with_context(|| format!("Failed to create directory: {:?}", target_dir))?;
+
+    // Move the source file to the repo
+    let dest_in_repo = target_dir.join(file_name);
+    fs::rename(source_path, &dest_in_repo)
+        .with_context(|| format!("Failed to move file to repo: {:?}", source_path))?;
+
+    // Create the dest file with the original path
+    let source_abs = source_path
+        .canonicalize()
+        .unwrap_or_else(|_| source_path.to_path_buf());
+
+    // Convert to use $HOME if applicable
+    let home = std::env::var("HOME").unwrap_or_default();
+    let dest_content = source_abs.to_string_lossy().replace(&home, "$HOME");
+
+    let dest_file = target_dir.join("dest");
+    fs::write(&dest_file, format!("{}\n", dest_content))
+        .with_context(|| format!("Failed to write dest file: {:?}", dest_file))?;
+
+    // Create symlink at original location
+    symlink(&dest_in_repo, source_path).with_context(|| {
+        format!(
+            "Failed to create symlink at original location: {:?}",
+            source_path
+        )
+    })?;
+
+    // Return the new dotfile
+    Ok(Dotfile {
+        name: dotfile_name.to_string(),
+        repo_path: target_dir,
+        source_file: dest_in_repo,
+        dest_raw: dest_content,
+        dest_expanded: source_abs,
+        link_status: LinkStatus::Linked,
+        git_status: crate::dotfile::GitStatus::Modified,
+        needs_sudo: false,
+    })
+}
+
+/// Update the destination of a dotfile
+pub fn update_destination(dotfile: &Dotfile, new_dest: &str) -> Result<()> {
+    let dest_file = dotfile.repo_path.join("dest");
+    fs::write(&dest_file, format!("{}\n", new_dest))
+        .with_context(|| format!("Failed to write dest file: {:?}", dest_file))?;
+    Ok(())
+}
+
+/// Remove a dotfile from the repository
+pub fn remove_dotfile(dotfile: &Dotfile, restore: bool) -> Result<()> {
+    // Optionally restore the file to its original location
+    if restore {
+        if dotfile.dest_expanded.exists() || dotfile.dest_expanded.is_symlink() {
+            // Remove existing symlink/file first
+            if dotfile.dest_expanded.is_symlink() {
+                fs::remove_file(&dotfile.dest_expanded)?;
+            } else {
+                anyhow::bail!(
+                    "Cannot restore: a file already exists at {:?}",
+                    dotfile.dest_expanded
+                );
+            }
+        }
+
+        // Create parent directories
+        if let Some(parent) = dotfile.dest_expanded.parent() {
+            fs::create_dir_all(parent)?;
+        }
+
+        // Copy (not move, in case removal fails)
+        if dotfile.source_file.is_dir() {
+            copy_dir_recursive(&dotfile.source_file, &dotfile.dest_expanded)?;
+        } else {
+            fs::copy(&dotfile.source_file, &dotfile.dest_expanded)?;
+        }
+    } else {
+        // Just unlink if currently linked
+        if matches!(dotfile.link_status, LinkStatus::Linked | LinkStatus::Broken) {
+            let _ = fs::remove_file(&dotfile.dest_expanded);
+        }
+    }
+
+    // Remove the dotfile directory from repo
+    fs::remove_dir_all(&dotfile.repo_path).with_context(|| {
+        format!(
+            "Failed to remove dotfile directory: {:?}",
+            dotfile.repo_path
+        )
+    })?;
+
+    Ok(())
+}
+
+/// Recursively copy a directory
+fn copy_dir_recursive(src: &Path, dst: &Path) -> Result<()> {
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let ty = entry.file_type()?;
+        let src_path = entry.path();
+        let dst_path = dst.join(entry.file_name());
+
+        if ty.is_dir() {
+            copy_dir_recursive(&src_path, &dst_path)?;
+        } else {
+            fs::copy(&src_path, &dst_path)?;
+        }
+    }
+    Ok(())
+}

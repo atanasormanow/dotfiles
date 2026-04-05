@@ -306,37 +306,34 @@ Some dotfiles require root access (e.g., `/etc/X11/xorg.conf.d`).
 ## Implementation Phases
 
 ### Phase 1: Core Infrastructure
-- [ ] App state management
-- [ ] Dotfile discovery and parsing
-- [ ] Symlink status detection
-- [ ] Basic list rendering
+- [x] App state management
+- [x] Dotfile discovery and parsing
+- [x] Symlink status detection
+- [x] Basic list rendering
 
 ### Phase 2: Read-Only Features
-- [ ] Main list view with all columns
-- [ ] Navigation and selection
-- [ ] Detailed view for selected dotfile
-- [ ] Search/filter functionality
+- [x] Main list view with all columns
+- [x] Navigation and selection
+- [x] Detailed view for selected dotfile
+- [x] Search/filter functionality
 
 ### Phase 3: Write Operations
-- [ ] Link single dotfile
-- [ ] Unlink dotfile
-- [ ] Add new dotfile
+- [x] Link single dotfile
+- [x] Unlink dotfile
+- [x] Add new dotfile
 - [ ] Distribute (batch link)
 
 ### Phase 4: Edit & Management
-- [ ] Edit destination
+- [x] Edit destination
 - [ ] Remove dotfile
-- [ ] Conflict resolution UI
+- [x] Conflict resolution UI (force link with backup)
 
 ### Phase 5: Git Integration
-- [ ] Git status per dotfile
-- [ ] Commit interface
-- [ ] Diff viewer
-- [ ] Log viewer
+- [x] Git status per dotfile
 
 ### Phase 6: Polish
-- [ ] Help system
-- [ ] Error handling improvements
+- [x] Help system
+- [x] Error handling improvements
 - [ ] Configuration file (optional)
 - [ ] Themes/colors
 
