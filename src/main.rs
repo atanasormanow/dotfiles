@@ -127,6 +127,7 @@ fn handle_confirm_input(app: &mut App, code: KeyCode, action: ConfirmAction) {
             ConfirmAction::Unlink(idx) => app.confirm_unlink(idx),
             ConfirmAction::ForceLink(idx) => app.confirm_force_link(idx),
             ConfirmAction::Remove(idx) => app.confirm_remove(idx),
+            ConfirmAction::ReplaceAdd { source, name } => app.confirm_replace_add(source, name),
         },
         KeyCode::Char('n') | KeyCode::Char('N') | KeyCode::Esc => {
             app.view = View::List;

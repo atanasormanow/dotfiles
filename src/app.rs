@@ -23,6 +23,7 @@ pub enum ConfirmAction {
     Unlink(usize),
     Remove(usize),
     ForceLink(usize),
+    ReplaceAdd { source: String, name: String },
 }
 
 /// Input modes for the input dialog
@@ -259,6 +260,41 @@ impl App {
         self.view = View::List;
     }
 
+    /// Execute confirmed replace add (delete old, add new)
+    pub fn confirm_replace_add(&mut self, source: String, name: String) {
+        // Find and remove the existing dotfile
+        if let Some(idx) = self.dotfiles.iter().position(|d| d.name == name) {
+            let dotfile = &self.dotfiles[idx];
+            if let Err(e) = actions::remove_dotfile(dotfile, false) {
+                self.status_message = Some(format!("Error removing old dotfile: {}", e));
+                self.view = View::List;
+                return;
+            }
+        }
+
+        // Now add the new one
+        self.do_add_dotfile(&source, &name);
+        self.view = View::List;
+    }
+
+    /// Helper to perform the actual add dotfile operation
+    fn do_add_dotfile(&mut self, source: &str, name: &str) {
+        let expanded = shellexpand::full(source)
+            .map(|s| s.into_owned())
+            .unwrap_or_else(|_| source.to_string());
+        let path = std::path::Path::new(&expanded);
+
+        match actions::add_dotfile(&self.manager, path, name) {
+            Ok(dotfile) => {
+                self.status_message = Some(format!("Added '{}'", dotfile.name));
+                let _ = self.refresh();
+            }
+            Err(e) => {
+                self.status_message = Some(format!("Error: {}", e));
+            }
+        }
+    }
+
     /// Start edit destination flow
     pub fn start_edit_dest(&mut self) {
         if let Some(idx) = self.selected_index() {
@@ -284,23 +320,17 @@ impl App {
             View::Input(InputMode::AddDotfileName { source }) => {
                 let name = self.input.clone();
                 self.input.clear();
-                self.view = View::List;
 
-                // Expand the source path
-                let expanded = shellexpand::full(&source)
-                    .map(|s| s.into_owned())
-                    .unwrap_or(source.clone());
-                let path = std::path::Path::new(&expanded);
-
-                match actions::add_dotfile(&self.manager, path, &name) {
-                    Ok(dotfile) => {
-                        self.status_message = Some(format!("Added '{}'", dotfile.name));
-                        let _ = self.refresh();
-                    }
-                    Err(e) => {
-                        self.status_message = Some(format!("Error: {}", e));
-                    }
+                // Check if dotfile with this name already exists
+                let target_dir = self.manager.dotfiles_dir.join(&name);
+                if target_dir.exists() {
+                    // Prompt for replacement
+                    self.view = View::Confirm(ConfirmAction::ReplaceAdd { source, name });
+                    return;
                 }
+
+                self.view = View::List;
+                self.do_add_dotfile(&source, &name);
             }
             View::Input(InputMode::EditDestination(idx)) => {
                 let new_dest = self.input.clone();

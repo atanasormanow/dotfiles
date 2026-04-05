@@ -211,6 +211,13 @@ fn render_confirm_dialog(frame: &mut Frame, action: &ConfirmAction, app: &App) {
                 ),
             )
         }
+        ConfirmAction::ReplaceAdd { name, .. } => (
+            "Confirm Replace",
+            format!(
+                "Dotfile '{}' already exists.\nReplace it with the new file?",
+                name
+            ),
+        ),
     };
 
     let text = format!("{}\n\n[y] Yes  [n] No", message);
