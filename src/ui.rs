@@ -265,54 +265,76 @@ fn render_input_dialog(frame: &mut Frame, mode: &InputMode, app: &App) {
 }
 
 fn render_help_dialog(frame: &mut Frame) {
-    let area = centered_rect(60, 70, frame.area());
+    let area = centered_rect(50, 70, frame.area());
     frame.render_widget(Clear, area);
 
-    let help_text = r#"
-  Navigation
-  ----------
-  j/Down    Move down
-  k/Up      Move up
-  g/Home    Go to first
-  G/End     Go to last
+    let block = Block::default()
+        .title(" Help ")
+        .borders(Borders::ALL)
+        .border_type(ratatui::widgets::BorderType::Rounded)
+        .style(Style::default().bg(Color::Black));
 
-  Actions
-  -------
-  l         Link selected dotfile
-  L         Link multiple (distribute)
-  u         Unlink selected dotfile
-  d         Delete dotfile from repo
-  a         Add new dotfile
-  e         Edit destination
-  r         Refresh list
-  /         Search/filter
-  Esc       Clear filter / Cancel
+    let inner = block.inner(area);
+    frame.render_widget(block, area);
 
-  General
-  -------
-  ?         Show this help
-  q         Quit
+    // Split into two columns
+    let columns = Layout::default()
+        .direction(Direction::Horizontal)
+        .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
+        .split(inner);
 
-  Status Symbols
-  --------------
-  [L] Linked    [X] Broken
-  [C] Conflict  [-] Unlinked
-  [?] Unknown   [S] Needs sudo
+    let left_text = r#"
+ Navigation
+ ----------
+ j/Down    Move down
+ k/Up      Move up
+ g/Home    Go to first
+ G/End     Go to last
 
-  Press any key to close
+ Actions
+ -------
+ l         Link selected
+ L         Link multiple
+ u         Unlink selected
+ d         Delete from repo
+ a         Add new dotfile
+ e         Edit destination
+ r         Refresh list
+ /         Search/filter
+ Esc       Clear / Cancel
+ ?         Show this help
+ q         Quit
 "#;
 
-    let dialog = Paragraph::new(help_text)
-        .block(
-            Block::default()
-                .title(" Help ")
-                .borders(Borders::ALL)
-                .border_type(ratatui::widgets::BorderType::Rounded)
-                .style(Style::default().bg(Color::Black)),
-        )
-        .style(Style::default().fg(Color::White));
+    let right_text = r#"
+ Status Column
+ -------------
+ [L] Linked   - symlink active
+ [-] Unlinked - not linked
+ [C] Conflict - file exists
+ [X] Broken   - bad symlink
+ [?] Unknown  - read error
 
-    frame.render_widget(dialog, area);
+ Root Column
+ -----------
+ [x] = outside $HOME
+
+ Git Column
+ ----------
+ [ ] Clean
+ [M] Modified
+ [+] Staged
+
+
+
+ Press any key to close
+"#;
+
+    let left = Paragraph::new(left_text).style(Style::default().fg(Color::White));
+    let right = Paragraph::new(right_text).style(Style::default().fg(Color::White));
+
+    frame.render_widget(left, columns[0]);
+    frame.render_widget(right, columns[1]);
 }
 
 fn render_message_dialog(frame: &mut Frame, message: &str) {
