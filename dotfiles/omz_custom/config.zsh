@@ -1,6 +1,5 @@
 # Disable autocd
 # NOTE not sure if this is the place for this
-unsetopt autocd
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -24,7 +23,8 @@ alias p8='ping 8.8.8.8'
 alias zath='zathura --fork'
 alias cal='cal -m3'
 alias nmrestart='systemctl restart NetworkManager.service'
-alias fm='ranger'
+alias fm='ya'
+alias dot='~/Workspace/dotfiles/target/release/dotfiles-tui'
 
 # Functions:
 #-----------
