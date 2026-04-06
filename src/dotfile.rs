@@ -282,8 +282,10 @@ impl DotfileManager {
             anyhow::bail!("Source file '{}' not found in '{}'", source_file_name, name);
         }
 
-        // Check if destination requires sudo (not in $HOME)
-        let needs_sudo = !dest_raw.contains("$HOME") && !dest_raw.contains("~");
+        // Check if destination requires sudo (expanded path not under $HOME)
+        let needs_sudo = std::env::var("HOME")
+            .map(|home| !dest_expanded.starts_with(&home))
+            .unwrap_or(false);
 
         // Check if source is a directory
         let is_directory = source_file.is_dir();
