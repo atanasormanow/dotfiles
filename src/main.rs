@@ -72,6 +72,9 @@ fn run(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>, app: &mut App) -> 
                     View::Input(_) => {
                         handle_input_mode(app, key.code);
                     }
+                    View::Distribute => {
+                        handle_distribute_input(app, key.code);
+                    }
                 }
 
                 if app.should_quit {
@@ -97,6 +100,7 @@ fn handle_list_input(app: &mut App, code: KeyCode, modifiers: KeyModifiers) {
 
         // Actions
         KeyCode::Char('l') | KeyCode::Enter => app.link_selected(),
+        KeyCode::Char('L') => app.start_distribute(),
         KeyCode::Char('u') => app.unlink_selected(),
         KeyCode::Char('a') => app.start_add(),
         KeyCode::Char('e') => app.start_edit_dest(),
@@ -128,9 +132,17 @@ fn handle_confirm_input(app: &mut App, code: KeyCode, action: ConfirmAction) {
             ConfirmAction::ForceLink(idx) => app.confirm_force_link(idx),
             ConfirmAction::Remove(idx) => app.confirm_remove(idx),
             ConfirmAction::ReplaceAdd { source, name } => app.confirm_replace_add(source, name),
+            ConfirmAction::DistributeConflicts { .. } => {
+                app.distribute_execute_with_force(true);
+            }
         },
         KeyCode::Char('n') | KeyCode::Char('N') | KeyCode::Esc => {
-            app.view = View::List;
+            // For distribute conflicts, go back to distribute view instead of list
+            if matches!(action, ConfirmAction::DistributeConflicts { .. }) {
+                app.view = View::Distribute;
+            } else {
+                app.view = View::List;
+            }
         }
         _ => {}
     }
@@ -142,6 +154,29 @@ fn handle_input_mode(app: &mut App, code: KeyCode) {
         KeyCode::Esc => app.cancel(),
         KeyCode::Backspace => app.input_backspace(),
         KeyCode::Char(c) => app.input_char(c),
+        _ => {}
+    }
+}
+
+fn handle_distribute_input(app: &mut App, code: KeyCode) {
+    match code {
+        // Navigation
+        KeyCode::Char('j') | KeyCode::Down => app.distribute_next(),
+        KeyCode::Char('k') | KeyCode::Up => app.distribute_prev(),
+
+        // Toggle selection
+        KeyCode::Char(' ') => app.distribute_toggle(),
+
+        // Select all / none
+        KeyCode::Char('a') => app.distribute_select_all(),
+        KeyCode::Char('n') => app.distribute_select_none(),
+
+        // Execute
+        KeyCode::Enter => app.distribute_execute(),
+
+        // Cancel
+        KeyCode::Esc | KeyCode::Char('q') => app.distribute_cancel(),
+
         _ => {}
     }
 }

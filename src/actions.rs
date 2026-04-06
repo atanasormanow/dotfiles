@@ -71,25 +71,16 @@ pub fn unlink_dotfile(dotfile: &Dotfile) -> Result<()> {
 }
 
 /// Force link a dotfile, replacing any existing file
-pub fn force_link_dotfile(dotfile: &Dotfile, backup: bool) -> Result<LinkResult> {
-    // Handle existing file at destination
+pub fn force_link_dotfile(dotfile: &Dotfile) -> Result<LinkResult> {
+    // Remove existing file at destination
     if dotfile.dest_expanded.exists() || dotfile.dest_expanded.is_symlink() {
-        if backup {
-            // Create backup
-            let backup_path = dotfile.dest_expanded.with_extension("backup");
-            fs::rename(&dotfile.dest_expanded, &backup_path)
-                .with_context(|| format!("Failed to backup: {:?}", dotfile.dest_expanded))?;
+        if dotfile.dest_expanded.is_dir() && !dotfile.dest_expanded.is_symlink() {
+            fs::remove_dir_all(&dotfile.dest_expanded).with_context(|| {
+                format!("Failed to remove directory: {:?}", dotfile.dest_expanded)
+            })?;
         } else {
-            // Remove existing
-            if dotfile.dest_expanded.is_dir() && !dotfile.dest_expanded.is_symlink() {
-                fs::remove_dir_all(&dotfile.dest_expanded).with_context(|| {
-                    format!("Failed to remove directory: {:?}", dotfile.dest_expanded)
-                })?;
-            } else {
-                fs::remove_file(&dotfile.dest_expanded).with_context(|| {
-                    format!("Failed to remove file: {:?}", dotfile.dest_expanded)
-                })?;
-            }
+            fs::remove_file(&dotfile.dest_expanded)
+                .with_context(|| format!("Failed to remove file: {:?}", dotfile.dest_expanded))?;
         }
     }
 

@@ -15,6 +15,8 @@ pub enum View {
     Input(InputMode),
     /// Message/error display
     Message(String),
+    /// Distribute (batch link) multi-select
+    Distribute,
 }
 
 /// Actions that require confirmation
@@ -24,6 +26,7 @@ pub enum ConfirmAction {
     Remove(usize),
     ForceLink(usize),
     ReplaceAdd { source: String, name: String },
+    DistributeConflicts { conflict_count: usize },
 }
 
 /// Input modes for the input dialog
@@ -55,6 +58,10 @@ pub struct App {
     pub filter: String,
     /// Filtered indices (indices into dotfiles vec)
     pub filtered_indices: Vec<usize>,
+    /// Selected items for distribute (indices into dotfiles vec)
+    pub distribute_selected: Vec<usize>,
+    /// Cursor position in distribute view
+    pub distribute_cursor: usize,
 }
 
 impl App {
@@ -74,6 +81,8 @@ impl App {
             status_message: None,
             filter: String::new(),
             filtered_indices,
+            distribute_selected: Vec::new(),
+            distribute_cursor: 0,
         })
     }
 
@@ -214,9 +223,9 @@ impl App {
     pub fn confirm_force_link(&mut self, idx: usize) {
         if let Some(dotfile) = self.dotfiles.get(idx) {
             let name = dotfile.name.clone();
-            match actions::force_link_dotfile(dotfile, true) {
+            match actions::force_link_dotfile(dotfile) {
                 Ok(LinkResult::Success) => {
-                    self.status_message = Some(format!("Force linked '{}' (backup created)", name));
+                    self.status_message = Some(format!("Force linked '{}'", name));
                     self.dotfiles[idx].refresh_status();
                     let repo_root = self.manager.repo_root().to_path_buf();
                     self.dotfiles[idx].refresh_git_status(&repo_root);
@@ -386,5 +395,149 @@ impl App {
     /// Handle backspace in input
     pub fn input_backspace(&mut self) {
         self.input.pop();
+    }
+
+    /// Start distribute (batch link) mode
+    pub fn start_distribute(&mut self) {
+        // Pre-select all unlinked dotfiles
+        self.distribute_selected = self
+            .dotfiles
+            .iter()
+            .enumerate()
+            .filter(|(_, d)| matches!(d.link_status, LinkStatus::Unlinked | LinkStatus::Broken))
+            .map(|(i, _)| i)
+            .collect();
+        self.distribute_cursor = 0;
+        self.view = View::Distribute;
+    }
+
+    /// Toggle selection of item at cursor in distribute view
+    pub fn distribute_toggle(&mut self) {
+        if self.distribute_cursor < self.dotfiles.len() {
+            let idx = self.distribute_cursor;
+            if self.distribute_selected.contains(&idx) {
+                self.distribute_selected.retain(|&i| i != idx);
+            } else {
+                self.distribute_selected.push(idx);
+            }
+        }
+    }
+
+    /// Move cursor up in distribute view
+    pub fn distribute_prev(&mut self) {
+        if self.distribute_cursor > 0 {
+            self.distribute_cursor -= 1;
+        }
+    }
+
+    /// Move cursor down in distribute view
+    pub fn distribute_next(&mut self) {
+        if self.distribute_cursor < self.dotfiles.len().saturating_sub(1) {
+            self.distribute_cursor += 1;
+        }
+    }
+
+    /// Execute distribute - link all selected dotfiles
+    pub fn distribute_execute(&mut self) {
+        // Check if there are any conflicts in the selection
+        let conflict_count = self
+            .distribute_selected
+            .iter()
+            .filter(|&&idx| {
+                self.dotfiles
+                    .get(idx)
+                    .map(|d| matches!(d.link_status, LinkStatus::Conflict))
+                    .unwrap_or(false)
+            })
+            .count();
+
+        if conflict_count > 0 {
+            // Prompt user to confirm overwriting conflicts
+            self.view = View::Confirm(ConfirmAction::DistributeConflicts { conflict_count });
+            return;
+        }
+
+        // No conflicts, proceed with linking
+        self.distribute_execute_inner(false);
+    }
+
+    /// Execute distribute after conflict confirmation
+    pub fn distribute_execute_with_force(&mut self, force_conflicts: bool) {
+        self.distribute_execute_inner(force_conflicts);
+    }
+
+    /// Inner distribute execution
+    fn distribute_execute_inner(&mut self, force_conflicts: bool) {
+        let mut linked = 0;
+        let mut failed = 0;
+
+        for &idx in &self.distribute_selected.clone() {
+            if let Some(dotfile) = self.dotfiles.get(idx) {
+                // Skip already linked
+                if matches!(dotfile.link_status, LinkStatus::Linked) {
+                    continue;
+                }
+
+                // Handle conflicts
+                if matches!(dotfile.link_status, LinkStatus::Conflict) {
+                    if force_conflicts {
+                        match actions::force_link_dotfile(dotfile) {
+                            Ok(LinkResult::Success) => {
+                                linked += 1;
+                                self.dotfiles[idx].refresh_status();
+                                let repo_root = self.manager.repo_root().to_path_buf();
+                                self.dotfiles[idx].refresh_git_status(&repo_root);
+                            }
+                            _ => {
+                                failed += 1;
+                            }
+                        }
+                    } else {
+                        failed += 1;
+                    }
+                    continue;
+                }
+
+                match actions::link_dotfile(dotfile) {
+                    Ok(LinkResult::Success) => {
+                        linked += 1;
+                        self.dotfiles[idx].refresh_status();
+                        let repo_root = self.manager.repo_root().to_path_buf();
+                        self.dotfiles[idx].refresh_git_status(&repo_root);
+                    }
+                    _ => {
+                        failed += 1;
+                    }
+                }
+            }
+        }
+
+        self.status_message = Some(format!(
+            "Linked {} dotfile(s){}",
+            linked,
+            if failed > 0 {
+                format!(", {} failed/skipped", failed)
+            } else {
+                String::new()
+            }
+        ));
+        self.distribute_selected.clear();
+        self.view = View::List;
+    }
+
+    /// Cancel distribute mode
+    pub fn distribute_cancel(&mut self) {
+        self.distribute_selected.clear();
+        self.view = View::List;
+    }
+
+    /// Select all in distribute view
+    pub fn distribute_select_all(&mut self) {
+        self.distribute_selected = (0..self.dotfiles.len()).collect();
+    }
+
+    /// Deselect all in distribute view
+    pub fn distribute_select_none(&mut self) {
+        self.distribute_selected.clear();
     }
 }

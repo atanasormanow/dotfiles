@@ -30,6 +30,7 @@ pub fn render(frame: &mut Frame, app: &App) {
         View::Input(mode) => render_input_dialog(frame, mode, app),
         View::Help => render_help_dialog(frame),
         View::Message(msg) => render_message_dialog(frame, msg),
+        View::Distribute => render_distribute_dialog(frame, app),
         View::List => {}
     }
 }
@@ -40,6 +41,7 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
             ("q", "quit"),
             ("a", "add"),
             ("l", "link"),
+            ("L", "link all"),
             ("u", "unlink"),
             ("d", "delete"),
             ("e", "edit"),
@@ -196,7 +198,7 @@ fn render_confirm_dialog(frame: &mut Frame, action: &ConfirmAction, app: &App) {
             (
                 "Confirm Force Link",
                 format!(
-                    "A file exists at destination.\nReplace it with symlink for '{}'?\n(backup will be created)",
+                    "A file exists at destination.\nReplace it with symlink for '{}'?",
                     name
                 ),
             )
@@ -206,6 +208,13 @@ fn render_confirm_dialog(frame: &mut Frame, action: &ConfirmAction, app: &App) {
             format!(
                 "Dotfile '{}' already exists.\nReplace it with the new file?",
                 name
+            ),
+        ),
+        ConfirmAction::DistributeConflicts { conflict_count } => (
+            "Confirm Overwrite",
+            format!(
+                "{} selected dotfile(s) have conflicts.\nOverwrite existing files?",
+                conflict_count
             ),
         ),
     };
@@ -267,6 +276,7 @@ fn render_help_dialog(frame: &mut Frame) {
   Actions
   -------
   l         Link selected dotfile
+  L         Link multiple (distribute)
   u         Unlink selected dotfile
   d         Delete dotfile from repo
   a         Add new dotfile
@@ -318,6 +328,75 @@ fn render_message_dialog(frame: &mut Frame, message: &str) {
         .style(Style::default().fg(Color::White));
 
     frame.render_widget(dialog, area);
+}
+
+fn render_distribute_dialog(frame: &mut Frame, app: &App) {
+    let area = centered_rect(70, 80, frame.area());
+    frame.render_widget(Clear, area);
+
+    // Split into list area and help text
+    let chunks = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints([Constraint::Min(3), Constraint::Length(3)])
+        .split(area);
+
+    // Build list items
+    let items: Vec<Line> = app
+        .dotfiles
+        .iter()
+        .enumerate()
+        .map(|(idx, dotfile)| {
+            let selected = app.distribute_selected.contains(&idx);
+            let checkbox = if selected { "[x]" } else { "[ ]" };
+            let cursor = if idx == app.distribute_cursor {
+                ">"
+            } else {
+                " "
+            };
+
+            let status_indicator = match dotfile.link_status {
+                LinkStatus::Linked => " (linked)",
+                LinkStatus::Conflict => " (conflict)",
+                _ => "",
+            };
+
+            let style = if idx == app.distribute_cursor {
+                Style::default().bg(Color::DarkGray)
+            } else if selected {
+                Style::default().fg(Color::Green)
+            } else {
+                Style::default()
+            };
+
+            Line::from(vec![
+                Span::styled(format!("{} {} ", cursor, checkbox), style),
+                Span::styled(
+                    format!(
+                        "{}{}",
+                        if dotfile.is_directory { "🗀 " } else { "" },
+                        dotfile.name
+                    ),
+                    style,
+                ),
+                Span::styled(status_indicator, Style::default().fg(Color::Gray)),
+            ])
+        })
+        .collect();
+
+    let list = Paragraph::new(items).block(
+        Block::default()
+            .title(" Distribute - Select dotfiles to link ")
+            .borders(Borders::ALL)
+            .border_type(ratatui::widgets::BorderType::Rounded)
+            .style(Style::default().bg(Color::Black)),
+    );
+
+    frame.render_widget(list, chunks[0]);
+
+    // Help text
+    let help = Paragraph::new(" [Space] toggle  [a] all  [n] none  [Enter] link  [Esc] cancel")
+        .style(Style::default().fg(Color::Gray));
+    frame.render_widget(help, chunks[1]);
 }
 
 /// Helper to create a centered rect
