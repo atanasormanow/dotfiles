@@ -115,7 +115,7 @@ fn handle_list_input(app: &mut App, code: KeyCode, modifiers: KeyModifiers) {
         KeyCode::Char('G') | KeyCode::End => app.select_last(),
 
         // Actions
-        KeyCode::Enter => app.open_in_editor(),
+        KeyCode::Char('E') => app.open_in_editor(),
         KeyCode::Char('l') => app.link_selected(),
         KeyCode::Char('L') => app.start_distribute(),
         KeyCode::Char('u') => app.unlink_selected(),

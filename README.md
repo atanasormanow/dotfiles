@@ -18,6 +18,7 @@ cargo build --release
 | `u` | Unlink dotfile |
 | `a` | Add new dotfile |
 | `d` | Delete dotfile |
+| E | Edit dotfile |
 | `e` | Edit destination |
 | `r` | Refresh |
 | `/` | Search |

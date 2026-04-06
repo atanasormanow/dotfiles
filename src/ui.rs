@@ -14,7 +14,7 @@ pub fn render(frame: &mut Frame, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
-            Constraint::Length(1), // Actions bar
+            Constraint::Length(2), // Actions bar (2 lines)
             Constraint::Min(5),    // Main content
             Constraint::Length(1), // Status bar
         ])
@@ -36,35 +36,43 @@ pub fn render(frame: &mut Frame, app: &App) {
 }
 
 fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
-    let actions = if matches!(app.view, View::List) {
-        vec![
-            ("q", "quit"),
-            ("Enter", "open"),
-            ("a", "add"),
-            ("l", "link"),
-            ("L", "link all"),
-            ("u", "unlink"),
-            ("d", "delete"),
-            ("e", "edit dest"),
-            ("r", "refresh"),
-            ("/", "search"),
-            ("?", "help"),
-        ]
+    let (line1_actions, line2_actions): (Vec<_>, Vec<_>) = if matches!(app.view, View::List) {
+        (
+            vec![
+                ("E", "open"),
+                ("a", "add"),
+                ("l", "link"),
+                ("L", "link all"),
+                ("u", "unlink"),
+                ("d", "delete"),
+                ("e", "edit dest"),
+            ],
+            vec![
+                ("r", "refresh"),
+                ("/", "search"),
+                ("?", "help"),
+                ("q", "quit"),
+            ],
+        )
     } else {
-        vec![("Esc", "back")]
+        (vec![("Esc", "back")], vec![])
     };
 
-    let spans: Vec<Span> = actions
-        .iter()
-        .flat_map(|(key, desc)| {
-            vec![
-                Span::styled(format!(" [{}]", key), Style::default().fg(Color::Yellow)),
-                Span::styled(format!("{} ", desc), Style::default().fg(Color::Gray)),
-            ]
-        })
-        .collect();
+    let make_spans = |actions: &[(&str, &str)]| -> Line {
+        let spans: Vec<Span> = actions
+            .iter()
+            .flat_map(|(key, desc)| {
+                vec![
+                    Span::styled(format!(" [{}]", key), Style::default().fg(Color::Yellow)),
+                    Span::styled(format!("{} ", desc), Style::default().fg(Color::Gray)),
+                ]
+            })
+            .collect();
+        Line::from(spans)
+    };
 
-    let bar = Paragraph::new(Line::from(spans)).style(Style::default().bg(Color::DarkGray));
+    let lines = vec![make_spans(&line1_actions), make_spans(&line2_actions)];
+    let bar = Paragraph::new(lines).style(Style::default().bg(Color::DarkGray));
     frame.render_widget(bar, area);
 }
 
@@ -294,7 +302,7 @@ fn render_help_dialog(frame: &mut Frame) {
 
    Actions
    -------
-   Enter     Open in $EDITOR
+   E         Open in $EDITOR
    l         Link selected
    L         Link multiple
    u         Unlink selected
