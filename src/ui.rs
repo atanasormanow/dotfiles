@@ -39,39 +39,53 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
     let (line1_actions, line2_actions): (Vec<_>, Vec<_>) = if matches!(app.view, View::List) {
         (
             vec![
-                ("E", "open"),
+                ("E", "edit file"),
+                ("e", "edit dest"),
                 ("a", "add"),
                 ("l", "link"),
                 ("L", "link all"),
                 ("u", "unlink"),
                 ("d", "delete"),
-                ("e", "edit dest"),
             ],
             vec![
                 ("r", "refresh"),
                 ("/", "search"),
                 ("?", "help"),
                 ("q", "quit"),
+                ("", ""),
+                ("", ""),
+                ("", ""),
             ],
         )
     } else {
         (vec![("Esc", "back")], vec![])
     };
 
-    let make_spans = |actions: &[(&str, &str)]| -> Line {
+    const CELL_WIDTH: usize = 14;
+
+    let make_line = |actions: &[(&str, &str)]| -> Line {
         let spans: Vec<Span> = actions
             .iter()
             .flat_map(|(key, desc)| {
-                vec![
-                    Span::styled(format!(" [{}]", key), Style::default().fg(Color::Yellow)),
-                    Span::styled(format!("{} ", desc), Style::default().fg(Color::Gray)),
-                ]
+                if key.is_empty() {
+                    vec![Span::styled(" ".repeat(CELL_WIDTH), Style::default())]
+                } else {
+                    let key_part = format!(" [{}]", key);
+                    let desc_part = format!(" {}", desc);
+                    let used = key_part.len() + desc_part.len();
+                    let padding = CELL_WIDTH.saturating_sub(used);
+                    vec![
+                        Span::styled(key_part, Style::default().fg(Color::Yellow)),
+                        Span::styled(desc_part, Style::default().fg(Color::Gray)),
+                        Span::styled(" ".repeat(padding), Style::default()),
+                    ]
+                }
             })
             .collect();
         Line::from(spans)
     };
 
-    let lines = vec![make_spans(&line1_actions), make_spans(&line2_actions)];
+    let lines = vec![make_line(&line1_actions), make_line(&line2_actions)];
     let bar = Paragraph::new(lines).style(Style::default().bg(Color::DarkGray));
     frame.render_widget(bar, area);
 }
