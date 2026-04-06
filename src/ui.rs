@@ -71,8 +71,8 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
     // Table header
     let header = Row::new(vec![
         Cell::from("Name").style(Style::default().add_modifier(Modifier::BOLD)),
-        Cell::from("Destination").style(Style::default().add_modifier(Modifier::BOLD)),
         Cell::from("Status").style(Style::default().add_modifier(Modifier::BOLD)),
+        Cell::from("Destination").style(Style::default().add_modifier(Modifier::BOLD)),
         Cell::from("Git").style(Style::default().add_modifier(Modifier::BOLD)),
     ])
     .height(1)
@@ -111,8 +111,8 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
 
             Row::new(vec![
                 Cell::from(name),
-                Cell::from(dest_display),
                 Cell::from(dotfile.link_status.symbol()).style(status_style),
+                Cell::from(dest_display),
                 Cell::from(dotfile.git_status.symbol()),
             ])
             .style(row_style)
@@ -121,8 +121,8 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
 
     let widths = [
         Constraint::Length(20),
-        Constraint::Min(30),
         Constraint::Length(8),
+        Constraint::Min(30),
         Constraint::Length(5),
     ];
 
