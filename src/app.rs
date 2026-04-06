@@ -1,6 +1,7 @@
 use crate::actions::{self, LinkResult};
 use crate::dotfile::{Dotfile, DotfileManager, LinkStatus};
 use anyhow::Result;
+use std::process::Command;
 
 /// Current view/mode of the application
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -62,6 +63,8 @@ pub struct App {
     pub distribute_selected: Vec<usize>,
     /// Cursor position in distribute view
     pub distribute_cursor: usize,
+    /// Flag to open editor (handled in main loop)
+    pub pending_editor: bool,
 }
 
 impl App {
@@ -83,6 +86,7 @@ impl App {
             filtered_indices,
             distribute_selected: Vec::new(),
             distribute_cursor: 0,
+            pending_editor: false,
         })
     }
 
@@ -150,6 +154,44 @@ impl App {
     pub fn select_last(&mut self) {
         if !self.filtered_indices.is_empty() {
             self.selected = self.filtered_indices.len() - 1;
+        }
+    }
+
+    /// Request to open selected dotfile in $EDITOR
+    pub fn open_in_editor(&mut self) {
+        if self.selected_dotfile().is_some() {
+            self.pending_editor = true;
+        }
+    }
+
+    /// Execute the editor opening (called from main loop with terminal access)
+    pub fn do_open_editor(&mut self) {
+        self.pending_editor = false;
+
+        let editor = std::env::var("EDITOR").unwrap_or_else(|_| "vi".to_string());
+
+        if let Some(dotfile) = self.selected_dotfile() {
+            let path = dotfile.source_file.clone();
+            let name = dotfile.name.clone();
+
+            // Use shell to handle $EDITOR that may contain arguments
+            let path_str = path.to_string_lossy();
+            let shell_cmd = format!("{} \"{}\"", editor, path_str);
+
+            match Command::new("sh").arg("-c").arg(&shell_cmd).status() {
+                Ok(status) => {
+                    if status.success() {
+                        self.status_message = Some(format!("Edited '{}'", name));
+                        // Refresh in case file was modified
+                        let _ = self.refresh();
+                    } else {
+                        self.status_message = Some("Editor exited with error".to_string());
+                    }
+                }
+                Err(e) => {
+                    self.status_message = Some(format!("Failed to open editor: {}", e));
+                }
+            }
         }
     }
 

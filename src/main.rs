@@ -48,6 +48,22 @@ fn run(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>, app: &mut App) -> 
         // Render
         terminal.draw(|frame| ui::render(frame, app))?;
 
+        // Handle pending editor open
+        if app.pending_editor {
+            // Leave alternate screen for editor
+            disable_raw_mode()?;
+            io::stdout().execute(LeaveAlternateScreen)?;
+
+            // Run the editor
+            app.do_open_editor();
+
+            // Re-enter alternate screen
+            enable_raw_mode()?;
+            io::stdout().execute(EnterAlternateScreen)?;
+            terminal.clear()?;
+            continue;
+        }
+
         // Handle input
         if event::poll(std::time::Duration::from_millis(100))? {
             if let Event::Key(key) = event::read()? {
@@ -99,7 +115,8 @@ fn handle_list_input(app: &mut App, code: KeyCode, modifiers: KeyModifiers) {
         KeyCode::Char('G') | KeyCode::End => app.select_last(),
 
         // Actions
-        KeyCode::Char('l') | KeyCode::Enter => app.link_selected(),
+        KeyCode::Enter => app.open_in_editor(),
+        KeyCode::Char('l') => app.link_selected(),
         KeyCode::Char('L') => app.start_distribute(),
         KeyCode::Char('u') => app.unlink_selected(),
         KeyCode::Char('a') => app.start_add(),

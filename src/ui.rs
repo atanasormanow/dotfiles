@@ -39,12 +39,13 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
     let actions = if matches!(app.view, View::List) {
         vec![
             ("q", "quit"),
+            ("Enter", "open"),
             ("a", "add"),
             ("l", "link"),
             ("L", "link all"),
             ("u", "unlink"),
             ("d", "delete"),
-            ("e", "edit"),
+            ("e", "edit dest"),
             ("r", "refresh"),
             ("/", "search"),
             ("?", "help"),
@@ -265,7 +266,7 @@ fn render_input_dialog(frame: &mut Frame, mode: &InputMode, app: &App) {
 }
 
 fn render_help_dialog(frame: &mut Frame) {
-    let area = centered_rect(50, 70, frame.area());
+    let area = centered_rect(60, 80, frame.area());
     frame.render_widget(Clear, area);
 
     let block = Block::default()
@@ -284,50 +285,51 @@ fn render_help_dialog(frame: &mut Frame) {
         .split(inner);
 
     let left_text = r#"
- Navigation
- ----------
- j/Down    Move down
- k/Up      Move up
- g/Home    Go to first
- G/End     Go to last
+   Navigation
+   ----------
+   j/Down    Move down
+   k/Up      Move up
+   g/Home    Go to first
+   G/End     Go to last
 
- Actions
- -------
- l         Link selected
- L         Link multiple
- u         Unlink selected
- d         Delete from repo
- a         Add new dotfile
- e         Edit destination
- r         Refresh list
- /         Search/filter
- Esc       Clear / Cancel
- ?         Show this help
- q         Quit
+   Actions
+   -------
+   Enter     Open in $EDITOR
+   l         Link selected
+   L         Link multiple
+   u         Unlink selected
+   d         Delete from repo
+   a         Add new dotfile
+   e         Edit destination
+   r         Refresh list
+   /         Search/filter
+   Esc       Clear / Cancel
+   ?         Show this help
+   q         Quit
 "#;
 
     let right_text = r#"
- Status Column
- -------------
- [L] Linked   - symlink active
- [-] Unlinked - not linked
- [C] Conflict - file exists
- [X] Broken   - bad symlink
- [?] Unknown  - read error
+   Status Column
+   -------------
+   [L] Linked   - symlink active
+   [-] Unlinked - not linked
+   [C] Conflict - file exists
+   [X] Broken   - bad symlink
+   [?] Unknown  - read error
 
- Root Column
- -----------
- [x] = outside $HOME
+   Root Column
+   -----------
+   [x] = outside $HOME
 
- Git Column
- ----------
- [ ] Clean
- [M] Modified
- [+] Staged
+   Git Column
+   ----------
+   [ ] Clean
+   [M] Modified
+   [+] Staged
 
 
 
- Press any key to close
+   Press any key to close
 "#;
 
     let left = Paragraph::new(left_text).style(Style::default().fg(Color::White));
