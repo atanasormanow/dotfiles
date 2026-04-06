@@ -165,6 +165,9 @@ pub fn add_dotfile(
         )
     })?;
 
+    // Check if source is a directory
+    let is_directory = dest_in_repo.is_dir();
+
     // Return the new dotfile
     Ok(Dotfile {
         name: dotfile_name.to_string(),
@@ -175,6 +178,7 @@ pub fn add_dotfile(
         link_status: LinkStatus::Linked,
         git_status: crate::dotfile::GitStatus::Modified,
         needs_sudo: false,
+        is_directory,
     })
 }
 

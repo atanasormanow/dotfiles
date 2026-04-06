@@ -69,6 +69,8 @@ pub struct Dotfile {
     pub git_status: GitStatus,
     /// Whether destination requires elevated permissions
     pub needs_sudo: bool,
+    /// Whether the source is a directory (not a single file)
+    pub is_directory: bool,
 }
 
 impl Dotfile {
@@ -229,13 +231,18 @@ impl DotfileManager {
                         link_status: LinkStatus::Unknown(e.to_string()),
                         git_status: GitStatus::default(),
                         needs_sudo: false,
+                        is_directory: false,
                     });
                 }
             }
         }
 
-        // Sort by name
-        dotfiles.sort_by(|a, b| a.name.cmp(&b.name));
+        // Sort: directories first, then by name
+        dotfiles.sort_by(|a, b| match (a.is_directory, b.is_directory) {
+            (true, false) => std::cmp::Ordering::Less,
+            (false, true) => std::cmp::Ordering::Greater,
+            _ => a.name.cmp(&b.name),
+        });
 
         Ok(dotfiles)
     }
@@ -278,6 +285,9 @@ impl DotfileManager {
         // Check if destination requires sudo (not in $HOME)
         let needs_sudo = !dest_raw.contains("$HOME") && !dest_raw.contains("~");
 
+        // Check if source is a directory
+        let is_directory = source_file.is_dir();
+
         let mut dotfile = Dotfile {
             name,
             repo_path: dir.to_path_buf(),
@@ -287,6 +297,7 @@ impl DotfileManager {
             link_status: LinkStatus::Unknown("Not checked".into()),
             git_status: GitStatus::default(),
             needs_sudo,
+            is_directory,
         };
 
         dotfile.refresh_status();

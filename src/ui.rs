@@ -14,17 +14,15 @@ pub fn render(frame: &mut Frame, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
-            Constraint::Length(1), // Title
             Constraint::Length(1), // Actions bar
             Constraint::Min(5),    // Main content
             Constraint::Length(1), // Status bar
         ])
         .split(frame.area());
 
-    render_title(frame, chunks[0]);
-    render_actions_bar(frame, chunks[1], app);
-    render_main_content(frame, chunks[2], app);
-    render_status_bar(frame, chunks[3], app);
+    render_actions_bar(frame, chunks[0], app);
+    render_main_content(frame, chunks[1], app);
+    render_status_bar(frame, chunks[2], app);
 
     // Render overlays (dialogs)
     match &app.view {
@@ -34,15 +32,6 @@ pub fn render(frame: &mut Frame, app: &App) {
         View::Message(msg) => render_message_dialog(frame, msg),
         View::List => {}
     }
-}
-
-fn render_title(frame: &mut Frame, area: Rect) {
-    let title = Paragraph::new(" Dotfiles TUI ").style(
-        Style::default()
-            .fg(Color::Cyan)
-            .add_modifier(Modifier::BOLD),
-    );
-    frame.render_widget(title, area);
 }
 
 fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
@@ -103,11 +92,12 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
                 LinkStatus::Unknown(_) => Style::default().fg(Color::Magenta),
             };
 
-            let name = if dotfile.needs_sudo {
-                format!("{} [S]", dotfile.name)
-            } else {
-                dotfile.name.clone()
-            };
+            let name = format!(
+                "{}{}{}",
+                if dotfile.is_directory { "🗀 " } else { "" },
+                dotfile.name,
+                if dotfile.needs_sudo { " [S]" } else { "" }
+            );
 
             let dest_display = dotfile.dest_raw.as_str();
 
