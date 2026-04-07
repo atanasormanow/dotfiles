@@ -26,7 +26,7 @@
 		// "on-update":
 		"on-scroll-up": "~/.config/waybar/scripts/volume output raise",
 		"on-scroll-down": "~/.config/waybar/scripts/volume output lower",
-		// "smooth-scrolling-threshold":
+		"smooth-scrolling-threshold": 1.0,
 		// "tooltip":
 		"tooltip-format": "<b>Output Device</b>: {desc}"
 		// "max-volume":

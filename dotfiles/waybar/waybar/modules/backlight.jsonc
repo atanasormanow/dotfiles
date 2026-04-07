@@ -17,7 +17,7 @@
 		// "on-update":
 		"on-scroll-up": "~/.config/waybar/scripts/backlight up",
 		"on-scroll-down": "~/.config/waybar/scripts/backlight down",
-		// "smooth-scrolling-threshold":
+		"smooth-scrolling-threshold": 1.0,
 		// "reverse-scrolling":
 		// "reverse-mouse-scrolling":
 		// "scroll-step":
