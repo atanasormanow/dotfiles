@@ -58,7 +58,7 @@
 @define-color tray           @bg2;
 @define-color volume         @bg2;
 @define-color backlight      @bg1;
-@define-color battery        @bg2;
+@define-color battery        @bg1;
 
 /* State colors */
 
