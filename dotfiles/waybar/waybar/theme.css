@@ -1,31 +1,35 @@
-/* Catppuccin Mocha */
+/* Gruvbox Dark */
 
-@define-color rosewater      #f5e0dc;
-@define-color flamingo       #f2cdcd;
-@define-color pink           #f5c2e7;
-@define-color mauve          #cba6f7;
-@define-color red            #f38ba8;
-@define-color maroon         #eba0ac;
-@define-color peach          #fab387;
-@define-color yellow         #f9e2af;
-@define-color green          #a6e3a1;
-@define-color teal           #94e2d5;
-@define-color sky            #89dceb;
-@define-color sapphire       #74c7ec;
-@define-color blue           #89b4fa;
-@define-color lavender       #b4befe;
-@define-color text           #cdd6f4;
-@define-color subtext1       #bac2de;
-@define-color subtext0       #a6adc8;
-@define-color overlay2       #9399b2;
-@define-color overlay1       #7f849c;
-@define-color overlay0       #6c7086;
-@define-color surface2       #585b70;
-@define-color surface1       #45475a;
-@define-color surface0       #313244;
-@define-color base           #1e1e2e;
-@define-color mantle         #181825;
-@define-color crust          #11111b;
+/* Base Gruvbox colors */
+@define-color bg0-hard       #1d2021;
+@define-color bg0            #282828;
+@define-color bg1            #3c3836;
+@define-color bg2            #504945;
+@define-color bg3            #665c54;
+@define-color bg4            #7c6f64;
+
+@define-color fg0            #fbf1c7;
+@define-color fg1            #ebdbb2;
+@define-color fg2            #d5c4a1;
+@define-color fg3            #bdae93;
+@define-color fg4            #a89984;
+
+@define-color red            #fb4934;
+@define-color green          #b8bb26;
+@define-color yellow         #fabd2f;
+@define-color blue           #83a598;
+@define-color purple         #d3869b;
+@define-color aqua           #8ec07c;
+@define-color orange         #fe8019;
+
+@define-color gray           #928374;
+@define-color red-dim        #cc241d;
+@define-color green-dim      #98971a;
+@define-color yellow-dim     #d79921;
+@define-color blue-dim       #458588;
+@define-color purple-dim     #b16286;
+@define-color aqua-dim       #689d6a;
+@define-color orange-dim     #d65d0e;
 
 /*
 	br - border
@@ -35,26 +39,26 @@
 
 /* Main colors */
 
-@define-color accent         @lavender;
-@define-color main-br        @subtext0;
-@define-color main-bg        @crust;
-@define-color main-fg        @text;
-@define-color hover-bg       @base;
-@define-color hover-fg       alpha(@main-fg, 0.75);
-@define-color outline        shade(@main-bg, 0.5);
+@define-color accent         @orange;
+@define-color main-br        @bg4;
+@define-color main-bg        @bg0-hard;
+@define-color main-fg        @fg1;
+@define-color hover-bg       @bg1;
+@define-color hover-fg       @fg2;
+@define-color outline        @bg0;
 
 /* Module colors */
 
-@define-color workspaces     @mantle;
-@define-color temperature    @mantle;
-@define-color memory         @base;
-@define-color cpu            @surface0;
-@define-color time           @surface0;
-@define-color date           @base;
-@define-color tray           @mantle;
-@define-color volume         @mantle;
-@define-color backlight      @base;
-@define-color battery        @surface0;
+@define-color workspaces     @bg1;
+@define-color temperature    @bg2;
+@define-color memory         @bg1;
+@define-color cpu            @bg2;
+@define-color time           @bg2;
+@define-color date           @bg1;
+@define-color tray           @bg2;
+@define-color volume         @bg2;
+@define-color backlight      @bg1;
+@define-color battery        @bg2;
 
 /* State colors */
 
