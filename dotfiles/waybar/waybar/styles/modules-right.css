@@ -6,28 +6,29 @@
 	padding: 0 12px;
 }
 
-/*------------
-    Volume
-------------*/
+/*----------
+    Date
+----------*/
 
 #custom-left_div.6 {
-	color: @volume;
+	color: @date;
 }
-#pulseaudio,
-#wireplumber {
-	background-color: @volume;
+#clock.date {
+	padding-right: 6px;
+	background-color: @date;
 }
 
-/*----------------
-    Brightness
-----------------*/
+/*----------
+    Time
+----------*/
 
 #custom-left_div.7 {
-	background-color: @volume;
-	color: @backlight;
+	background-color: @date;
+	color: @time;
 }
-#backlight {
-	background-color: @backlight;
+#clock.time {
+	padding-left: 6px;
+	background-color: @time;
 }
 
 /*-------------
@@ -35,7 +36,7 @@
 -------------*/
 
 #custom-left_div.8 {
-	background-color: @backlight;
+	background-color: @time;
 	color: @battery;
 }
 #battery {

@@ -60,41 +60,32 @@
 	color: @main-bg;
 }
 
-/*--------------------
-    Idle inhibitor
---------------------*/
+/*------------
+    Volume
+------------*/
 
 #custom-right_inv.1 {
-	color: @time;
+	color: @volume;
 }
-#idle_inhibitor {
-	background-color: @time;
-}
-
-/*----------
-    Time
-----------*/
-
-#clock.time {
-	padding-right: 6px;
-	background-color: @time;
+#pulseaudio,
+#wireplumber {
+	background-color: @volume;
 }
 #custom-right_div.3 {
-	background-color: @date;
-	color: @time;
+	background-color: @backlight;
+	color: @volume;
 }
 
-/*----------
-    Date
-----------*/
+/*----------------
+    Brightness
+----------------*/
 
-#clock.date {
-	padding-left: 6px;
-	background-color: @date;
+#backlight {
+	background-color: @backlight;
 }
 #custom-right_div.4 {
 	background-color: @tray;
-	color: @date;
+	color: @backlight;
 }
 
 /*-----------------
