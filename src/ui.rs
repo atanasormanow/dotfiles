@@ -48,10 +48,10 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
                 ("d", "delete"),
             ],
             vec![
+                ("q", "quit"),
                 ("r", "refresh"),
                 ("/", "search"),
                 ("?", "help"),
-                ("q", "quit"),
                 ("", ""),
                 ("", ""),
                 ("", ""),
