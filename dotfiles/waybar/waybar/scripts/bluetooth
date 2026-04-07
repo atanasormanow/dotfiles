@@ -43,18 +43,22 @@ power_on() {
 				sleep 1
 			done
 
-			if [[ $new_state != on ]]; then
+		if [[ $new_state != on ]]; then
+			if command -v notify-send &> /dev/null; then
 				notify-send "Bluetooth" "Failed to unblock" -i "package-purge"
-				exit 1
 			fi
+			exit 1
+		fi
 			;;
 		*)
 			return 0
 			;;
 	esac
 
-	notify-send "Bluetooth On" -i "network-bluetooth-activated" \
-		-h string:x-canonical-private-synchronous:bluetooth
+	if command -v notify-send &> /dev/null; then
+		notify-send "Bluetooth On" -i "network-bluetooth-activated" \
+			-h string:x-canonical-private-synchronous:bluetooth
+	fi
 }
 
 get_devices() {
@@ -83,7 +87,9 @@ get_devices() {
 
 	LIST=$(bluetoothctl devices | sed "s/^Device //")
 	if [[ -z $LIST ]]; then
-		notify-send "Bluetooth" "No devices found" -i "package-broken"
+		if command -v notify-send &> /dev/null; then
+			notify-send "Bluetooth" "No devices found" -i "package-broken"
+		fi
 		exit 1
 	fi
 }
@@ -114,8 +120,10 @@ select_device() {
 	connected=$(bluetoothctl info "$ADDRESS" | awk '/Connected/ {print $2}')
 
 	if [[ $connected == yes ]]; then
-		notify-send "Bluetooth" "Already connected to this device" \
-			-i "package-install"
+		if command -v notify-send &> /dev/null; then
+			notify-send "Bluetooth" "Already connected to this device" \
+				-i "package-install"
+		fi
 		exit 1
 	fi
 }
@@ -128,7 +136,9 @@ pair_and_connect() {
 		printf "Pairing..."
 
 		if ! timeout $TIMEOUT bluetoothctl pair "$ADDRESS" > /dev/null; then
-			notify-send "Bluetooth" "Failed to pair" -i "package-purge"
+			if command -v notify-send &> /dev/null; then
+				notify-send "Bluetooth" "Failed to pair" -i "package-purge"
+			fi
 			exit 1
 		fi
 	fi
@@ -136,18 +146,24 @@ pair_and_connect() {
 	printf "\nConnecting..."
 
 	if ! timeout $TIMEOUT bluetoothctl connect "$ADDRESS" > /dev/null; then
-		notify-send "Bluetooth" "Failed to connect" -i "package-purge"
+		if command -v notify-send &> /dev/null; then
+			notify-send "Bluetooth" "Failed to connect" -i "package-purge"
+		fi
 		exit 1
 	fi
 
-	notify-send "Bluetooth" "Successfully connected" -i "package-install"
+	if command -v notify-send &> /dev/null; then
+		notify-send "Bluetooth" "Successfully connected" -i "package-install"
+	fi
 }
 
 main() {
 	if [[ $1 == off ]]; then
 		bluetoothctl power off
-		notify-send 'Bluetooth Off' -i 'network-bluetooth-inactive' \
-			-h string:x-canonical-private-synchronous:bluetooth
+		if command -v notify-send &> /dev/null; then
+			notify-send 'Bluetooth Off' -i 'network-bluetooth-inactive' \
+				-h string:x-canonical-private-synchronous:bluetooth
+		fi
 		return 0
 	fi
 

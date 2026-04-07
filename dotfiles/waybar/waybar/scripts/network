@@ -42,8 +42,10 @@ switch_on() {
 		sleep 1
 	done
 
-	notify-send "Wi-Fi Enabled" -i "network-wireless-on" \
-		-h string:x-canonical-private-synchronous:network
+	if command -v notify-send &> /dev/null; then
+		notify-send "Wi-Fi Enabled" -i "network-wireless-on" \
+			-h string:x-canonical-private-synchronous:network
+	fi
 }
 
 get_networks() {
@@ -64,7 +66,9 @@ get_networks() {
 	printf "\n%bScanning stopped.%b\n\n" "$FG_RED" "$FG_RESET"
 
 	if [[ -z $NETWORKS ]]; then
-		notify-send "Wi-Fi" "No networks found" -i "package-broken"
+		if command -v notify-send &> /dev/null; then
+			notify-send "Wi-Fi" "No networks found" -i "package-broken"
+		fi
 		exit 1
 	fi
 }
@@ -92,8 +96,10 @@ select_network() {
 			exit 1
 			;;
 		'*')
-			notify-send "Wi-Fi" "Already connected to this network" \
-				-i "package-install"
+			if command -v notify-send &> /dev/null; then
+				notify-send "Wi-Fi" "Already connected to this network" \
+					-i "package-install"
+			fi
 			exit 1
 			;;
 	esac
@@ -103,18 +109,24 @@ connect() {
 	printf "Connecting...\n"
 
 	if ! nmcli -a device wifi connect "$BSSID"; then
-		notify-send "Wi-Fi" "Failed to connect" -i "package-purge"
+		if command -v notify-send &> /dev/null; then
+			notify-send "Wi-Fi" "Failed to connect" -i "package-purge"
+		fi
 		exit 1
 	fi
 
-	notify-send "Wi-Fi" "Successfully connected" -i "package-install"
+	if command -v notify-send &> /dev/null; then
+		notify-send "Wi-Fi" "Successfully connected" -i "package-install"
+	fi
 }
 
 main() {
 	if [[ $1 == off ]]; then
 		nmcli radio wifi off
-		notify-send 'Wi-Fi Disabled' -i 'network-wireless-off' \
-			-h string:x-canonical-private-synchronous:network
+		if command -v notify-send &> /dev/null; then
+			notify-send 'Wi-Fi Disabled' -i 'network-wireless-off' \
+				-h string:x-canonical-private-synchronous:network
+		fi
 		exit 0
 	fi
 

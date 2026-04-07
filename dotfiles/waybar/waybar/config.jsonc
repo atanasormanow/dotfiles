@@ -30,7 +30,7 @@
 		"custom/distro",
 		"custom/right_div#2",
 		"custom/right_inv#1",
-		"group/pulseaudio",
+		"pulseaudio",
 		"custom/right_div#3",
 		"backlight",
 		"custom/right_div#4",

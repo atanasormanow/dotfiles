@@ -85,14 +85,6 @@ get_icon() {
 
 set_state() {
 	pactl "set-$DEV_STATE" toggle
-
-	local state icon
-
-	state=$(get_state)
-	icon=$(get_icon)
-
-	notify-send "$DEV_NAME: $state" -i "$icon" \
-		-h string:x-canonical-private-synchronous:volume
 }
 
 set_volume() {
@@ -117,12 +109,6 @@ set_volume() {
 	esac
 
 	pactl "set-$DEV_VOLUME" "$new_level%"
-
-	local icon
-	icon=$(get_icon $new_level)
-
-	notify-send "$DEV_NAME: $new_level%" -h int:value:$new_level -i "$icon" \
-		-h string:x-canonical-private-synchronous:volume
 }
 
 main() {
