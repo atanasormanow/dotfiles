@@ -41,10 +41,8 @@
 	"modules-right": [
 		"mpris",
 		"custom/left_div#6",
-		"clock#date",
-		"custom/left_div#7",
 		"clock#time",
-		"custom/left_div#8",
+		"custom/left_div#7",
 		"battery",
 		"custom/left_inv#2",
 		"custom/power"

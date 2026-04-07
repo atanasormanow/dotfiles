@@ -7,27 +7,13 @@
 }
 
 /*----------
-    Date
-----------*/
-
-#custom-left_div.6 {
-	color: @date;
-}
-#clock.date {
-	padding-right: 6px;
-	background-color: @date;
-}
-
-/*----------
     Time
 ----------*/
 
-#custom-left_div.7 {
-	background-color: @date;
+#custom-left_div.6 {
 	color: @time;
 }
 #clock.time {
-	padding-left: 6px;
 	background-color: @time;
 }
 
@@ -35,7 +21,7 @@
     Battery
 -------------*/
 
-#custom-left_div.8 {
+#custom-left_div.7 {
 	background-color: @time;
 	color: @battery;
 }
