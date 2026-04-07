@@ -13,12 +13,12 @@
 	------------*/
 
 	"modules-left": [
+		"hyprland/language",
 		"custom/left_div#1",
 		"hyprland/workspaces",
 		"custom/right_div#1",
 	],
 	"modules-center": [
-		"hyprland/language",
 		"custom/left_div#2",
 		"temperature",
 		"custom/left_div#3",
