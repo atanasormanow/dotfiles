@@ -2,7 +2,6 @@
     Indicator
 ---------------*/
 
-#keyboard-state label,
 #language {
 	margin-right: 12px;
 	color: @hover-fg;
@@ -99,10 +98,6 @@
 #bluetooth {
 	background-color: @tray;
 	padding: 0 5px;
-}
-#custom-update {
-	background-color: @tray;
-	padding: 0 8px 0 2px;
 }
 #custom-right_div.5 {
 	color: @tray;

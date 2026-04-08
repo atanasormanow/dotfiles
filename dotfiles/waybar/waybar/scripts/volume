@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Adjust default device volume and send a notification with the current level
+# Adjust default output device volume
 #
 # Requires libpulse (pactl)
 #
@@ -16,13 +16,9 @@ usage() {
 	local script=${0##*/}
 
 	cat <<- EOF
-		USAGE: $script {input|output} {mute|raise|lower} [value]
+		USAGE: $script output {mute|raise|lower} [value]
 
-		Adjust default device volume and send a notification with the current level
-
-		DEVICE:
-		  input            Use "@DEFAULT_SOURCE@" (microphone)
-		  output           Use "@DEFAULT_SINK@" (speaker/headphones)
+		Adjust default output device volume
 
 		OPTIONS:
 		  mute             Toggle device mute
@@ -30,9 +26,6 @@ usage() {
 		  lower [value]    Lower volume by [value] (default: $DEF_VALUE)
 
 		EXAMPLES:
-		  Toggle microphone mute:
-		    $ $script input mute
-
 		  Raise speaker volume:
 		    $ $script output raise
 
@@ -42,49 +35,15 @@ usage() {
 }
 
 pactl() {
-	command pactl "$1" "$DEV_DEF" "${@:2}"
-}
-
-get_state() {
-	local state
-	state=$(pactl "get-$DEV_STATE" | awk '{print $2}')
-
-	case $state in
-		yes) printf "Muted" ;;
-		no)  printf "Unmuted" ;;
-	esac
+	command pactl "$1" "@DEFAULT_SINK@" "${@:2}"
 }
 
 get_volume() {
-	pactl "get-$DEV_VOLUME" | awk '{print $5}' | tr -d '%'
-}
-
-get_icon() {
-	local state level
-
-	state=$(get_state)
-	level=$(get_volume)
-
-	local icon
-	local new_level=${1:-$level}
-
-	if [[ $state == Muted ]]; then
-		icon="$DEV_ICON-muted"
-	else
-		if ((new_level < MAX * 33 / 100)); then
-			icon="$DEV_ICON-low"
-		elif ((new_level < MAX * 66 / 100)); then
-			icon="$DEV_ICON-medium"
-		else
-			icon="$DEV_ICON-high"
-		fi
-	fi
-
-	printf "%s" "$icon"
+	pactl "get-sink-volume" | awk '{print $5}' | tr -d '%'
 }
 
 set_state() {
-	pactl "set-$DEV_STATE" toggle
+	pactl "set-sink-mute" toggle
 }
 
 set_volume() {
@@ -108,7 +67,7 @@ set_volume() {
 			;;
 	esac
 
-	pactl "set-$DEV_VOLUME" "$new_level%"
+	pactl "set-sink-volume" "$new_level%"
 }
 
 main() {
@@ -116,31 +75,15 @@ main() {
 	ACTION=$2
 	VALUE=${3:-$DEF_VALUE}
 
-	if ((VALUE < 1)); then
+	if [[ $DEVICE != "output" ]]; then
 		usage >&2
 		return 1
 	fi
 
-	case $DEVICE in
-		input)
-			DEV_DEF="@DEFAULT_SOURCE@"
-			DEV_STATE="source-mute"
-			DEV_VOLUME="source-volume"
-			DEV_ICON="mic-volume"
-			DEV_NAME="Microphone"
-			;;
-		output)
-			DEV_DEF="@DEFAULT_SINK@"
-			DEV_STATE="sink-mute"
-			DEV_VOLUME="sink-volume"
-			DEV_ICON="audio-volume"
-			DEV_NAME="Volume"
-			;;
-		*)
-			usage >&2
-			return 1
-			;;
-	esac
+	if ((VALUE < 1)); then
+		usage >&2
+		return 1
+	fi
 
 	case $ACTION in
 		mute)
