@@ -3,8 +3,10 @@
 ---------------*/
 
 #language {
-	margin-right: 12px;
+	margin-left: 2px;
+	margin-right: 10px;
 	color: @hover-fg;
+	font-weight: bold;
 }
 
 /*-----------------
