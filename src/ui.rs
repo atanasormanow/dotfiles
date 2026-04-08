@@ -39,14 +39,14 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
     let (line1_actions, line2_actions): (Vec<_>, Vec<_>) = if matches!(app.view, View::List) {
         (
             vec![
-                ("E", "edit file"),
-                ("e", "edit dest"),
-                ("F2", "rename"),
                 ("a", "add"),
                 ("l", "link"),
                 ("L", "link all"),
                 ("u", "unlink"),
                 ("d", "delete"),
+                ("E", "edit file"),
+                ("e", "edit dest"),
+                ("F2", "rename"),
             ],
             vec![
                 ("q", "quit"),
