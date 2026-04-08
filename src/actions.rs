@@ -226,6 +226,73 @@ pub fn remove_dotfile(dotfile: &Dotfile, restore: bool) -> Result<()> {
     Ok(())
 }
 
+/// Validate a dotfile name (alphanumeric, dash, underscore, dot only)
+fn validate_dotfile_name(name: &str) -> Result<()> {
+    if name.is_empty() {
+        anyhow::bail!("Name cannot be empty");
+    }
+
+    let is_valid = name
+        .chars()
+        .all(|c| c.is_alphanumeric() || c == '-' || c == '_' || c == '.');
+
+    if !is_valid {
+        anyhow::bail!("Name can only contain alphanumeric characters, -, _, and .");
+    }
+
+    Ok(())
+}
+
+/// Rename a dotfile (rename directory and update symlink if needed)
+pub fn rename_dotfile(dotfile: &Dotfile, new_name: &str, dotfiles_dir: &Path) -> Result<()> {
+    // Validate the new name
+    validate_dotfile_name(new_name)?;
+
+    let old_path = &dotfile.repo_path;
+    let new_path = dotfiles_dir.join(new_name);
+
+    // Check if new name already exists
+    if new_path.exists() {
+        anyhow::bail!("A dotfile named '{}' already exists", new_name);
+    }
+
+    // Store link status and destination before rename
+    let was_linked = matches!(dotfile.link_status, LinkStatus::Linked);
+
+    // Unlink if currently linked (we'll re-link after rename)
+    if was_linked {
+        unlink_dotfile(dotfile)?;
+    }
+
+    // Rename the directory
+    fs::rename(old_path, &new_path).with_context(|| {
+        format!(
+            "Failed to rename directory: {:?} -> {:?}",
+            old_path, new_path
+        )
+    })?;
+
+    // Re-link if it was linked before
+    if was_linked {
+        // Get the new source file path (inside renamed directory)
+        let file_name = dotfile
+            .source_file
+            .file_name()
+            .context("Invalid source file name")?;
+        let new_source_file = new_path.join(file_name);
+
+        // Create symlink pointing to new location
+        symlink(&new_source_file, &dotfile.dest_expanded).with_context(|| {
+            format!(
+                "Failed to create symlink after rename: {:?} -> {:?}",
+                dotfile.dest_expanded, new_source_file
+            )
+        })?;
+    }
+
+    Ok(())
+}
+
 /// Recursively copy a directory
 fn copy_dir_recursive(src: &Path, dst: &Path) -> Result<()> {
     fs::create_dir_all(dst)?;

@@ -37,6 +37,7 @@ pub enum InputMode {
     AddDotfileName { source: String },
     EditDestination(usize),
     Search,
+    Rename(usize),
 }
 
 /// Application state
@@ -360,6 +361,14 @@ impl App {
         self.view = View::Input(InputMode::Search);
     }
 
+    /// Start rename flow
+    pub fn start_rename(&mut self) {
+        if let Some(idx) = self.selected_index() {
+            self.input = self.dotfiles[idx].name.clone();
+            self.view = View::Input(InputMode::Rename(idx));
+        }
+    }
+
     /// Handle input submission
     pub fn submit_input(&mut self) {
         match self.view.clone() {
@@ -406,6 +415,37 @@ impl App {
                 self.apply_filter();
                 self.selected = 0;
                 self.view = View::List;
+            }
+            View::Input(InputMode::Rename(idx)) => {
+                let new_name = self.input.clone();
+                self.input.clear();
+                self.view = View::List;
+
+                if let Some(dotfile) = self.dotfiles.get(idx) {
+                    let old_name = dotfile.name.clone();
+                    match actions::rename_dotfile(dotfile, &new_name, &self.manager.dotfiles_dir) {
+                        Ok(()) => {
+                            self.status_message =
+                                Some(format!("Renamed '{}' to '{}'", old_name, new_name));
+                            // Refresh to reload the dotfile list with new name
+                            let _ = self.refresh();
+                            // Try to select the renamed item by finding it
+                            if let Some(new_idx) =
+                                self.dotfiles.iter().position(|d| d.name == new_name)
+                            {
+                                // Find position in filtered list
+                                if let Some(filtered_pos) =
+                                    self.filtered_indices.iter().position(|&i| i == new_idx)
+                                {
+                                    self.selected = filtered_pos;
+                                }
+                            }
+                        }
+                        Err(e) => {
+                            self.status_message = Some(format!("Error: {}", e));
+                        }
+                    }
+                }
             }
             _ => {}
         }

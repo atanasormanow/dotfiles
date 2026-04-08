@@ -130,6 +130,9 @@ fn handle_list_input(app: &mut App, code: KeyCode, modifiers: KeyModifiers) {
         KeyCode::Char('/') => app.start_search(),
         KeyCode::Esc => app.clear_filter(),
 
+        // Rename
+        KeyCode::F(2) => app.start_rename(),
+
         // Help
         KeyCode::Char('?') => app.show_help(),
 

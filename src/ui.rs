@@ -41,6 +41,7 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
             vec![
                 ("E", "edit file"),
                 ("e", "edit dest"),
+                ("F2", "rename"),
                 ("a", "add"),
                 ("l", "link"),
                 ("L", "link all"),
@@ -52,6 +53,7 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
                 ("r", "refresh"),
                 ("/", "search"),
                 ("?", "help"),
+                ("", ""),
                 ("", ""),
                 ("", ""),
                 ("", ""),
@@ -268,6 +270,7 @@ fn render_input_dialog(frame: &mut Frame, mode: &InputMode, app: &App) {
         InputMode::AddDotfileName { .. } => ("Add Dotfile", "Dotfile name:"),
         InputMode::EditDestination(_) => ("Edit Destination", "New destination:"),
         InputMode::Search => ("Search", "Filter by name:"),
+        InputMode::Rename(_) => ("Rename Dotfile", "New name (alphanumeric, -, _, . only):"),
     };
 
     let text = format!(
@@ -323,6 +326,7 @@ fn render_help_dialog(frame: &mut Frame) {
    d         Delete from repo
    a         Add new dotfile
    e         Edit destination
+   F2        Rename dotfile
    r         Refresh list
    /         Search/filter
    Esc       Clear / Cancel
