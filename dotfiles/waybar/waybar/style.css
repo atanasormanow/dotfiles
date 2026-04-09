@@ -19,7 +19,7 @@
 	background-color: @outline;
 }
 #waybar > box {
-	margin: 4px;
+	margin: 0;
 	background-color: @main-bg;
 }
 
