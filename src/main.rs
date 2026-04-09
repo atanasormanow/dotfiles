@@ -173,6 +173,7 @@ fn handle_input_mode(app: &mut App, code: KeyCode) {
         KeyCode::Enter => app.submit_input(),
         KeyCode::Esc => app.cancel(),
         KeyCode::Backspace => app.input_backspace(),
+        KeyCode::Tab => app.trigger_completion(),
         KeyCode::Char(c) => app.input_char(c),
         _ => {}
     }

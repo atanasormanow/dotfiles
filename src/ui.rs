@@ -273,11 +273,73 @@ fn render_input_dialog(frame: &mut Frame, mode: &InputMode, app: &App) {
         InputMode::Rename(_) => ("Rename Dotfile", "New name (alphanumeric, -, _, . only):"),
     };
 
-    let text = format!(
-        "{}\n> {}_\n\n[Enter] Confirm  [Esc] Cancel",
-        prompt, app.input
+    // Build the content with autocomplete preview
+    let should_show_completion = matches!(
+        mode,
+        InputMode::AddDotfileSource | InputMode::EditDestination(_)
     );
-    let dialog = Paragraph::new(text)
+
+    let mut lines = vec![Line::from(prompt)];
+
+    // Build input line with completion preview
+    let has_completion = should_show_completion
+        && app.completion_index.is_some()
+        && !app.completion_candidates.is_empty();
+
+    if has_completion {
+        let idx = app.completion_index.unwrap(); // Safe because we checked is_some()
+        if let Some(candidate) = app.completion_candidates.get(idx) {
+            let home = std::env::var("HOME").unwrap_or_default();
+            let path_str = candidate.to_string_lossy();
+            let display_path = if !home.is_empty() && path_str.starts_with(&home) {
+                path_str.replacen(&home, "$HOME", 1)
+            } else {
+                path_str.to_string()
+            };
+
+            // Add trailing slash for directories
+            let suggestion = if candidate.is_dir() {
+                format!("{}/", display_path)
+            } else {
+                display_path
+            };
+
+            // Show what part is being autocompleted (grayed out)
+            let completion_part = if suggestion.len() > app.input.len() {
+                suggestion[app.input.len()..].to_string()
+            } else {
+                String::new()
+            };
+
+            let input_line = Line::from(vec![
+                Span::styled("> ", Style::default().fg(Color::White)),
+                Span::styled(&app.input, Style::default().fg(Color::White)),
+                Span::styled(completion_part, Style::default().fg(Color::DarkGray)),
+                Span::styled("_", Style::default().fg(Color::White)),
+            ]);
+            lines.push(input_line);
+        } else {
+            // Fallback if index is out of bounds
+            lines.push(Line::from(format!("> {}_", app.input)));
+        }
+    } else {
+        // No completion - show normal input
+        lines.push(Line::from(format!("> {}_", app.input)));
+    }
+
+    // Add spacing
+    lines.push(Line::from(""));
+
+    // Add instructions with Tab hint for path completion modes
+    if should_show_completion {
+        lines.push(Line::from(
+            "[Tab] Complete path  [Enter] Confirm  [Esc] Cancel",
+        ));
+    } else {
+        lines.push(Line::from("[Enter] Confirm  [Esc] Cancel"));
+    }
+
+    let dialog = Paragraph::new(lines)
         .block(
             Block::default()
                 .title(title)

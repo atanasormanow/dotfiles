@@ -66,6 +66,12 @@ pub struct App {
     pub distribute_cursor: usize,
     /// Flag to open editor (handled in main loop)
     pub pending_editor: bool,
+    /// Current path completion candidates
+    pub completion_candidates: Vec<std::path::PathBuf>,
+    /// Index of currently selected completion (None = no completion active)
+    pub completion_index: Option<usize>,
+    /// Input at the time completion was triggered (to detect changes)
+    pub completion_base: String,
 }
 
 impl App {
@@ -88,6 +94,9 @@ impl App {
             distribute_selected: Vec::new(),
             distribute_cursor: 0,
             pending_editor: false,
+            completion_candidates: Vec::new(),
+            completion_index: None,
+            completion_base: String::new(),
         })
     }
 
@@ -454,6 +463,7 @@ impl App {
     /// Cancel current input/dialog
     pub fn cancel(&mut self) {
         self.input.clear();
+        self.clear_completions();
         self.view = View::List;
     }
 
@@ -472,11 +482,15 @@ impl App {
     /// Handle character input
     pub fn input_char(&mut self, c: char) {
         self.input.push(c);
+        // Clear completions when user types (will regenerate on next Tab)
+        self.clear_completions();
     }
 
     /// Handle backspace in input
     pub fn input_backspace(&mut self) {
         self.input.pop();
+        // Clear completions when user deletes (will regenerate on next Tab)
+        self.clear_completions();
     }
 
     /// Start distribute (batch link) mode
@@ -621,5 +635,154 @@ impl App {
     /// Deselect all in distribute view
     pub fn distribute_select_none(&mut self) {
         self.distribute_selected.clear();
+    }
+
+    /// Trigger path completion (Tab key pressed)
+    pub fn trigger_completion(&mut self) {
+        // Only for AddDotfileSource and EditDestination modes
+        let should_complete = matches!(
+            self.view,
+            View::Input(InputMode::AddDotfileSource) | View::Input(InputMode::EditDestination(_))
+        );
+
+        if !should_complete {
+            return;
+        }
+
+        // If input changed since last completion, regenerate candidates
+        if self.input != self.completion_base {
+            self.generate_completions();
+            self.completion_base = self.input.clone();
+            self.completion_index = if self.completion_candidates.is_empty() {
+                None
+            } else {
+                Some(0)
+            };
+        } else if !self.completion_candidates.is_empty() {
+            // Input hasn't changed - cycle to next candidate
+            self.cycle_completion();
+        } else {
+            // No candidates available
+            return;
+        }
+
+        // Apply the selected completion
+        self.apply_completion();
+    }
+
+    /// Generate path completion candidates based on current input
+    fn generate_completions(&mut self) {
+        use std::path::Path;
+
+        let input = &self.input;
+
+        // Handle empty input - complete from current directory
+        if input.is_empty() {
+            self.complete_directory(Path::new("."), "");
+            return;
+        }
+
+        // Expand ~ and environment variables
+        let expanded = shellexpand::full(input)
+            .map(|s| s.into_owned())
+            .unwrap_or_else(|_| input.clone());
+
+        let path = Path::new(&expanded);
+
+        // Determine directory to search and partial filename
+        if expanded.ends_with('/') || expanded.ends_with(std::path::MAIN_SEPARATOR) {
+            // User typed trailing slash - complete in that directory
+            self.complete_directory(path, "");
+        } else {
+            // Split into directory and partial filename
+            let parent = path.parent().unwrap_or(Path::new("."));
+            let filename = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
+            self.complete_directory(parent, filename);
+        }
+    }
+
+    /// Helper to complete within a specific directory
+    fn complete_directory(&mut self, dir: &std::path::Path, partial: &str) {
+        use std::fs;
+        use std::path::PathBuf;
+
+        self.completion_candidates.clear();
+
+        // Try to read directory
+        let Ok(entries) = fs::read_dir(dir) else {
+            return;
+        };
+
+        // Collect matching entries
+        let mut candidates: Vec<PathBuf> = entries
+            .filter_map(|e| e.ok())
+            .filter_map(|entry| {
+                let name = entry.file_name().to_string_lossy().to_string();
+                // Filter by partial match (case-sensitive prefix)
+                if name.starts_with(partial) {
+                    Some(entry.path())
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        // Sort alphabetically (directories first, then files)
+        candidates.sort_by(|a, b| {
+            let a_is_dir = a.is_dir();
+            let b_is_dir = b.is_dir();
+            match (a_is_dir, b_is_dir) {
+                (true, false) => std::cmp::Ordering::Less,
+                (false, true) => std::cmp::Ordering::Greater,
+                _ => a.cmp(b),
+            }
+        });
+
+        // Limit to 50 candidates to prevent performance issues
+        candidates.truncate(50);
+
+        self.completion_candidates = candidates;
+    }
+
+    /// Cycle to next completion candidate
+    fn cycle_completion(&mut self) {
+        if let Some(idx) = self.completion_index {
+            if !self.completion_candidates.is_empty() {
+                self.completion_index = Some((idx + 1) % self.completion_candidates.len());
+            }
+        }
+    }
+
+    /// Apply selected completion to input buffer
+    fn apply_completion(&mut self) {
+        if let Some(idx) = self.completion_index {
+            if let Some(path) = self.completion_candidates.get(idx) {
+                // Convert back to use $HOME if applicable
+                let home = std::env::var("HOME").unwrap_or_default();
+                let path_str = path.to_string_lossy();
+                let display_path = if !home.is_empty() && path_str.starts_with(&home) {
+                    path_str.replacen(&home, "$HOME", 1)
+                } else {
+                    path_str.to_string()
+                };
+
+                // Add trailing slash for directories
+                if path.is_dir() {
+                    self.input = format!("{}/", display_path);
+                } else {
+                    self.input = display_path;
+                }
+
+                // Update completion base to new input
+                self.completion_base = self.input.clone();
+            }
+        }
+    }
+
+    /// Clear completion state
+    fn clear_completions(&mut self) {
+        self.completion_candidates.clear();
+        self.completion_index = None;
+        self.completion_base.clear();
     }
 }
