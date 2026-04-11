@@ -1,0 +1,17 @@
+/**
+ * Shared Rofi Theme
+ * Gruvbox Dark Soft - Orange variant
+ * Matching Hyprland borders
+ **/
+
+* {
+    font:                        "JetBrains Mono Nerd Font 10";
+
+    /* Gruvbox Dark Soft - Orange */
+    background:                  #32302f;
+    background-alt:              #3c3836;
+    foreground:                  #ebdbb2;
+    selected:                    #d65d0e;
+    active:                      #fe8019;
+    urgent:                      #cc241d;
+}
