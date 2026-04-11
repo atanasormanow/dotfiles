@@ -262,11 +262,12 @@ impl DotfileManager {
             .trim()
             .to_string();
 
-        // Expand environment variables
+        // Expand environment variables and normalize path (strip trailing slashes)
         let dest_expanded = PathBuf::from(
             shellexpand::full(&dest_raw)
                 .with_context(|| format!("Failed to expand path for '{}'", name))?
-                .into_owned(),
+                .into_owned()
+                .trim_end_matches('/'),
         );
 
         // Find the source file (the file that should be symlinked)
