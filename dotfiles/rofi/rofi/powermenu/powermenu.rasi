@@ -1,24 +1,10 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
+/*****----- Global Properties -----*****/
+@import "~/.config/rofi/shared/theme.rasi"
 
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 false;
 }
-
-/*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
-
-/*
-USE_BUTTONS=YES
-*/
 
 /*****----- Main Window -----*****/
 window {
@@ -27,7 +13,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       800px;
+    width:                       500px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -35,9 +21,9 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
-    border-radius:               20px;
-    border-color:                @selected;
+    border:                      2px solid;
+    border-radius:               5px;
+    border-color:                #fe8019;
     cursor:                      "default";
     background-color:            @background;
 }
@@ -66,11 +52,7 @@ inputbar {
     border-color:                @selected;
     background-color:            transparent;
     text-color:                  @foreground;
-    children:                    [ "textbox-prompt-colon", "prompt"];
-}
-
-dummy {
-    background-color:            transparent;
+    children:                    [ "textbox-prompt-colon", "prompt", "message"];
 }
 
 textbox-prompt-colon {
@@ -78,14 +60,14 @@ textbox-prompt-colon {
     expand:                      false;
     str:                         "";
     padding:                     12px 16px;
-    border-radius:               15px 15px 0px 15px;
+    border-radius:               100%;
     background-color:            @urgent;
     text-color:                  @background;
 }
 prompt {
     enabled:                     true;
     padding:                     12px;
-    border-radius:               15px 15px 15px 0px;
+    border-radius:               100%;
     background-color:            @active;
     text-color:                  @background;
 }
@@ -94,21 +76,24 @@ prompt {
 message {
     enabled:                     true;
     margin:                      0px;
-    padding:                     12px;
+    padding:                     0px;
     border:                      0px solid;
-    border-radius:               15px 5px 15px 5px;
+    border-radius:               0px;
     border-color:                @selected;
-    background-color:            @background-alt;
+    background-color:            transparent;
     text-color:                  @foreground;
+    expand:                      true;
 }
 textbox {
-    background-color:            inherit;
+    background-color:            @background-alt;
     text-color:                  inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.5;
+    horizontal-align:            0.0;
     placeholder-color:           @foreground;
     blink:                       true;
     markup:                      true;
+    padding:                     12px;
+    border-radius:               100%;
 }
 error-message {
     padding:                     12px;
@@ -122,8 +107,8 @@ error-message {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     5;
-    lines:                       1;
+    columns:                     1;
+    lines:                       5;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -132,7 +117,7 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     15px;
+    spacing:                     5px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -148,25 +133,22 @@ element {
     enabled:                     true;
     spacing:                     0px;
     margin:                      0px;
-    padding:                     40px 10px;
+    padding:                     12px;
     border:                      0px solid;
-    border-radius:               50px 20px 50px 20px;
+    border-radius:               0px;
     border-color:                @selected;
-    background-color:            @background-alt;
+    background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      pointer;
 }
 element-text {
-    font:                        "feather bold 32";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.5;
+    horizontal-align:            0.0;
 }
 element selected.normal {
-    border:                      0px 0px 2px 2px ;
-    border-color:                @selected;
-    background-color:            var(background-alt);
-    text-color:                  var(selected);
+    background-color:            #fe8019;
+    text-color:                  #000000;
 }
