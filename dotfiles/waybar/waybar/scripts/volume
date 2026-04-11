@@ -13,9 +13,9 @@ MIN=0
 MAX=100
 
 usage() {
-	local script=${0##*/}
+  local script=${0##*/}
 
-	cat <<- EOF
+  cat <<-EOF
 		USAGE: $script output {mute|raise|lower} [value]
 
 		Adjust default output device volume
@@ -35,68 +35,68 @@ usage() {
 }
 
 pactl() {
-	command pactl "$1" "@DEFAULT_SINK@" "${@:2}"
+  command pactl "$1" "@DEFAULT_SINK@" "${@:2}"
 }
 
 get_volume() {
-	pactl "get-sink-volume" | awk '{print $5}' | tr -d '%'
+  pactl "get-sink-volume" | awk '{print $5}' | tr -d '%'
 }
 
 set_state() {
-	pactl "set-sink-mute" toggle
+  pactl "set-sink-mute" toggle
 }
 
 set_volume() {
-	local level
-	level=$(get_volume)
+  local level
+  level=$(get_volume)
 
-	local new_level
+  local new_level
 
-	case $ACTION in
-		raise)
-			new_level=$((level + VALUE))
-			if ((new_level > MAX)); then
-				new_level=$MAX
-			fi
-			;;
-		lower)
-			new_level=$((level - VALUE))
-			if ((new_level < MIN)); then
-				new_level=$MIN
-			fi
-			;;
-	esac
+  case $ACTION in
+  raise)
+    new_level=$((level + VALUE))
+    if ((new_level > MAX)); then
+      new_level=$MAX
+    fi
+    ;;
+  lower)
+    new_level=$((level - VALUE))
+    if ((new_level < MIN)); then
+      new_level=$MIN
+    fi
+    ;;
+  esac
 
-	pactl "set-sink-volume" "$new_level%"
+  pactl "set-sink-volume" "$new_level%"
 }
 
 main() {
-	DEVICE=$1
-	ACTION=$2
-	VALUE=${3:-$DEF_VALUE}
+  DEVICE=$1
+  ACTION=$2
+  VALUE=${3:-$DEF_VALUE}
 
-	if [[ $DEVICE != "output" ]]; then
-		usage >&2
-		return 1
-	fi
+  if [[ $DEVICE != "output" ]]; then
+    usage >&2
+    return 1
+  fi
 
-	if ((VALUE < 1)); then
-		usage >&2
-		return 1
-	fi
+  if ((VALUE < 1)); then
+    usage >&2
+    return 1
+  fi
 
-	case $ACTION in
-		mute)
-			set_state
-			;;
-		raise | lower)
-			set_volume
-			;;
-		*)
-			usage >&2
-			return 1
-			;;
-	esac
+  case $ACTION in
+  mute)
+    set_state
+    ;;
+  raise | lower)
+    set_volume
+    ;;
+  *)
+    usage >&2
+    return 1
+    ;;
+  esac
 }
 
 main "$@"
