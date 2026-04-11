@@ -11,7 +11,7 @@
 configuration {
 	modi:                       "drun";
     show-icons:                 true;
-    display-drun:               " Apps";
+    display-drun:               " Applications";
 	drun-display-format:        "{name}";
 }
 
@@ -25,7 +25,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       100%;
+    width:                       450px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -42,62 +42,35 @@ window {
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     20px;
+    spacing:                     0px;
     margin:                      0px;
-    padding:                     50px;
+    padding:                     0px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @selected;
     background-color:            transparent;
-    children:                    [ "inputbar", "listview" ];
+    children:                    [ "listview", "entry" ];
 }
 
 /*****----- Inputbar -----*****/
-inputbar {
-    enabled:                     true;
-    spacing:                     20px;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px;
-    border-radius:               0px;
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
-    children:                    [ "prompt", "entry" ];
-}
-
-prompt {
-    enabled:                     true;
-    padding:                     15px;
-    border-radius:               15px;
-    background-color:            @selected;
-    text-color:                  @background;
-}
-textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         "::";
-    background-color:            inherit;
-    text-color:                  inherit;
-}
 entry {
     enabled:                     true;
     expand:                      false;
-    width:                       350px;
-    padding:                     15px 20px;
-    border-radius:               15px;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
+    padding:                     20px 0px;
+    background-color:            @selected;
+    text-color:                  @background;
     cursor:                      text;
     placeholder:                 "Search...";
     placeholder-color:           inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }
 
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     10;
-    lines:                       1;
+    columns:                     3;
+    lines:                       3;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -108,7 +81,7 @@ listview {
     
     spacing:                     0px;
     margin:                      0px;
-    padding:                     0px;
+    padding:                     20px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
@@ -126,13 +99,13 @@ scrollbar {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    spacing:                     20px;
+    spacing:                     15px;
     margin:                      0px;
-    padding:                     30px 10px;
+    padding:                     20px 10px;
     border:                      0px solid;
-    border-radius:               20px;
+    border-radius:               0px;
     border-color:                @selected;
-    background-color:            @background;
+    background-color:            transparent;
     text-color:                  @foreground;
     orientation:                 vertical;
     cursor:                      pointer;
@@ -146,10 +119,9 @@ element selected.normal {
     text-color:                  @foreground;
 }
 element-icon {
-    padding:                     0px 0px 0px 0px;
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        96px;
+    size:                        64px;
     cursor:                      inherit;
 }
 element-text {
@@ -163,7 +135,7 @@ element-text {
 
 /*****----- Message -----*****/
 error-message {
-    padding:                     50px;
+    padding:                     15px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;

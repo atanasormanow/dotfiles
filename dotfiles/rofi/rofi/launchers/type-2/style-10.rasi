@@ -11,32 +11,13 @@
 configuration {
 	modi:                       "drun";
     show-icons:                 true;
-    display-drun:               "";
+    display-drun:               "Applications";
 	drun-display-format:        "{name}";
 }
 
 /*****----- Global Properties -----*****/
 @import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
-
-* {
-    /* For Screens with 1920x1080 resolution */
-    screen-margin:               180px 150px;
-    box-spacing:                 40px;
-    icon-size:                   96px;
-    element-padding:             30px;
-    element-spacing:             15px;
-
-    /* For Screens with 1366x768 resolution */
-    /*
-    screen-margin:               120px 60px;
-    box-spacing:                 40px;
-    icon-size:                   64px;
-    element-padding:             20px;
-    element-spacing:             10px;
-    */
-    /* Use this as reference and create for your screen resolution */
-}
 
 /*****----- Main Window -----*****/
 window {
@@ -62,9 +43,9 @@ window {
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     @box-spacing;
-    margin:                      @screen-margin;
-    padding:                     0px;
+    spacing:                     20px;
+    margin:                      0px;
+    padding:                     150px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @selected;
@@ -75,21 +56,23 @@ mainbox {
 /*****----- Inputbar -----*****/
 inputbar {
     enabled:                     true;
-    spacing:                     10px;
-    margin:                      0px 50% 0px 0px;
-    padding:                     15px;
-    border:                      0px solid;
+    spacing:                     0px;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px 0px 2px 0px;
     border-radius:               100%;
     border-color:                @selected;
-    background-color:            @selected;
-    text-color:                  @background;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
 
 prompt {
     enabled:                     true;
-    background-color:            inherit;
-    text-color:                  inherit;
+    padding:                     12px;
+    border-radius:               100%;
+    background-color:            @selected;
+    text-color:                  @background;
 }
 textbox-prompt-colon {
     enabled:                     true;
@@ -100,6 +83,7 @@ textbox-prompt-colon {
 }
 entry {
     enabled:                     true;
+    padding:                     12px;
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
@@ -110,8 +94,8 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     8;
-    lines:                       3;
+    columns:                     3;
+    lines:                       10;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -120,7 +104,7 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     @element-spacing;
+    spacing:                     20px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -140,31 +124,36 @@ scrollbar {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    spacing:                     @element-spacing;
+    spacing:                     10px;
     margin:                      0px;
-    padding:                     @element-padding;
+    padding:                     8px;
     border:                      0px solid;
-    border-radius:               30px;
+    border-radius:               100%;
     border-color:                @selected;
-    background-color:            transparent;
+    background-color:            @background;
     text-color:                  @foreground;
-    orientation:                 vertical;
     cursor:                      pointer;
 }
 element normal.normal {
-    background-color:            @background;
-    text-color:                  @foreground;
-}
-element selected.normal {
-    border:                      0px 0px 4px 0px;
-    border-color:                @selected;
     background-color:            @background-alt;
     text-color:                  @foreground;
 }
+element alternate.normal {
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+}
+element selected.normal {
+    border:                      0px 0px 2px 2px;
+    border-radius:               100%;
+    border-color:                @selected;
+    background-color:            @background-alt;
+    text-color:                  @selected;
+}
 element-icon {
+    padding:                     0px 0px 0px 0px;
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        @icon-size;
+    size:                        32px;
     cursor:                      inherit;
 }
 element-text {
@@ -173,12 +162,12 @@ element-text {
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.5;
+    horizontal-align:            0.0;
 }
 
 /*****----- Message -----*****/
 error-message {
-    padding:                     150px;
+    padding:                     100px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;

@@ -33,18 +33,18 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               12px;
+    border-radius:               0px;
     border-color:                @selected;
-    background-color:            black / 10%;
+    background-color:            @background;
     cursor:                      "default";
 }
 
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     20px;
+    spacing:                     10px;
     margin:                      0px;
-    padding:                     20px;
+    padding:                     10px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @selected;
@@ -57,30 +57,30 @@ inputbar {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     15px;
-    border:                      0px solid;
-    border-radius:               10px;
+    padding:                     12px;
+    border:                      1px solid;
+    border-radius:               4px;
     border-color:                @selected;
-    background-color:            white / 5%;
+    background-color:            @background;
     text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
 
 prompt {
     enabled:                     true;
-    background-color:            transparent;
+    background-color:            inherit;
     text-color:                  inherit;
 }
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "::";
-    background-color:            transparent;
+    background-color:            inherit;
     text-color:                  inherit;
 }
 entry {
     enabled:                     true;
-    background-color:            transparent;
+    background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
     placeholder:                 "Search";
@@ -90,7 +90,7 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     5;
+    columns:                     6;
     lines:                       3;
     cycle:                       true;
     dynamic:                     true;
@@ -124,7 +124,7 @@ element {
     margin:                      0px;
     padding:                     20px 10px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
     text-color:                  @foreground;
@@ -136,7 +136,10 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            white / 5%;
+    border:                      1px solid;
+    border-radius:               4px;
+    border-color:                @selected;
+    background-color:            @background;
     text-color:                  @foreground;
 }
 element-icon {
@@ -156,9 +159,9 @@ element-text {
 
 /*****----- Message -----*****/
 error-message {
-    padding:                     15px;
-    border:                      2px solid;
-    border-radius:               10px;
+    padding:                     10px;
+    border:                      1px solid;
+    border-radius:               0px;
     border-color:                @selected;
     background-color:            black / 10%;
     text-color:                  @foreground;

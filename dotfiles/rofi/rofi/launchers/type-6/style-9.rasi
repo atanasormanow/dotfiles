@@ -9,14 +9,14 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,filebrowser,window";
     show-icons:                 true;
-    display-drun:               "APPS";
-    display-run:                "RUN";
-    display-filebrowser:        "FILES";
-    display-window:             "WINDOW";
+    display-drun:               "";
+    display-run:                "";
+    display-filebrowser:        "";
+    display-window:             "";
 	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
+	window-format:              "{w}: {c}";
 }
 
 /*****----- Global Properties -----*****/
@@ -37,13 +37,13 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1000px;
+    width:                       700px;
     x-offset:                    0px;
     y-offset:                    0px;
 
     /* properties for all widgets */
     enabled:                     true;
-    border-radius:               15px;
+    border-radius:               20px;
     cursor:                      "default";
     background-color:            @background;
 }
@@ -53,16 +53,8 @@ mainbox {
     enabled:                     true;
     spacing:                     0px;
     background-color:            transparent;
-    orientation:                 horizontal;
-    children:                    [ "imagebox", "listbox" ];
-}
-
-imagebox {
-    padding:                     20px;
-    background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/i.jpg", height);
     orientation:                 vertical;
-    children:                    [ "inputbar", "dummy", "mode-switcher" ];
+    children:                    [ "inputbar", "listbox" ];
 }
 
 listbox {
@@ -73,46 +65,54 @@ listbox {
     children:                    [ "message", "listview" ];
 }
 
-dummy {
-    background-color:            transparent;
-}
-
 /*****----- Inputbar -----*****/
 inputbar {
     enabled:                     true;
     spacing:                     10px;
-    padding:                     15px;
-    border-radius:               10px;
-    background-color:            @background-alt;
+    padding:                     80px 60px;
+    background-color:            transparent;
+    background-image:            url("~/.config/rofi/images/i.jpg", width);
     text-color:                  @foreground;
-    children:                    [ "textbox-prompt-colon", "entry" ];
+    orientation:                 horizontal;
+    children:                    [ "textbox-prompt-colon", "entry", "dummy", "mode-switcher" ];
 }
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "";
-    background-color:            inherit;
+    padding:                     12px 15px;
+    border-radius:               100%;
+    background-color:            @background-alt;
     text-color:                  inherit;
 }
 entry {
     enabled:                     true;
-    background-color:            inherit;
+    expand:                      false;
+    width:                       250px;
+    padding:                     12px 16px;
+    border-radius:               100%;
+    background-color:            @background-alt;
     text-color:                  inherit;
     cursor:                      text;
     placeholder:                 "Search";
     placeholder-color:           inherit;
 }
+dummy {
+    expand:                      true;
+    background-color:            transparent;
+}
 
 /*****----- Mode Switcher -----*****/
 mode-switcher{
     enabled:                     true;
-    spacing:                     20px;
+    spacing:                     10px;
     background-color:            transparent;
     text-color:                  @foreground;
 }
 button {
-    padding:                     15px;
-    border-radius:               10px;
+    width:                       45px;
+    padding:                     12px;
+    border-radius:               100%;
     background-color:            @background-alt;
     text-color:                  inherit;
     cursor:                      pointer;
@@ -125,8 +125,8 @@ button selected {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     1;
-    lines:                       8;
+    columns:                     3;
+    lines:                       1;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -145,11 +145,12 @@ listview {
 element {
     enabled:                     true;
     spacing:                     15px;
-    padding:                     8px;
-    border-radius:               10px;
+    padding:                     35px 10px;
+    border-radius:               20px;
     background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      pointer;
+    orientation:                 vertical;
 }
 element normal.normal {
     background-color:            inherit;
@@ -178,7 +179,7 @@ element selected.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        32px;
+    size:                        96px;
     cursor:                      inherit;
 }
 element-text {
@@ -186,7 +187,7 @@ element-text {
     text-color:                  inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.0;
+    horizontal-align:            0.5;
 }
 
 /*****----- Message -----*****/
@@ -194,16 +195,16 @@ message {
     background-color:            transparent;
 }
 textbox {
-    padding:                     15px;
-    border-radius:               10px;
+    padding:                     12px;
+    border-radius:               100%;
     background-color:            @background-alt;
     text-color:                  @foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
 }
 error-message {
-    padding:                     15px;
-    border-radius:               20px;
+    padding:                     12px;
+    border-radius:               0px;
     background-color:            @background;
     text-color:                  @foreground;
 }

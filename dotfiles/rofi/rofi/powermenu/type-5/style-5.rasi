@@ -33,13 +33,13 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1000px;
+    width:                       800px;
     x-offset:                    0px;
     y-offset:                    0px;
 
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               20px;
+    border-radius:               0px;
     border-color:                @selected;
     cursor:                      "default";
     background-color:            @background;
@@ -47,57 +47,71 @@ window {
 
 /*****----- Main Box -----*****/
 mainbox {
-    enabled:                     true;
-    spacing:                     0px;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @selected;
     background-color:            transparent;
-    children:                    [ "inputbar", "listview", "message" ];
+    orientation:                 horizontal;
+    children:                    [ "listview", "imagebox" ];
+}
+
+/*****----- Imagebox -----*****/
+imagebox {
+    expand:                      false;
+    width:                       500px;
+    spacing:                     0px;
+    padding:                     100px;
+    background-color:            transparent;
+    background-image:            url("~/.config/rofi/images/j.jpg", height);
+    children:                    [ "inputbar", "dummy", "message" ];
+}
+
+/*****----- User -----*****/
+userimage {
+    margin:                      0px 0px;
+    border:                      10px;
+    border-radius:               0px;
+    border-color:                @background-alt;
+    background-color:            transparent;
+    background-image:            url("~/.config/rofi/images/j.jpg", height);
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
-    enabled:                     true;
-    spacing:                     20px;
-    padding:                     100px 40px;
-    background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/j.jpg", width);
-    children:                    [ "textbox-prompt-colon", "prompt"];
+    padding:                     20px;
+    border-radius:               0px;
+    background-color:            @urgent;
+    text-color:                  @background;
+    children:                    [ "dummy", "prompt", "dummy"];
 }
 
 dummy {
     background-color:            transparent;
 }
 
-textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         " System";
-    padding:                     15px;
-    border:                      0px 0px 0px 10px;
-    border-radius:               100% 100% 0px 100%;
-    border-color:                @selected;
-    background-color:            @urgent;
-    text-color:                  @foreground;
-}
 prompt {
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+/*****----- Message -----*****/
+message {
     enabled:                     true;
-    padding:                     15px;
-    border:                      0px;
-    border-radius:               0px 100% 100% 100%;
-    border-color:                @selected;
+    margin:                      0px;
+    padding:                     20px;
+    border-radius:               0px;
     background-color:            @active;
     text-color:                  @background;
+}
+textbox {
+    background-color:            inherit;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }
 
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     6;
-    lines:                       1;
+    columns:                     2;
+    lines:                       3;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -115,8 +129,8 @@ listview {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    padding:                     35px 10px;
-    border-radius:               55px;
+    padding:                     20px 10px;
+    border-radius:               0px;
     background-color:            @background-alt;
     text-color:                  @foreground;
     cursor:                      pointer;
@@ -132,20 +146,4 @@ element-text {
 element selected.normal {
     background-color:            var(selected);
     text-color:                  var(background);
-}
-
-/*****----- Message -----*****/
-message {
-    enabled:                     true;
-    margin:                      0px;
-    padding:                     15px;
-    border-radius:               0px;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
-}
-textbox {
-    background-color:            inherit;
-    text-color:                  inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
 }

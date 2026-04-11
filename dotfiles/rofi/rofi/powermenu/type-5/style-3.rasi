@@ -33,7 +33,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       550px;
+    width:                       800px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -47,46 +47,62 @@ window {
 
 /*****----- Main Box -----*****/
 mainbox {
-    enabled:                     true;
-    spacing:                     0px;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @selected;
     background-color:            transparent;
-    children:                    [ "inputbar", "listview", "message" ];
+    orientation:                 horizontal;
+    children:                    [ "imagebox", "listview" ];
+}
+
+/*****----- Imagebox -----*****/
+imagebox {
+    spacing:                     0px;
+    padding:                     30px;
+    background-color:            transparent;
+    background-image:            url("~/.config/rofi/images/e.jpg", width);
+    children:                    [ "inputbar", "dummy", "message" ];
+}
+
+/*****----- User -----*****/
+userimage {
+    margin:                      0px 0px;
+    border:                      10px;
+    border-radius:               10px;
+    border-color:                @background-alt;
+    background-color:            transparent;
+    background-image:            url("~/.config/rofi/images/e.jpg", height);
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
-    enabled:                     true;
-    spacing:                     0px;
-    padding:                     100px 40px;
-    background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/e.jpg", width);
-    children:                    [ "textbox-prompt-colon", "dummy","prompt"];
+    padding:                     15px;
+    border-radius:               10px;
+    background-color:            @urgent;
+    text-color:                  @background;
+    children:                    [ "dummy", "prompt", "dummy"];
 }
 
 dummy {
     background-color:            transparent;
 }
 
-textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         " System";
-    padding:                     12px;
-    border-radius:               5px;
-    background-color:            @urgent;
-    text-color:                  @background;
-}
 prompt {
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+/*****----- Message -----*****/
+message {
     enabled:                     true;
-    padding:                     12px;
-    border-radius:               5px;
+    margin:                      0px;
+    padding:                     15px;
+    border-radius:               10px;
     background-color:            @active;
     text-color:                  @foreground;
+}
+textbox {
+    background-color:            inherit;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }
 
 /*****----- Listview -----*****/
@@ -102,8 +118,8 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     15px;
-    margin:                      15px;
+    spacing:                     30px;
+    margin:                      30px;
     background-color:            transparent;
     cursor:                      "default";
 }
@@ -111,8 +127,8 @@ listview {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    padding:                     30px 10px;
-    border-radius:               10px;
+    padding:                     18px 10px;
+    border-radius:               20px;
     background-color:            @background-alt;
     text-color:                  @foreground;
     cursor:                      pointer;
@@ -128,20 +144,4 @@ element-text {
 element selected.normal {
     background-color:            var(selected);
     text-color:                  var(background);
-}
-
-/*****----- Message -----*****/
-message {
-    enabled:                     true;
-    margin:                      0px;
-    padding:                     15px;
-    border-radius:               0px;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
-}
-textbox {
-    background-color:            inherit;
-    text-color:                  inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
 }

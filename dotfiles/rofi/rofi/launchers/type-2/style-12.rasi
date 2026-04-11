@@ -11,7 +11,7 @@
 configuration {
 	modi:                       "drun";
     show-icons:                 true;
-    display-drun:               " Applications";
+    display-drun:               " Apps";
 	drun-display-format:        "{name}";
 }
 
@@ -24,9 +24,8 @@ window {
     transparency:                "real";
     location:                    center;
     anchor:                      center;
-    fullscreen:                  true;
-    width:                       1366px;
-    height:                      768px;
+    fullscreen:                  false;
+    width:                       100%;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -45,7 +44,7 @@ mainbox {
     enabled:                     true;
     spacing:                     20px;
     margin:                      0px;
-    padding:                     200px;
+    padding:                     50px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @selected;
@@ -70,7 +69,7 @@ inputbar {
 prompt {
     enabled:                     true;
     padding:                     15px;
-    border-radius:               100%;
+    border-radius:               15px;
     background-color:            @selected;
     text-color:                  @background;
 }
@@ -86,7 +85,7 @@ entry {
     expand:                      false;
     width:                       350px;
     padding:                     15px 20px;
-    border-radius:               100%;
+    border-radius:               15px;
     background-color:            @background-alt;
     text-color:                  @foreground;
     cursor:                      text;
@@ -97,8 +96,8 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     4;
-    lines:                       10;
+    columns:                     10;
+    lines:                       1;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -107,7 +106,7 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     10px;
+    spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -127,14 +126,15 @@ scrollbar {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    spacing:                     10px;
+    spacing:                     20px;
     margin:                      0px;
-    padding:                     8px;
+    padding:                     30px 10px;
     border:                      0px solid;
-    border-radius:               100%;
+    border-radius:               20px;
     border-color:                @selected;
     background-color:            @background;
     text-color:                  @foreground;
+    orientation:                 vertical;
     cursor:                      pointer;
 }
 element normal.normal {
@@ -149,7 +149,7 @@ element-icon {
     padding:                     0px 0px 0px 0px;
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        32px;
+    size:                        96px;
     cursor:                      inherit;
 }
 element-text {
@@ -158,12 +158,12 @@ element-text {
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.0;
+    horizontal-align:            0.5;
 }
 
 /*****----- Message -----*****/
 error-message {
-    padding:                     100px;
+    padding:                     50px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;

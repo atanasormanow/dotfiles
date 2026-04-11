@@ -22,10 +22,11 @@ configuration {
 /*****----- Main Window -----*****/
 window {
     transparency:                "real";
-    location:                    north;
-    anchor:                      north;
+    location:                    east;
+    anchor:                      east;
     fullscreen:                  false;
-    width:                       750px;
+    width:                       180px;
+    height:                      100%;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -42,9 +43,9 @@ window {
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     10px;
+    spacing:                     20px;
     margin:                      0px;
-    padding:                     10px;
+    padding:                     30px 20px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @selected;
@@ -57,11 +58,11 @@ inputbar {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     10px;
-    border:                      1px solid;
+    padding:                     12px 16px;
+    border:                      0px 0px 2px 0px;
     border-radius:               4px;
     border-color:                @selected;
-    background-color:            @background;
+    background-color:            @background-alt;
     text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
@@ -91,7 +92,7 @@ entry {
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       7;
+    lines:                       10;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -100,7 +101,7 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     0px;
+    spacing:                     5px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -122,13 +123,13 @@ element {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     5px;
+    padding:                     20px 10px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
     text-color:                  @foreground;
-    orientation:                 horizontal;
+    orientation:                 vertical;
     cursor:                      pointer;
 }
 element normal.normal {
@@ -136,16 +137,16 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    border:                      1px solid;
+    border:                      0px 0px 2px 0px;
     border-radius:               4px;
     border-color:                @selected;
-    background-color:            @background;
+    background-color:            @background-alt;
     text-color:                  @foreground;
 }
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        32px;
+    size:                        64px;
     cursor:                      inherit;
 }
 element-text {
@@ -154,12 +155,12 @@ element-text {
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.0;
+    horizontal-align:            0.5;
 }
 
 /*****----- Message -----*****/
 error-message {
-    padding:                     10px;
+    padding:                     20px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;

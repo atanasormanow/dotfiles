@@ -13,125 +13,108 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
-
 * {
     /* Resolution : 1920x1080 */
-    box-spacing:                 70px;
-    box-margin:                  300px 350px;
-    message-margin:              0px 400px;
-    inputbar-spacing:            0px;
-    list-spacing:                40px;
-    general-padding:             20px;
-    element-padding:             60px 10px;
-    element-radius:              80px;
-    general-radius:              100%;
-    element-font:                "feather 48";
+    mainbox-spacing:             100px;
+    mainbox-margin:              150px 400px;
+    message-margin:              0px 350px;
+    message-padding:             20px;
+    message-border-radius:       100%;
+    listview-spacing:            50px;
+    element-padding:             35px 40px;
+    element-border-radius:       80px;
+
+    prompt-font:                 "Iosevka Nerd Font Bold Italic 72";
+    textbox-font:                "Iosevka Nerd Font 16";
+    element-text-font:           "feather Bold 64";
+
+    /* Gradients */
+    gradient-1:                  linear-gradient(45, #1E98FD, #06FDA5);
+    gradient-2:                  linear-gradient(0, #F971C6, #7A72EC);
+    gradient-3:                  linear-gradient(70, #FFD56F, #FF6861);
+    gradient-4:                  linear-gradient(135, #44C6FA, #3043A1);
+    gradient-5:                  linear-gradient(to left, #bdc3c7, #2c3e50);
+    gradient-6:                  linear-gradient(to right, #0F2027, #203A43, #2C5364);
+    gradient-7:                  linear-gradient(to top, #12c2e9, #c471ed, #f64f59);
+    gradient-8:                  linear-gradient(to bottom, #FF0099, #493240);
+    gradient-9:                  linear-gradient(0, #1a2a6c, #b21f1f, #fdbb2d);
+    gradient-10:                 linear-gradient(0, #283c86, #45a247);
+    gradient-11:                 linear-gradient(0, #77A1D3, #79CBCA, #E684AE);
+    gradient-12:                 linear-gradient(0, #ff6e7f, #bfe9ff);
+    gradient-13:                 linear-gradient(0, #D31027, #EA384D);
+    gradient-14:                 linear-gradient(0, #DA22FF, #9733EE);
+    gradient-15:                 linear-gradient(0, #1D976C, #93F9B9);
+    gradient-16:                 linear-gradient(0, #232526, #414345);
+    gradient-17:                 linear-gradient(0, #833ab4, #fd1d1d, #fcb045);
+    gradient-18:                 linear-gradient(0, #667db6, #0082c8, #0082c8, #667db6);
+    gradient-19:                 linear-gradient(0, #03001e, #7303c0, #ec38bc, #fdeff9);
+    gradient-20:                 linear-gradient(0, #780206, #061161);
+    
+    background-window:           var(gradient-19);
+    background-normal:           white/10%;
+    background-selected:         white/20%;
+    foreground-normal:           white;
+    foreground-selected:         white;
 }
 
 /*****----- Main Window -----*****/
 window {
-    /* properties for window widget */
     transparency:                "real";
     location:                    center;
     anchor:                      center;
     fullscreen:                  true;
-    width:                       1366px;
-    x-offset:                    0px;
-    y-offset:                    0px;
-
-    /* properties for all widgets */
-    enabled:                     true;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @selected;
     cursor:                      "default";
-    background-color:            @background;
+    background-image:            var(background-window);
 }
 
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     var(box-spacing);
-    margin:                      0px;
-    padding:                     var(box-margin);
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @selected;
+    spacing:                     var(mainbox-spacing);
+    margin:                      var(mainbox-margin);
     background-color:            transparent;
-    children:                    [ "inputbar", "listview", "message" ];
+    children:                    [ "dummy", "inputbar", "listview", "message", "dummy" ];
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
     enabled:                     true;
-    spacing:                     var(inputbar-spacing);
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px;
-    border-radius:               0px;
-    border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
-    children:                    [ "textbox-prompt-colon" ];
+    children:                    [ "dummy", "prompt", "dummy"];
 }
 
 dummy {
     background-color:            transparent;
 }
 
-textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         "SYSTEM";
-    padding:                     var(general-padding);
-    border-radius:               var(general-radius);
-    background-color:            @urgent;
-    text-color:                  @background;
-}
 prompt {
     enabled:                     true;
-    padding:                     var(general-padding);
-    border-radius:               var(general-radius);
-    background-color:            @active;
-    text-color:                  @background;
+    font:                        var(prompt-font);
+    background-color:            transparent;
+    text-color:                  var(foreground-normal);
 }
 
 /*****----- Message -----*****/
 message {
     enabled:                     true;
     margin:                      var(message-margin);
-    padding:                     var(general-padding);
-    border:                      0px;
-    border-radius:               var(general-radius);
-    border-color:                @selected;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
+    padding:                     var(message-padding);
+    border-radius:               var(message-border-radius);
+    background-color:            var(background-normal);
+    text-color:                  var(foreground-normal);
 }
 textbox {
-    background-color:            inherit;
+    font:                        var(textbox-font);
+    background-color:            transparent;
     text-color:                  inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
-    placeholder-color:           @foreground;
-    blink:                       true;
-    markup:                      true;
-}
-error-message {
-    padding:                     var(general-padding);
-    border:                      0px solid;
-    border-radius:               var(general-radius);
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
 }
 
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
+    expand:                      false;
     columns:                     5;
     lines:                       1;
     cycle:                       true;
@@ -142,32 +125,22 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     var(list-spacing);
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @selected;
+    spacing:                     var(listview-spacing);
     background-color:            transparent;
-    text-color:                  @foreground;
     cursor:                      "default";
 }
 
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    spacing:                     0px;
-    margin:                      0px;
     padding:                     var(element-padding);
-    border:                      0px solid;
-    border-radius:               var(element-radius);
-    border-color:                @selected;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
+    border-radius:               var(element-border-radius);
+    background-color:            var(background-normal);
+    text-color:                  var(foreground-normal);
     cursor:                      pointer;
 }
 element-text {
-    font:                        var(element-font);
+    font:                        var(element-text-font);
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
@@ -175,6 +148,6 @@ element-text {
     horizontal-align:            0.5;
 }
 element selected.normal {
-    background-color:            var(selected);
-    text-color:                  var(background);
+    background-color:            var(background-selected);
+    text-color:                  var(foreground-selected);
 }
