@@ -1,4 +1,16 @@
 /*----------------
+    Language
+----------------*/
+
+#language {
+	padding-right: 10px;
+	margin-bottom: 0px;
+	color: @hover-fg;
+	font-weight: bold;
+	border: 2px solid @main-br;
+}
+
+/*----------------
     Workspaces
 ----------------*/
 
@@ -7,7 +19,7 @@
 	color: @workspaces;
 }
 #workspaces {
-	padding: 0 1px;
+	padding: 0 2px;
 	background-color: @workspaces;
 }
 #workspaces button {
@@ -23,12 +35,4 @@
 #workspaces button.active label,
 #workspaces button.focused label {
 	color: @main-bg;
-}
-
-/*------------------
-    Window title
-------------------*/
-
-#window {
-	margin: 0 12px;
 }

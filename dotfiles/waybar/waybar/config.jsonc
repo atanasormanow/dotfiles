@@ -16,6 +16,7 @@
 		"hyprland/language",
 		"hyprland/workspaces",
 		"custom/right_div#1",
+		"tray",
 	],
 	"modules-center": [
 		"custom/left_div#2",
@@ -29,17 +30,16 @@
 		"custom/distro",
 		"custom/right_div#2",
 		"custom/right_inv#1",
-		"pulseaudio",
+		"network",
+		"bluetooth",
 		"custom/right_div#3",
 		"backlight",
 		"custom/right_div#4",
-		"network",
-		"bluetooth",
+		"pulseaudio",
 		"custom/right_div#5"
 	],
 	"modules-right": [
 		// "mpris",
-		"tray",
 		"custom/left_div#6",
 		"clock#time",
 		"custom/left_div#7",
