@@ -41,3 +41,18 @@ tooltip {
 tooltip > box {
 	padding: 0 6px;
 }
+
+menu {
+	background-color: @main-bg;
+	border: 2px solid @main-br;
+	border-radius: 10px;
+	padding: 4px;
+}
+menu > menuitem {
+	padding: 4px 8px;
+	border-radius: 6px;
+}
+menu > menuitem:hover {
+	background-color: @hover-bg;
+	color: @hover-fg;
+}

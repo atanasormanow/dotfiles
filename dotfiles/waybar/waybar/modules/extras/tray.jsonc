@@ -8,6 +8,8 @@
 		// "on-update":
 		// "expand":
 		// "icons":
-		"cursor": true
+		"cursor": true,
+		"on-click": "activate",
+		"on-click-right": "context-menu"
 	}
 }
