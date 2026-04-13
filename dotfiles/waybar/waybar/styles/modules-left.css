@@ -36,3 +36,12 @@
 #workspaces button.focused label {
 	color: @main-bg;
 }
+
+
+/*-----------
+    Tray
+-----------*/
+#tray {
+  margin-left: 10px;
+}
+
