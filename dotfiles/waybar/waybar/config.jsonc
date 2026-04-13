@@ -14,7 +14,6 @@
 
 	"modules-left": [
 		"hyprland/language",
-		"custom/left_div#1",
 		"hyprland/workspaces",
 		"custom/right_div#1",
 	],
