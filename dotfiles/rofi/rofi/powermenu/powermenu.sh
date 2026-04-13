@@ -44,7 +44,7 @@ confirm_exit() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
+  echo -e "$lock\n$shutdown\n$reboot\n$suspend\n$logout" | rofi_cmd
 }
 
 # Execute Command
