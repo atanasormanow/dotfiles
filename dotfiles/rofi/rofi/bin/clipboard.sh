@@ -1,5 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-theme="~/.config/rofi/configs/clipboard.rasi"
-
-cliphist list | rofi -dmenu -display-columns 2 -theme ${dir} | cliphist decode | wl-copy
+cliphist list | rofi -dmenu -display-columns 2 -theme ~/.config/rofi/configs/clipboard.rasi | cliphist decode | wl-copy

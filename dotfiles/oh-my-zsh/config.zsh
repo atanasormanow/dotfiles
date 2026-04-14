@@ -32,7 +32,7 @@ mpv-nohup () {
 }
 
 makesh() {
-    echo "#!/bin/bash" > $1
+    echo "#!/usr/bin/env bash" > $1
     chmod u+x $1
     vim $1
 }
