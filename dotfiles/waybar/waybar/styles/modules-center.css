@@ -70,6 +70,7 @@
 ----------------*/
 
 #backlight {
+  padding-left: 2px;
 	background-color: @backlight;
 }
 #custom-right_div.4 {
