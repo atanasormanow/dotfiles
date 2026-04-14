@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Current Theme
-theme_dir="~/.config/rofi/configs/powermenu.rasi"
+theme="~/.config/rofi/configs/powermenu.rasi"
 
 # CMDs
 uptime="$(uptime -p | sed -e 's/up //g')"
@@ -12,7 +12,7 @@ shutdown=' Shutdown'
 reboot=' Reboot'
 lock=' Lock'
 suspend=' Suspend'
-logout=' Logout'
+logout=' Exit Hyprland'
 yes=' Yes'
 no=' No'
 
@@ -21,7 +21,7 @@ rofi_cmd() {
   rofi -dmenu \
     -p "$host" \
     -mesg "Uptime: $uptime" \
-    -theme ${theme_dir}
+    -theme ${theme}
 }
 
 # Confirmation CMD
@@ -34,7 +34,7 @@ confirm_cmd() {
     -dmenu \
     -p 'Confirmation' \
     -mesg 'Are you Sure?' \
-    -theme ${theme_dir}
+    -theme ${theme}
 }
 
 # Ask for confirmation
