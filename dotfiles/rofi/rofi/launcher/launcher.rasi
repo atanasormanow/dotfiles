@@ -25,11 +25,11 @@ configuration {
     active-background:           var(active);
     active-foreground:           var(foreground);
     selected-normal-background:  var(selected);
-    selected-normal-foreground:  #000000;
+    selected-normal-foreground:  var(black);
     selected-urgent-background:  var(urgent);
-    selected-urgent-foreground:  #000000;
+    selected-urgent-foreground:  var(black);
     selected-active-background:  var(urgent);
-    selected-active-foreground:  #000000;
+    selected-active-foreground:  var(black);
     alternate-normal-background: var(background);
     alternate-normal-foreground: var(foreground);
     alternate-urgent-background: var(urgent);
@@ -55,18 +55,10 @@ window {
     padding:                     0px;
     border:                      2px solid;
     border-radius:               5px;
-    border-color:                #fe8019;
+    border-color:                @active;
     cursor:                      "default";
-    /* Backgroud Colors */
+    /* Background Colors */
     background-color:            @background-colour;
-    /* Backgroud Image */
-    //background-image:          url("/path/to/image.png", none);
-    /* Simple Linear Gradient */
-    //background-image:          linear-gradient(red, orange, pink, purple);
-    /* Directional Linear Gradient */
-    //background-image:          linear-gradient(to bottom, pink, yellow, magenta);
-    /* Angle Linear Gradient */
-    //background-image:          linear-gradient(45, cyan, purple, indigo);
 }
 
 /*****----- Main Box -----*****/
@@ -96,11 +88,6 @@ inputbar {
     children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
-prompt {
-    enabled:                     true;
-    background-color:            inherit;
-    text-color:                  inherit;
-}
 textbox-prompt-colon {
     enabled:                     true;
     padding:                     5px 0px;
@@ -117,30 +104,6 @@ entry {
     cursor:                      text;
     placeholder:                 "Search...";
     placeholder-color:           inherit;
-}
-num-filtered-rows {
-    enabled:                     true;
-    expand:                      false;
-    background-color:            inherit;
-    text-color:                  inherit;
-}
-textbox-num-sep {
-    enabled:                     true;
-    expand:                      false;
-    str:                         "/";
-    background-color:            inherit;
-    text-color:                  inherit;
-}
-num-rows {
-    enabled:                     true;
-    expand:                      false;
-    background-color:            inherit;
-    text-color:                  inherit;
-}
-case-indicator {
-    enabled:                     true;
-    background-color:            inherit;
-    text-color:                  inherit;
 }
 
 /*****----- Listview -----*****/
@@ -165,12 +128,6 @@ listview {
     background-color:            transparent;
     text-color:                  @foreground-colour;
     cursor:                      "default";
-}
-scrollbar {
-    handle-width:                5px ;
-    handle-color:                @handle-colour;
-    border-radius:               0px;
-    background-color:            @alternate-background;
 }
 
 /*****----- Elements -----*****/

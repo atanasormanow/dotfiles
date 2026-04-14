@@ -23,7 +23,7 @@ window {
     padding:                     0px;
     border:                      2px solid;
     border-radius:               5px;
-    border-color:                #fe8019;
+    border-color:                @active;
     cursor:                      "default";
     background-color:            @background;
 }
@@ -149,6 +149,6 @@ element-text {
     horizontal-align:            0.0;
 }
 element selected.normal {
-    background-color:            #fe8019;
-    text-color:                  #000000;
+    background-color:            @active;
+    text-color:                  @black;
 }
