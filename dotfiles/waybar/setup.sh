@@ -9,6 +9,7 @@ PACKAGES=(
   brightnessctl
   networkmanager
   otf-commit-mono-nerd
+  bluetui
 )
 
 echo "Installing Waybar dependencies..."

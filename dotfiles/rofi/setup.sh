@@ -5,6 +5,7 @@ set -euo pipefail
 PACKAGES=(
   rofi
   inetutils
+  ttf-jetbrains-mono-nerd
 )
 
 echo "Installing Rofi dependencies..."
