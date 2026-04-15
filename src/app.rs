@@ -117,6 +117,25 @@ impl App {
         Ok(())
     }
 
+    /// Refresh with error handling - shows error message dialog on failure
+    fn refresh_or_show_error(&mut self) {
+        if let Err(e) = self.refresh() {
+            self.view = View::Message(format!("Refresh failed: {}", e));
+        }
+    }
+
+    /// Show a message dialog
+    pub fn show_message(&mut self, message: String) {
+        self.view = View::Message(message);
+    }
+
+    /// Refresh link and git status for a single dotfile by index
+    fn refresh_dotfile_status(&mut self, idx: usize) {
+        self.dotfiles[idx].refresh_status();
+        let repo_root = self.manager.repo_root().to_path_buf();
+        self.dotfiles[idx].refresh_git_status(&repo_root);
+    }
+
     /// Apply the current filter to the dotfile list
     fn apply_filter(&mut self) {
         if self.filter.is_empty() {
@@ -197,7 +216,7 @@ impl App {
                     if status.success() {
                         self.status_message = Some(format!("Edited '{}'", name));
                         // Refresh in case file was modified
-                        let _ = self.refresh();
+                        self.refresh_or_show_error();
                     } else {
                         self.status_message = Some("Editor exited with error".to_string());
                     }
@@ -224,9 +243,7 @@ impl App {
                 Ok(LinkResult::Success) => {
                     let name = self.dotfiles[idx].name.clone();
                     self.status_message = Some(format!("Linked '{}'", name));
-                    self.dotfiles[idx].refresh_status();
-                    let repo_root = self.manager.repo_root().to_path_buf();
-                    self.dotfiles[idx].refresh_git_status(&repo_root);
+                    self.refresh_dotfile_status(idx);
                 }
                 Ok(LinkResult::AlreadyLinked) => {
                     self.status_message = Some(format!("'{}' is already linked", dotfile.name));
@@ -263,9 +280,7 @@ impl App {
             match actions::unlink_dotfile(dotfile) {
                 Ok(()) => {
                     self.status_message = Some(format!("Unlinked '{}'", name));
-                    self.dotfiles[idx].refresh_status();
-                    let repo_root = self.manager.repo_root().to_path_buf();
-                    self.dotfiles[idx].refresh_git_status(&repo_root);
+                    self.refresh_dotfile_status(idx);
                 }
                 Err(e) => {
                     self.status_message = Some(format!("Error: {}", e));
@@ -282,9 +297,7 @@ impl App {
             match actions::force_link_dotfile(dotfile) {
                 Ok(LinkResult::Success) => {
                     self.status_message = Some(format!("Force linked '{}'", name));
-                    self.dotfiles[idx].refresh_status();
-                    let repo_root = self.manager.repo_root().to_path_buf();
-                    self.dotfiles[idx].refresh_git_status(&repo_root);
+                    self.refresh_dotfile_status(idx);
                 }
                 Ok(_) | Err(_) => {
                     self.status_message = Some("Failed to force link".to_string());
@@ -315,7 +328,7 @@ impl App {
             match actions::remove_dotfile(dotfile, false) {
                 Ok(()) => {
                     self.status_message = Some(format!("Removed '{}'", name));
-                    let _ = self.refresh();
+                    self.refresh_or_show_error();
                 }
                 Err(e) => {
                     self.status_message = Some(format!("Error: {}", e));
@@ -340,7 +353,7 @@ impl App {
             match actions::unmanage_dotfile(dotfile) {
                 Ok(()) => {
                     self.status_message = Some(format!("Unmanaged '{}' -> {}", name, dest));
-                    let _ = self.refresh();
+                    self.refresh_or_show_error();
                 }
                 Err(e) => {
                     self.status_message = Some(format!("Error: {}", e));
@@ -377,7 +390,7 @@ impl App {
         match actions::add_dotfile(&self.manager, path, name) {
             Ok(dotfile) => {
                 self.status_message = Some(format!("Added '{}'", dotfile.name));
-                let _ = self.refresh();
+                self.refresh_or_show_error();
             }
             Err(e) => {
                 self.status_message = Some(format!("Error: {}", e));
@@ -417,6 +430,13 @@ impl App {
             }
             View::Input(InputMode::AddDotfileName { source }) => {
                 let name = self.input.clone();
+
+                // Validate name before proceeding
+                if let Err(e) = actions::validate_dotfile_name(&name) {
+                    self.status_message = Some(format!("Invalid name: {}", e));
+                    return;
+                }
+
                 self.input.clear();
 
                 // Check if dotfile with this name already exists
@@ -439,7 +459,7 @@ impl App {
                     match actions::update_destination(dotfile, &new_dest) {
                         Ok(()) => {
                             self.status_message = Some("Destination updated".to_string());
-                            let _ = self.refresh();
+                            self.refresh_or_show_error();
                         }
                         Err(e) => {
                             self.status_message = Some(format!("Error: {}", e));
@@ -466,7 +486,7 @@ impl App {
                             self.status_message =
                                 Some(format!("Renamed '{}' to '{}'", old_name, new_name));
                             // Refresh to reload the dotfile list with new name
-                            let _ = self.refresh();
+                            self.refresh_or_show_error();
                             // Try to select the renamed item by finding it
                             if let Some(new_idx) =
                                 self.dotfiles.iter().position(|d| d.name == new_name)
@@ -608,15 +628,19 @@ impl App {
                     continue;
                 }
 
+                // Skip items with unknown status (can't reliably link)
+                if matches!(dotfile.link_status, LinkStatus::Unknown(_)) {
+                    failed += 1;
+                    continue;
+                }
+
                 // Handle conflicts
                 if matches!(dotfile.link_status, LinkStatus::Conflict) {
                     if force_conflicts {
                         match actions::force_link_dotfile(dotfile) {
                             Ok(LinkResult::Success) => {
                                 linked += 1;
-                                self.dotfiles[idx].refresh_status();
-                                let repo_root = self.manager.repo_root().to_path_buf();
-                                self.dotfiles[idx].refresh_git_status(&repo_root);
+                                self.refresh_dotfile_status(idx);
                             }
                             _ => {
                                 failed += 1;
@@ -631,9 +655,7 @@ impl App {
                 match actions::link_dotfile(dotfile) {
                     Ok(LinkResult::Success) => {
                         linked += 1;
-                        self.dotfiles[idx].refresh_status();
-                        let repo_root = self.manager.repo_root().to_path_buf();
-                        self.dotfiles[idx].refresh_git_status(&repo_root);
+                        self.refresh_dotfile_status(idx);
                     }
                     _ => {
                         failed += 1;
@@ -652,9 +674,7 @@ impl App {
                 match actions::unlink_dotfile(dotfile) {
                     Ok(()) => {
                         unlinked += 1;
-                        self.dotfiles[idx].refresh_status();
-                        let repo_root = self.manager.repo_root().to_path_buf();
-                        self.dotfiles[idx].refresh_git_status(&repo_root);
+                        self.refresh_dotfile_status(idx);
                     }
                     Err(_) => {
                         failed += 1;
@@ -811,36 +831,36 @@ impl App {
 
     /// Cycle to next completion candidate
     fn cycle_completion(&mut self) {
-        if let Some(idx) = self.completion_index {
-            if !self.completion_candidates.is_empty() {
-                self.completion_index = Some((idx + 1) % self.completion_candidates.len());
-            }
+        if let Some(idx) = self.completion_index
+            && !self.completion_candidates.is_empty()
+        {
+            self.completion_index = Some((idx + 1) % self.completion_candidates.len());
         }
     }
 
     /// Apply selected completion to input buffer
     fn apply_completion(&mut self) {
-        if let Some(idx) = self.completion_index {
-            if let Some(path) = self.completion_candidates.get(idx) {
-                // Convert back to use $HOME if applicable
-                let home = std::env::var("HOME").unwrap_or_default();
-                let path_str = path.to_string_lossy();
-                let display_path = if !home.is_empty() && path_str.starts_with(&home) {
-                    path_str.replacen(&home, "$HOME", 1)
-                } else {
-                    path_str.to_string()
-                };
+        if let Some(idx) = self.completion_index
+            && let Some(path) = self.completion_candidates.get(idx)
+        {
+            // Convert back to use $HOME if applicable
+            let home = std::env::var("HOME").unwrap_or_default();
+            let path_str = path.to_string_lossy();
+            let display_path = if !home.is_empty() && path_str.starts_with(&home) {
+                path_str.replacen(&home, "$HOME", 1)
+            } else {
+                path_str.to_string()
+            };
 
-                // Add trailing slash for directories
-                if path.is_dir() {
-                    self.input = format!("{}/", display_path);
-                } else {
-                    self.input = display_path;
-                }
-
-                // Update completion base to new input
-                self.completion_base = self.input.clone();
+            // Add trailing slash for directories
+            if path.is_dir() {
+                self.input = format!("{}/", display_path);
+            } else {
+                self.input = display_path;
             }
+
+            // Update completion base to new input
+            self.completion_base = self.input.clone();
         }
     }
 

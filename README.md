@@ -50,11 +50,37 @@ The TUI displays status indicators for each dotfile:
 | `[-]` Unlinked | No symlink at destination |
 | `[C]` Conflict | A regular file exists at destination |
 | `[X]` Broken | Symlink points to wrong target |
+| `[?]` Unknown | Error reading dotfile status |
 
 Git status is also tracked (`[M]` modified, `[+]` staged).
 
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `j` / `Down` | Move down |
+| `k` / `Up` | Move up |
+| `g` / `Home` | Go to first item |
+| `G` / `End` | Go to last item |
+| `a` | Add new dotfile |
+| `l` | Link selected |
+| `u` | Unlink selected |
+| `s` | Sync links (bulk) |
+| `U` | Unmanage (move to dest) |
+| `d` | Delete from repo |
+| `e` | Edit destination |
+| `E` | Open in $EDITOR |
+| `F2` | Rename dotfile |
+| `r` | Refresh list |
+| `/` | Search/filter |
+| `Esc` | Clear filter / Cancel |
+| `?` | Show help |
+| `q` | Quit |
+
+In dialogs: `Tab` cycles through path completions, `Enter` confirms, `Esc` cancels.
+
 ### Other Features
 
-- **Search** - Filter dotfiles by name
-- **Path completion** - Tab completion when entering file paths
+- **Search** - Filter dotfiles by name with `/`
+- **Path completion** - Tab completion when entering file paths (works in Add and Edit Destination dialogs)
 - **Auto-detection** - Automatically finds the dotfiles repository

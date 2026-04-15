@@ -1,9 +1,9 @@
 use ratatui::{
-    Frame,
     layout::{Constraint, Direction, Layout, Rect},
     style::{Color, Modifier, Style},
     text::{Line, Span},
     widgets::{Block, Borders, Cell, Clear, Paragraph, Row, Table, TableState},
+    Frame,
 };
 
 use crate::app::{App, ConfirmAction, InputMode, View};
@@ -42,7 +42,7 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
                 ("a", "add"),
                 ("l", "link"),
                 ("u", "unlink"),
-                ("S", "sync links"),
+                ("s", "sync links"),
                 ("U", "unmanage"),
                 ("d", "delete"),
                 ("E", "edit file"),
@@ -60,7 +60,7 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
             ],
         )
     } else {
-        (vec![("Esc", "back")], vec![])
+        (vec![("Esc", "cancel")], vec![])
     };
 
     const CELL_WIDTH: usize = 14;

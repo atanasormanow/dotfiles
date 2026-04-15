@@ -5,6 +5,28 @@ use std::path::Path;
 
 use crate::dotfile::{Dotfile, DotfileManager, LinkStatus};
 
+/// Convert a path to a string, replacing $HOME prefix if applicable
+fn path_with_home_var(path: &Path) -> String {
+    let home = std::env::var("HOME").unwrap_or_default();
+    let path_str = path.to_string_lossy();
+    if !home.is_empty() && path_str.starts_with(&home) {
+        path_str.replacen(&home, "$HOME", 1)
+    } else {
+        path_str.to_string()
+    }
+}
+
+/// Ensure parent directory exists, creating it if needed
+fn ensure_parent_dir_exists(path: &Path) -> Result<()> {
+    if let Some(parent) = path.parent()
+        && !parent.exists()
+    {
+        fs::create_dir_all(parent)
+            .with_context(|| format!("Failed to create directory: {:?}", parent))?;
+    }
+    Ok(())
+}
+
 /// Result of a link operation
 #[derive(Debug)]
 pub enum LinkResult {
@@ -31,12 +53,7 @@ pub fn link_dotfile(dotfile: &Dotfile) -> Result<LinkResult> {
     }
 
     // Create parent directories if needed
-    if let Some(parent) = dotfile.dest_expanded.parent() {
-        if !parent.exists() {
-            fs::create_dir_all(parent)
-                .with_context(|| format!("Failed to create directory: {:?}", parent))?;
-        }
-    }
+    ensure_parent_dir_exists(&dotfile.dest_expanded)?;
 
     // Create the symlink
     symlink(&dotfile.source_file, &dotfile.dest_expanded).with_context(|| {
@@ -85,12 +102,7 @@ pub fn force_link_dotfile(dotfile: &Dotfile) -> Result<LinkResult> {
     }
 
     // Create parent directories if needed
-    if let Some(parent) = dotfile.dest_expanded.parent() {
-        if !parent.exists() {
-            fs::create_dir_all(parent)
-                .with_context(|| format!("Failed to create directory: {:?}", parent))?;
-        }
-    }
+    ensure_parent_dir_exists(&dotfile.dest_expanded)?;
 
     // Create the symlink
     symlink(&dotfile.source_file, &dotfile.dest_expanded).with_context(|| {
@@ -130,19 +142,18 @@ pub fn add_dotfile(
     fs::create_dir_all(&target_dir)
         .with_context(|| format!("Failed to create directory: {:?}", target_dir))?;
 
+    // Canonicalize BEFORE moving the file (it won't exist at original path after move)
+    let source_abs = source_path
+        .canonicalize()
+        .unwrap_or_else(|_| source_path.to_path_buf());
+
     // Move the source file to the repo
     let dest_in_repo = target_dir.join(file_name);
     fs::rename(source_path, &dest_in_repo)
         .with_context(|| format!("Failed to move file to repo: {:?}", source_path))?;
 
-    // Create the dest file with the original path
-    let source_abs = source_path
-        .canonicalize()
-        .unwrap_or_else(|_| source_path.to_path_buf());
-
-    // Convert to use $HOME if applicable
-    let home = std::env::var("HOME").unwrap_or_default();
-    let dest_content = source_abs.to_string_lossy().replace(&home, "$HOME");
+    // Create the dest file with the original path (using $HOME if applicable)
+    let dest_content = path_with_home_var(&source_abs);
 
     let dest_file = target_dir.join("dest");
     fs::write(&dest_file, format!("{}\n", dest_content))
@@ -197,9 +208,7 @@ pub fn remove_dotfile(dotfile: &Dotfile, restore: bool) -> Result<()> {
         }
 
         // Create parent directories
-        if let Some(parent) = dotfile.dest_expanded.parent() {
-            fs::create_dir_all(parent)?;
-        }
+        ensure_parent_dir_exists(&dotfile.dest_expanded)?;
 
         // Copy (not move, in case removal fails)
         if dotfile.source_file.is_dir() {
@@ -242,12 +251,7 @@ pub fn unmanage_dotfile(dotfile: &Dotfile) -> Result<()> {
     }
 
     // Create parent directories if needed
-    if let Some(parent) = dotfile.dest_expanded.parent() {
-        if !parent.exists() {
-            fs::create_dir_all(parent)
-                .with_context(|| format!("Failed to create directory: {:?}", parent))?;
-        }
-    }
+    ensure_parent_dir_exists(&dotfile.dest_expanded)?;
 
     // Move the file/directory from repo to destination
     fs::rename(&dotfile.source_file, &dotfile.dest_expanded).with_context(|| {
@@ -269,7 +273,7 @@ pub fn unmanage_dotfile(dotfile: &Dotfile) -> Result<()> {
 }
 
 /// Validate a dotfile name (alphanumeric, dash, underscore, dot only)
-fn validate_dotfile_name(name: &str) -> Result<()> {
+pub fn validate_dotfile_name(name: &str) -> Result<()> {
     if name.is_empty() {
         anyhow::bail!("Name cannot be empty");
     }

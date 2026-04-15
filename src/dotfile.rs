@@ -156,20 +156,20 @@ impl DotfileManager {
     /// Find the repository root by looking for the dotfiles directory
     fn find_repo_root() -> Result<PathBuf> {
         // First, try the executable's directory
-        if let Ok(exe_path) = std::env::current_exe() {
-            if let Some(parent) = exe_path.parent() {
-                // Check if we're in target/debug or target/release
-                let potential_root = if parent.ends_with("debug") || parent.ends_with("release") {
-                    parent.parent().and_then(|p| p.parent())
-                } else {
-                    Some(parent)
-                };
+        if let Ok(exe_path) = std::env::current_exe()
+            && let Some(parent) = exe_path.parent()
+        {
+            // Check if we're in target/debug or target/release
+            let potential_root = if parent.ends_with("debug") || parent.ends_with("release") {
+                parent.parent().and_then(|p| p.parent())
+            } else {
+                Some(parent)
+            };
 
-                if let Some(root) = potential_root {
-                    if root.join("dotfiles").is_dir() {
-                        return Ok(root.to_path_buf());
-                    }
-                }
+            if let Some(root) = potential_root
+                && root.join("dotfiles").is_dir()
+            {
+                return Ok(root.to_path_buf());
             }
         }
 

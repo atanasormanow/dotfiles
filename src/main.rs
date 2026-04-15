@@ -65,37 +65,37 @@ fn run(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>, app: &mut App) -> 
         }
 
         // Handle input
-        if event::poll(std::time::Duration::from_millis(100))? {
-            if let Event::Key(key) = event::read()? {
-                if key.kind != KeyEventKind::Press {
-                    continue;
-                }
+        if event::poll(std::time::Duration::from_millis(100))?
+            && let Event::Key(key) = event::read()?
+        {
+            if key.kind != KeyEventKind::Press {
+                continue;
+            }
 
-                // Clear status message on any key press
-                app.status_message = None;
+            // Clear status message on any key press
+            app.status_message = None;
 
-                match &app.view {
-                    View::List => handle_list_input(app, key.code, key.modifiers),
-                    View::Help => {
-                        app.view = View::List;
-                    }
-                    View::Message(_) => {
-                        app.view = View::List;
-                    }
-                    View::Confirm(action) => {
-                        handle_confirm_input(app, key.code, action.clone());
-                    }
-                    View::Input(_) => {
-                        handle_input_mode(app, key.code);
-                    }
-                    View::Distribute => {
-                        handle_distribute_input(app, key.code);
-                    }
+            match &app.view {
+                View::List => handle_list_input(app, key.code, key.modifiers),
+                View::Help => {
+                    app.view = View::List;
                 }
+                View::Message(_) => {
+                    app.view = View::List;
+                }
+                View::Confirm(action) => {
+                    handle_confirm_input(app, key.code, action.clone());
+                }
+                View::Input(_) => {
+                    handle_input_mode(app, key.code);
+                }
+                View::Distribute => {
+                    handle_distribute_input(app, key.code);
+                }
+            }
 
-                if app.should_quit {
-                    break;
-                }
+            if app.should_quit {
+                break;
             }
         }
     }
@@ -124,7 +124,9 @@ fn handle_list_input(app: &mut App, code: KeyCode, modifiers: KeyModifiers) {
         KeyCode::Char('e') => app.start_edit_dest(),
         KeyCode::Char('d') => app.remove_selected(),
         KeyCode::Char('r') => {
-            let _ = app.refresh();
+            if let Err(e) = app.refresh() {
+                app.show_message(format!("Refresh failed: {}", e));
+            }
         }
 
         // Search
