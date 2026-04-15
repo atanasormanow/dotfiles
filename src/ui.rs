@@ -42,7 +42,7 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
                 ("a", "add"),
                 ("l", "link"),
                 ("u", "unlink"),
-                ("S", "sync links"),
+                ("s", "sync links"),
                 ("d", "delete"),
                 ("E", "edit file"),
                 ("e", "edit dest"),
