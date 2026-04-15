@@ -41,8 +41,8 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
             vec![
                 ("a", "add"),
                 ("l", "link"),
-                ("L", "link all"),
                 ("u", "unlink"),
+                ("S", "sync links"),
                 ("d", "delete"),
                 ("E", "edit file"),
                 ("e", "edit dest"),
@@ -447,27 +447,28 @@ fn render_distribute_dialog(frame: &mut Frame, app: &App) {
         .constraints([Constraint::Min(3), Constraint::Length(3)])
         .split(area);
 
-    // Build list items
+    // Build list items (show all dotfiles)
     let items: Vec<Line> = app
-        .dotfiles
+        .distribute_indices
         .iter()
         .enumerate()
-        .map(|(idx, dotfile)| {
-            let selected = app.distribute_selected.contains(&idx);
+        .map(|(display_idx, &dotfile_idx)| {
+            let dotfile = &app.dotfiles[dotfile_idx];
+            let selected = app.distribute_selected.contains(&dotfile_idx);
             let checkbox = if selected { "[x]" } else { "[ ]" };
-            let cursor = if idx == app.distribute_cursor {
+            let cursor = if display_idx == app.distribute_cursor {
                 ">"
             } else {
                 " "
             };
 
             let status_indicator = match dotfile.link_status {
-                LinkStatus::Linked => " (linked)",
                 LinkStatus::Conflict => " (conflict)",
+                LinkStatus::Broken => " (broken)",
                 _ => "",
             };
 
-            let style = if idx == app.distribute_cursor {
+            let style = if display_idx == app.distribute_cursor {
                 Style::default().bg(Color::DarkGray)
             } else if selected {
                 Style::default().fg(Color::Green)
@@ -492,7 +493,7 @@ fn render_distribute_dialog(frame: &mut Frame, app: &App) {
 
     let list = Paragraph::new(items).block(
         Block::default()
-            .title(" Distribute - Select dotfiles to link ")
+            .title(" Sync Links - Select dotfiles to be (un)linked ")
             .borders(Borders::ALL)
             .border_type(ratatui::widgets::BorderType::Rounded)
             .style(Style::default().bg(Color::Black)),
@@ -501,7 +502,7 @@ fn render_distribute_dialog(frame: &mut Frame, app: &App) {
     frame.render_widget(list, chunks[0]);
 
     // Help text
-    let help = Paragraph::new(" [Space] toggle  [a] all  [n] none  [Enter] link  [Esc] cancel")
+    let help = Paragraph::new(" [Space] toggle  [a] all  [n] none  [Enter] apply  [Esc] cancel")
         .style(Style::default().fg(Color::Gray));
     frame.render_widget(help, chunks[1]);
 }

@@ -62,7 +62,9 @@ pub struct App {
     pub filtered_indices: Vec<usize>,
     /// Selected items for distribute (indices into dotfiles vec)
     pub distribute_selected: Vec<usize>,
-    /// Cursor position in distribute view
+    /// Indices of linkable dotfiles shown in distribute view (not already linked)
+    pub distribute_indices: Vec<usize>,
+    /// Cursor position in distribute view (index into distribute_indices)
     pub distribute_cursor: usize,
     /// Flag to open editor (handled in main loop)
     pub pending_editor: bool,
@@ -92,6 +94,7 @@ impl App {
             filter: String::new(),
             filtered_indices,
             distribute_selected: Vec::new(),
+            distribute_indices: Vec::new(),
             distribute_cursor: 0,
             pending_editor: false,
             completion_candidates: Vec::new(),
@@ -493,14 +496,16 @@ impl App {
         self.clear_completions();
     }
 
-    /// Start distribute (batch link) mode
+    /// Start distribute (sync) mode
     pub fn start_distribute(&mut self) {
-        // Pre-select all unlinked dotfiles
+        // Show all dotfiles
+        self.distribute_indices = (0..self.dotfiles.len()).collect();
+        // Pre-select already linked dotfiles
         self.distribute_selected = self
             .dotfiles
             .iter()
             .enumerate()
-            .filter(|(_, d)| matches!(d.link_status, LinkStatus::Unlinked | LinkStatus::Broken))
+            .filter(|(_, d)| matches!(d.link_status, LinkStatus::Linked))
             .map(|(i, _)| i)
             .collect();
         self.distribute_cursor = 0;
@@ -509,12 +514,11 @@ impl App {
 
     /// Toggle selection of item at cursor in distribute view
     pub fn distribute_toggle(&mut self) {
-        if self.distribute_cursor < self.dotfiles.len() {
-            let idx = self.distribute_cursor;
-            if self.distribute_selected.contains(&idx) {
-                self.distribute_selected.retain(|&i| i != idx);
+        if let Some(&dotfile_idx) = self.distribute_indices.get(self.distribute_cursor) {
+            if self.distribute_selected.contains(&dotfile_idx) {
+                self.distribute_selected.retain(|&i| i != dotfile_idx);
             } else {
-                self.distribute_selected.push(idx);
+                self.distribute_selected.push(dotfile_idx);
             }
         }
     }
@@ -528,7 +532,7 @@ impl App {
 
     /// Move cursor down in distribute view
     pub fn distribute_next(&mut self) {
-        if self.distribute_cursor < self.dotfiles.len().saturating_sub(1) {
+        if self.distribute_cursor < self.distribute_indices.len().saturating_sub(1) {
             self.distribute_cursor += 1;
         }
     }
@@ -562,12 +566,16 @@ impl App {
         self.distribute_execute_inner(force_conflicts);
     }
 
-    /// Inner distribute execution
+    /// Inner distribute execution - syncs link state to match selection
     fn distribute_execute_inner(&mut self, force_conflicts: bool) {
         let mut linked = 0;
+        let mut unlinked = 0;
         let mut failed = 0;
 
-        for &idx in &self.distribute_selected.clone() {
+        let selected = self.distribute_selected.clone();
+
+        // Link selected items that aren't linked
+        for &idx in &selected {
             if let Some(dotfile) = self.dotfiles.get(idx) {
                 // Skip already linked
                 if matches!(dotfile.link_status, LinkStatus::Linked) {
@@ -608,28 +616,59 @@ impl App {
             }
         }
 
-        self.status_message = Some(format!(
-            "Linked {} dotfile(s){}",
-            linked,
-            if failed > 0 {
-                format!(", {} failed/skipped", failed)
-            } else {
-                String::new()
+        // Unlink items that are linked but not selected
+        for idx in 0..self.dotfiles.len() {
+            if selected.contains(&idx) {
+                continue;
             }
-        ));
+            let dotfile = &self.dotfiles[idx];
+            if matches!(dotfile.link_status, LinkStatus::Linked) {
+                match actions::unlink_dotfile(dotfile) {
+                    Ok(()) => {
+                        unlinked += 1;
+                        self.dotfiles[idx].refresh_status();
+                        let repo_root = self.manager.repo_root().to_path_buf();
+                        self.dotfiles[idx].refresh_git_status(&repo_root);
+                    }
+                    Err(_) => {
+                        failed += 1;
+                    }
+                }
+            }
+        }
+
+        // Build status message
+        let mut parts = Vec::new();
+        if linked > 0 {
+            parts.push(format!("Linked {}", linked));
+        }
+        if unlinked > 0 {
+            parts.push(format!("Unlinked {}", unlinked));
+        }
+        if failed > 0 {
+            parts.push(format!("{} failed", failed));
+        }
+        self.status_message = Some(if parts.is_empty() {
+            "No changes".to_string()
+        } else {
+            parts.join(", ")
+        });
+
         self.distribute_selected.clear();
+        self.distribute_indices.clear();
         self.view = View::List;
     }
 
     /// Cancel distribute mode
     pub fn distribute_cancel(&mut self) {
         self.distribute_selected.clear();
+        self.distribute_indices.clear();
         self.view = View::List;
     }
 
     /// Select all in distribute view
     pub fn distribute_select_all(&mut self) {
-        self.distribute_selected = (0..self.dotfiles.len()).collect();
+        self.distribute_selected = self.distribute_indices.clone();
     }
 
     /// Deselect all in distribute view
