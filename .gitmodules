@@ -1,0 +1,3 @@
+[submodule "dotfiles/LazyVim/nvim"]
+	path = dotfiles/LazyVim/nvim
+	url = https://github.com/atanasormanow/LazyVim
