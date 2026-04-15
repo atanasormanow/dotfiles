@@ -67,8 +67,6 @@ pub struct Dotfile {
     pub link_status: LinkStatus,
     /// Current git status
     pub git_status: GitStatus,
-    /// Whether destination requires elevated permissions
-    pub needs_sudo: bool,
     /// Whether the source is a directory (not a single file)
     pub is_directory: bool,
 }
@@ -230,7 +228,6 @@ impl DotfileManager {
                         dest_expanded: PathBuf::new(),
                         link_status: LinkStatus::Unknown(e.to_string()),
                         git_status: GitStatus::default(),
-                        needs_sudo: false,
                         is_directory: false,
                     });
                 }
@@ -283,11 +280,6 @@ impl DotfileManager {
             anyhow::bail!("Source file '{}' not found in '{}'", source_file_name, name);
         }
 
-        // Check if destination requires sudo (expanded path not under $HOME)
-        let needs_sudo = std::env::var("HOME")
-            .map(|home| !dest_expanded.starts_with(&home))
-            .unwrap_or(false);
-
         // Check if source is a directory
         let is_directory = source_file.is_dir();
 
@@ -299,7 +291,6 @@ impl DotfileManager {
             dest_expanded,
             link_status: LinkStatus::Unknown("Not checked".into()),
             git_status: GitStatus::default(),
-            needs_sudo,
             is_directory,
         };
 

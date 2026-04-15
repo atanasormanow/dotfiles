@@ -98,7 +98,6 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
         Cell::from("Name").style(Style::default().add_modifier(Modifier::BOLD)),
         Cell::from("Status").style(Style::default().add_modifier(Modifier::BOLD)),
         Cell::from("Destination").style(Style::default().add_modifier(Modifier::BOLD)),
-        Cell::from("Root").style(Style::default().add_modifier(Modifier::BOLD)),
         Cell::from("Git").style(Style::default().add_modifier(Modifier::BOLD)),
     ])
     .height(1)
@@ -127,7 +126,6 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
             );
 
             let dest_display = dotfile.dest_raw.as_str();
-            let root_display = if dotfile.needs_sudo { "[x]" } else { "[ ]" };
 
             let row_style = if display_idx == app.selected {
                 Style::default().bg(Color::DarkGray)
@@ -139,7 +137,6 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
                 Cell::from(name),
                 Cell::from(dotfile.link_status.symbol()).style(status_style),
                 Cell::from(dest_display),
-                Cell::from(root_display),
                 Cell::from(dotfile.git_status.symbol()),
             ])
             .style(row_style)
@@ -150,7 +147,6 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
         Constraint::Length(20),
         Constraint::Length(8),
         Constraint::Min(30),
-        Constraint::Length(6),
         Constraint::Length(5),
     ];
 
@@ -404,10 +400,6 @@ fn render_help_dialog(frame: &mut Frame) {
    [C] Conflict - file exists
    [X] Broken   - bad symlink
    [?] Unknown  - read error
-
-   Root Column
-   -----------
-   [x] = outside $HOME
 
    Git Column
    ----------

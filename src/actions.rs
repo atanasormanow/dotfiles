@@ -168,7 +168,6 @@ pub fn add_dotfile(
         dest_expanded: source_abs,
         link_status: LinkStatus::Linked,
         git_status: crate::dotfile::GitStatus::Modified,
-        needs_sudo: false,
         is_directory,
     })
 }

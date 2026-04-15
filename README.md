@@ -50,7 +50,7 @@ The TUI displays status indicators for each dotfile:
 | `[C]` Conflict | A regular file exists at destination |
 | `[X]` Broken | Symlink points to wrong target |
 
-Git status is also tracked (`[M]` modified, `[+]` staged) along with whether the destination requires root access (is not in `$HOME` actually).
+Git status is also tracked (`[M]` modified, `[+]` staged).
 
 ### Other Features
 
