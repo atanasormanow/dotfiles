@@ -1,0 +1,45 @@
+# Gazelle Theme Configuration
+# Uncomment and modify these values to customize your theme
+# Colors should be in hex format (#RRGGBB) or 0xRRGGBB
+[colors.primary]
+#foreground = "#D8DEE9"
+#background = "#2E3440"
+[colors.normal]
+#black = "#3B4252"
+#red = "#BF616A"
+#green = "#A3BE8C"
+#yellow = "#EBCB8B"
+#blue = "#5E81AC"
+#magenta = "#B48EAD"
+#cyan = "#88C0D0"
+#white = "#E5E9F0"
+[colors.bright]
+#black = "#4C566A"
+#red = "#D08770"
+#green = "#8FBCBB"
+#yellow = "#EBCB8B"
+#blue = "#81A1C1"
+#magenta = "#B48EAD"
+#cyan = "#8FBCBB"
+#white = "#ECEFF4"
+
+# TUI Style Overrides
+# Uncomment and modify these values to customize borders, spacing, etc.
+# Border styles: ascii, blank, dashed, double, heavy, hidden, hkey, inner,
+#   none, outer, panel, round, solid, tall, thick, vkey, wide
+# Spacing values use Textual CSS units (e.g. "1 2" = 1 vertical, 2 horizontal)
+[styles]
+#dialog_border = "solid"
+#dialog_width = "60"
+#dialog_padding = "1 2"
+#section_border = "solid"
+#section_margin = "1 2"
+#section_padding = "0 1"
+#section_title_padding = "0 1"
+#info_section_height = "5"
+#input_height = "3"
+#button_min_width = "12"
+#cursor_opacity = "30%"
+#hover_opacity = "20%"
+#title_text_style = "bold"
+#section_title_text_style = "bold"
