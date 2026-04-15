@@ -6,6 +6,7 @@ PACKAGES=(
   hyprland
   hyprpaper
   hyprlock
+  jq
   xdg-desktop-portal-hyprland
   kitty
   rofi
