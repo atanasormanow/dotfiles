@@ -1,6 +1,6 @@
 [submodule "dotfiles/LazyVim/nvim"]
 	path = dotfiles/LazyVim/nvim
-	url = https://github.com/atanasormanow/LazyVim
+	url = git@github.com:atanasormanow/LazyVim.git
 [submodule "dotfiles/wallpapers/Wallpapers"]
 	path = dotfiles/wallpapers/Wallpapers
-	url = https://github.com/atanasormanow/wallpapers
+	url = git@github.com:atanasormanow/wallpapers.git
