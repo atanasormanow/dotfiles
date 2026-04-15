@@ -29,12 +29,13 @@ The `dest` file contains a single line with the target path and supports environ
 
 - **Link** - Create a symlink from the repository to the destination path
 - **Unlink** - Remove the symlink at the destination (keeps the file in the repo)
-- **Link All** - Batch link multiple dotfiles at once using a multi-select view
+- **Sync Links** - Bulk link/unlink multiple dotfiles at once. Opens a multi-select view where checked items will be linked and unchecked items will be unlinked
 
 ### Dotfile Operations
 
 - **Add** - Import an existing config file into the repository. The file is moved to the repo and a symlink is created at the original location
-- **Delete** - Permanently remove a dotfile from the repository
+- **Unmanage** - Move a dotfile from the repo back to its destination. The file will no longer be managed by the TUI but remains at its original location
+- **Delete** - Permanently remove a dotfile from the repository (also removes the symlink)
 - **Rename** - Rename a dotfile entry (automatically updates the symlink)
 - **Edit Destination** - Change where a dotfile should be linked to
 - **Edit File** - Open the config file in your `$EDITOR` (defaults to `vi`)

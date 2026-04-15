@@ -42,18 +42,18 @@ fn render_actions_bar(frame: &mut Frame, area: Rect, app: &App) {
                 ("a", "add"),
                 ("l", "link"),
                 ("u", "unlink"),
-                ("s", "sync links"),
+                ("S", "sync links"),
+                ("U", "unmanage"),
                 ("d", "delete"),
                 ("E", "edit file"),
                 ("e", "edit dest"),
-                ("F2", "rename"),
             ],
             vec![
+                ("F2", "rename"),
                 ("q", "quit"),
                 ("r", "refresh"),
                 ("/", "search"),
                 ("?", "help"),
-                ("", ""),
                 ("", ""),
                 ("", ""),
                 ("", ""),
@@ -209,8 +209,20 @@ fn render_confirm_dialog(frame: &mut Frame, action: &ConfirmAction, app: &App) {
                 .map(|d| d.name.as_str())
                 .unwrap_or("?");
             (
-                "Confirm Remove",
-                format!("Permanently delete '{}' from repo?", name),
+                "Confirm Delete",
+                format!("Permanently delete '{}' from repo?\n\nThe file will no longer exist on your system.", name),
+            )
+        }
+        ConfirmAction::Unmanage(idx) => {
+            let dotfile = app.dotfiles.get(*idx);
+            let name = dotfile.map(|d| d.name.as_str()).unwrap_or("?");
+            let dest = dotfile.map(|d| d.dest_raw.as_str()).unwrap_or("?");
+            (
+                "Confirm Unmanage",
+                format!(
+                    "Move '{}' from repo to\n{}?\n\nThe file will no longer be tracked.",
+                    name, dest
+                ),
             )
         }
         ConfirmAction::ForceLink(idx) => {
@@ -379,8 +391,9 @@ fn render_help_dialog(frame: &mut Frame) {
    -------
    E         Open in $EDITOR
    l         Link selected
-   L         Link multiple
+   S         Sync links (bulk)
    u         Unlink selected
+   U         Unmanage (move to dest)
    d         Delete from repo
    a         Add new dotfile
    e         Edit destination

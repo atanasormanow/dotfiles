@@ -117,8 +117,9 @@ fn handle_list_input(app: &mut App, code: KeyCode, modifiers: KeyModifiers) {
         // Actions
         KeyCode::Char('E') => app.open_in_editor(),
         KeyCode::Char('l') => app.link_selected(),
-        KeyCode::Char('s') => app.start_distribute(),
+        KeyCode::Char('S') => app.start_distribute(),
         KeyCode::Char('u') => app.unlink_selected(),
+        KeyCode::Char('U') => app.unmanage_selected(),
         KeyCode::Char('a') => app.start_add(),
         KeyCode::Char('e') => app.start_edit_dest(),
         KeyCode::Char('d') => app.remove_selected(),
@@ -151,6 +152,7 @@ fn handle_confirm_input(app: &mut App, code: KeyCode, action: ConfirmAction) {
             ConfirmAction::Unlink(idx) => app.confirm_unlink(idx),
             ConfirmAction::ForceLink(idx) => app.confirm_force_link(idx),
             ConfirmAction::Remove(idx) => app.confirm_remove(idx),
+            ConfirmAction::Unmanage(idx) => app.confirm_unmanage(idx),
             ConfirmAction::ReplaceAdd { source, name } => app.confirm_replace_add(source, name),
             ConfirmAction::DistributeConflicts { .. } => {
                 app.distribute_execute_with_force(true);

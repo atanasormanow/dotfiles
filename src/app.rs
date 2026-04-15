@@ -25,6 +25,7 @@ pub enum View {
 pub enum ConfirmAction {
     Unlink(usize),
     Remove(usize),
+    Unmanage(usize),
     ForceLink(usize),
     ReplaceAdd { source: String, name: String },
     DistributeConflicts { conflict_count: usize },
@@ -314,6 +315,31 @@ impl App {
             match actions::remove_dotfile(dotfile, false) {
                 Ok(()) => {
                     self.status_message = Some(format!("Removed '{}'", name));
+                    let _ = self.refresh();
+                }
+                Err(e) => {
+                    self.status_message = Some(format!("Error: {}", e));
+                }
+            }
+        }
+        self.view = View::List;
+    }
+
+    /// Start unmanage dotfile flow (with confirmation)
+    pub fn unmanage_selected(&mut self) {
+        if let Some(idx) = self.selected_index() {
+            self.view = View::Confirm(ConfirmAction::Unmanage(idx));
+        }
+    }
+
+    /// Execute confirmed unmanage
+    pub fn confirm_unmanage(&mut self, idx: usize) {
+        if let Some(dotfile) = self.dotfiles.get(idx) {
+            let name = dotfile.name.clone();
+            let dest = dotfile.dest_expanded.display().to_string();
+            match actions::unmanage_dotfile(dotfile) {
+                Ok(()) => {
+                    self.status_message = Some(format!("Unmanaged '{}' -> {}", name, dest));
                     let _ = self.refresh();
                 }
                 Err(e) => {

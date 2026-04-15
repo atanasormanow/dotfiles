@@ -225,6 +225,49 @@ pub fn remove_dotfile(dotfile: &Dotfile, restore: bool) -> Result<()> {
     Ok(())
 }
 
+/// Unmanage a dotfile - move it from the repo to its destination
+pub fn unmanage_dotfile(dotfile: &Dotfile) -> Result<()> {
+    // Check if a regular file already exists at destination (conflict)
+    if dotfile.dest_expanded.exists() && !dotfile.dest_expanded.is_symlink() {
+        anyhow::bail!(
+            "Cannot unmanage: a file already exists at {:?}",
+            dotfile.dest_expanded
+        );
+    }
+
+    // Remove symlink if currently linked
+    if dotfile.dest_expanded.is_symlink() {
+        fs::remove_file(&dotfile.dest_expanded)
+            .with_context(|| format!("Failed to remove symlink: {:?}", dotfile.dest_expanded))?;
+    }
+
+    // Create parent directories if needed
+    if let Some(parent) = dotfile.dest_expanded.parent() {
+        if !parent.exists() {
+            fs::create_dir_all(parent)
+                .with_context(|| format!("Failed to create directory: {:?}", parent))?;
+        }
+    }
+
+    // Move the file/directory from repo to destination
+    fs::rename(&dotfile.source_file, &dotfile.dest_expanded).with_context(|| {
+        format!(
+            "Failed to move {:?} to {:?}",
+            dotfile.source_file, dotfile.dest_expanded
+        )
+    })?;
+
+    // Remove the dotfile directory from repo (now only contains 'dest' file)
+    fs::remove_dir_all(&dotfile.repo_path).with_context(|| {
+        format!(
+            "Failed to remove dotfile directory: {:?}",
+            dotfile.repo_path
+        )
+    })?;
+
+    Ok(())
+}
+
 /// Validate a dotfile name (alphanumeric, dash, underscore, dot only)
 fn validate_dotfile_name(name: &str) -> Result<()> {
     if name.is_empty() {
