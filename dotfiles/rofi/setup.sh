@@ -6,6 +6,7 @@ PACKAGES=(
   rofi
   inetutils
   ttf-jetbrains-mono-nerd
+  cliphist
 )
 
 echo "Installing Rofi dependencies..."
