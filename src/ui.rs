@@ -1,9 +1,9 @@
 use ratatui::{
+    Frame,
     layout::{Constraint, Direction, Layout, Rect},
     style::{Color, Modifier, Style},
     text::{Line, Span},
     widgets::{Block, Borders, Cell, Clear, Paragraph, Row, Table, TableState},
-    Frame,
 };
 
 use crate::app::{App, ConfirmAction, InputMode, View};
@@ -210,7 +210,10 @@ fn render_confirm_dialog(frame: &mut Frame, action: &ConfirmAction, app: &App) {
                 .unwrap_or("?");
             (
                 "Confirm Delete",
-                format!("Permanently delete '{}' from repo?\n\nThe file will no longer exist on your system.", name),
+                format!(
+                    "Permanently delete '{}' from repo?\n\nThe file will no longer exist on your system.",
+                    name
+                ),
             )
         }
         ConfirmAction::Unmanage(idx) => {
@@ -391,7 +394,7 @@ fn render_help_dialog(frame: &mut Frame) {
    -------
    E         Open in $EDITOR
    l         Link selected
-   S         Sync links (bulk)
+   s         Sync links (bulk)
    u         Unlink selected
    U         Unmanage (move to dest)
    d         Delete from repo
