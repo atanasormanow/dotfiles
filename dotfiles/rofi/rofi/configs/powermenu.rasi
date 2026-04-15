@@ -25,8 +25,9 @@ inputbar {
 }
 
 textbox-prompt-colon {
-    str:                         "";
-    padding:                     12px 16px;
+    str:                         "󰐥";
+    font:                        "JetBrainsMono Nerd Font Bold 14";
+    padding:                     8px 16px;
     border-radius:               100%;
     background-color:            @urgent;
     text-color:                  @background;
