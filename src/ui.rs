@@ -462,10 +462,10 @@ fn render_distribute_dialog(frame: &mut Frame, app: &App) {
                 " "
             };
 
-            let status_indicator = match dotfile.link_status {
-                LinkStatus::Conflict => " (conflict)",
-                LinkStatus::Broken => " (broken)",
-                _ => "",
+            let (status_indicator, status_color) = match dotfile.link_status {
+                LinkStatus::Conflict => (" [conflict]", Color::Yellow),
+                LinkStatus::Broken => (" [broken]", Color::Red),
+                _ => ("", Color::Gray),
             };
 
             let style = if display_idx == app.distribute_cursor {
@@ -486,7 +486,7 @@ fn render_distribute_dialog(frame: &mut Frame, app: &App) {
                     ),
                     style,
                 ),
-                Span::styled(status_indicator, Style::default().fg(Color::Gray)),
+                Span::styled(status_indicator, Style::default().fg(status_color)),
             ])
         })
         .collect();
