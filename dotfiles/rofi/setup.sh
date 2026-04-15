@@ -1,24 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Core Hyprland packages
+# Rofi dependencies
 PACKAGES=(
-  hyprland
-  hyprpaper
-  hyprlock
-  xdg-desktop-portal-hyprland
-  kitty
   rofi
-  grim
-  slurp
-  wl-clipboard
-  libnotify
-  pulseaudio
-  playerctl
-  brightnessctl
+  inetutils
 )
 
-echo "Installing Hyprland dependencies..."
+echo "Installing Rofi dependencies..."
 
 for pkg in "${PACKAGES[@]}"; do
   if ! pacman -Qi "$pkg" &>/dev/null; then
