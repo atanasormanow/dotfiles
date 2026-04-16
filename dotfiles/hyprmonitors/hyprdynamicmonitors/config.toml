@@ -8,3 +8,17 @@ path = "/org/freedesktop/UPower/devices/line_power_AC"
 
 [[power_events.dbus_signal_match_rules]]
 object_path = "/org/freedesktop/UPower/devices/line_power_AC"
+
+
+[profiles.work-monitor-left]
+config_file = "/home/nakk/.config/hyprdynamicmonitors/hyprconfigs/work-monitor-left.go.tmpl"
+config_file_type = "template"
+[profiles.work-monitor-left.conditions]
+
+[[profiles.work-monitor-left.conditions.required_monitors]]
+description = "AU Optronics 0x3DA3"
+monitor_tag = "monitor0"
+
+[[profiles.work-monitor-left.conditions.required_monitors]]
+description = "Dell Inc. DELL U2412M YPPY08B71A7U"
+monitor_tag = "monitor1"
