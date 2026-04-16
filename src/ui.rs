@@ -7,7 +7,7 @@ use ratatui::{
 };
 
 use crate::app::{App, ConfirmAction, InputMode, View};
-use crate::dotfile::LinkStatus;
+use crate::dotfile::{GitStatus, LinkStatus};
 
 /// Render the entire UI
 pub fn render(frame: &mut Frame, app: &App) {
@@ -119,6 +119,12 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
                 LinkStatus::Unknown(_) => Style::default().fg(Color::Magenta),
             };
 
+            let git_style = match dotfile.git_status {
+                GitStatus::Modified => Style::default().fg(Color::Yellow),
+                GitStatus::Staged => Style::default().fg(Color::Green),
+                GitStatus::Clean => Style::default(),
+            };
+
             let name = format!(
                 "{}{}",
                 if dotfile.is_directory { "🗀 " } else { "" },
@@ -137,7 +143,7 @@ fn render_main_content(frame: &mut Frame, area: Rect, app: &App) {
                 Cell::from(name),
                 Cell::from(dotfile.link_status.symbol()).style(status_style),
                 Cell::from(dest_display),
-                Cell::from(dotfile.git_status.symbol()),
+                Cell::from(dotfile.git_status.symbol()).style(git_style),
             ])
             .style(row_style)
         })
