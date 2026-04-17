@@ -22,3 +22,17 @@ monitor_tag = "monitor0"
 [[profiles.work-monitor-left.conditions.required_monitors]]
 description = "Dell Inc. DELL U2412M YPPY08B71A7U"
 monitor_tag = "monitor1"
+
+
+[profiles.home-monitor-top]
+config_file = "/home/nakk/.config/hyprdynamicmonitors/hyprconfigs/home-monitor-top.go.tmpl"
+config_file_type = "template"
+[profiles.home-monitor-top.conditions]
+
+[[profiles.home-monitor-top.conditions.required_monitors]]
+description = "AU Optronics 0x3DA3"
+monitor_tag = "monitor0"
+
+[[profiles.home-monitor-top.conditions.required_monitors]]
+description = "AOC 27G2G4 0x000180D2"
+monitor_tag = "monitor1"
