@@ -88,8 +88,9 @@ if [[ "$is_horizontal_split" == true ]] && [[ "$direction" == "u" || "$direction
   # Check if movement makes sense (not already at the edge in that direction)
   if [[ "$direction" == "u" && "$is_bottom" == true ]] || [[ "$direction" == "d" && "$is_top" == true ]]; then
     hyprctl dispatch layoutmsg swapsplit
+    exit 0 # Only exit after a successful swap
   fi
-  exit 0
+  # Fall through to movewindow if already at edge (allows cross-monitor movement)
 fi
 
 # Default: use normal movewindow for all other cases
