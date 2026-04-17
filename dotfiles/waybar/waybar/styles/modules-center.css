@@ -82,13 +82,17 @@
     System tray
 -----------------*/
 
+#custom-monitors {
+	background-color: @tray;
+	padding: 0 5px 0 10px;
+}
 #network {
 	background-color: @tray;
-	padding: 0 6px 0 4px;
+	padding: 0 5px 0 4px;
 }
 #bluetooth {
 	background-color: @tray;
-	padding: 0 5px;
+	padding: 0 5px 0 0px;
 }
 #custom-right_div.5 {
 	color: @tray;
